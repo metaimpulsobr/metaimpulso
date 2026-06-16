@@ -1,0 +1,100 @@
+/* Google Fonts are loaded asynchronously in index.html via <link rel="preload"> */
+/* Fallback font stack while webfonts load */
+
+:root {
+  /* Premium Sunset Palette */
+  --magenta-neon:    #D649FB;
+  --blue-electric:   #6BCFFE;
+  --cyan-neon:       #00F0FF;
+  --purple-cosmic:   #7B2EFF;
+  --bg-ultra:        #FFFFFF;
+  --bg-deep:         #F8FAFC;
+  --text-tech:       #475569;
+
+  /* High contrast colors for text/icons on light background */
+  --cyan-text:       #007E8A;
+  --magenta-text:    #A800C4;
+  --purple-text:     #5A00CD;
+
+  /* Gradients */
+  --gradient-meta: linear-gradient(135deg, #FF9F43 0%, #D649FB 55%, #7B2EFF 100%);
+  --gradient-cyan: linear-gradient(135deg, #00F0FF 0%, #6BCFFE 100%);
+  --glass-bg:      rgba(255, 255, 255, 0.75);
+  --glass-border:  rgba(15, 23, 42, 0.08);
+
+  /* Shadows & Glows */
+  --glow-magenta: 0 8px 30px rgba(214, 73, 251, 0.12);
+  --glow-cyan:    0 8px 30px rgba(0, 240, 255, 0.12);
+
+  /* Typography Scale */
+  --font-main:    'Inter', system-ui, sans-serif;
+  --font-heading: 'Outfit', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ---- RESET ---- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  /* Removed background-attachment:fixed — it forces a repaint on every scroll frame
+     and is completely disabled on iOS Safari (shows as scroll). Use a static bg instead. */
+  background: #F8FAFC;
+  color: #0F172A;
+  font-family: var(--font-main);
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  color: #0F172A;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: var(--font-heading);
+}
+
+/* ---- GLOBAL UTILITIES ---- */
+.text-gradient {
+  background: var(--gradient-meta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Evita o corte dos descentes da letra 'g' e 'y' no Chrome/Vite */
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.glow-magenta { text-shadow: var(--glow-magenta); }
+.glow-cyan    { text-shadow: var(--glow-cyan); }
+
+/* Universe loading screen */
+.universe-container {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-ultra);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
