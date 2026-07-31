@@ -5,8 +5,284 @@
    1. SECTIONS & LAYOUT
    ============================================================ */
 .section-v16 {
-  padding: clamp(5rem, 8vw, 10rem) 0;
+  padding: clamp(3.5rem, 6vw, 9rem) 0;
   position: relative;
+}
+
+/* ============================================================
+   1B. HERO, OBJECTIVE, PORTFOLIO & CONTATO DIAGRAMMED GRIDS
+   ============================================================ */
+.hero-split-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: center;
+  width: 100%;
+}
+
+.hero-text-col {
+  text-align: left;
+}
+
+.hero-rocket-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.objective-selector-section {
+  width: 100%;
+  position: relative;
+}
+
+.objective-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.objective-card {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.8rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s;
+  touch-action: manipulation;
+}
+
+.objective-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+.objective-card.card-glow-cyan:hover {
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+.objective-card.card-glow-purple:hover {
+  border-color: rgba(214, 73, 251, 0.4);
+}
+
+.objective-icon-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.objective-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 850;
+  line-height: 1.35;
+  color: #0F172A;
+}
+
+.objective-desc {
+  font-size: 0.88rem;
+  color: var(--text-tech);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.objective-action {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--cyan-text);
+  margin-top: 1.5rem;
+  letter-spacing: 0.05em;
+  transition: gap 0.3s;
+}
+
+.objective-card:hover .objective-action {
+  gap: 0.75rem;
+  color: var(--magenta-text);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  width: 100%;
+}
+
+.portfolio-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s, border-color 0.35s;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.03);
+  touch-action: manipulation;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.07);
+}
+
+.portfolio-filter-bar {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.portfolio-filter-btn {
+  padding: 0.65rem 1.5rem;
+  border-radius: 100px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-tech);
+  transition: all 0.3s;
+  touch-action: manipulation;
+}
+
+.portfolio-filter-btn.active,
+.portfolio-filter-btn:hover {
+  background: var(--gradient-meta);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgba(214, 73, 251, 0.3);
+}
+
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 3.5rem;
+  align-items: start;
+  width: 100%;
+}
+
+.contato-info-col {
+  text-align: left;
+}
+
+.contato-info-title {
+  text-align: left;
+}
+
+.contato-info-subtitle {
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  color: var(--text-tech);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+.contato-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.contato-info-item {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 1.25rem;
+  padding: 1.2rem 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.02);
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.contato-info-item:hover {
+  transform: translateX(4px);
+  border-color: rgba(214, 73, 251, 0.3);
+}
+
+.contato-info-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.85rem;
+  background: rgba(214, 73, 251, 0.08);
+  color: var(--magenta-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contato-info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.contato-info-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-tech);
+}
+
+.contato-info-value {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.contato-social-links {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.contato-social-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0F172A;
+  transition: all 0.3s;
+  touch-action: manipulation;
+}
+
+.contato-social-icon:hover {
+  background: var(--gradient-meta);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-3px);
 }
 
 /* ============================================================
@@ -2884,6 +3160,218 @@ a.contato-info-value:hover {
 .ai-node-connector.n-c-1 { width: 30px; transform: rotate(30deg) translate(5px, 0); }
 .ai-node-connector.n-c-2 { width: 30px; transform: rotate(150deg) translate(5px, 0); }
 .ai-node-connector.n-c-3 { width: 30px; transform: rotate(270deg) translate(5px, 0); }
+
+/* ============================================================
+   MASTER MOBILE & TABLET RESPONSIVE BREAKPOINTS (v17.0)
+   ============================================================ */
+
+@media (max-width: 1100px) {
+  .objective-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 992px) {
+  /* NAVBAR MOBILE */
+  .nav-pill-v16 {
+    height: 62px;
+    top: 10px;
+    width: calc(100% - 1.25rem);
+    padding: 0 1.25rem;
+    border-radius: 50px;
+  }
+
+  .nav-links, .nav-cta {
+    display: none !important;
+  }
+
+  .burger-btn {
+    display: flex !important;
+  }
+
+  .logo img {
+    height: 38px !important;
+  }
+
+  .logo-text {
+    font-size: 1.15rem !important;
+  }
+
+  /* HERO MOBILE */
+  .hero-split-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+    padding-top: 1rem;
+  }
+
+  .hero-text-col {
+    text-align: center !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-text-col h1, .hero-text-col h2 {
+    text-align: center !important;
+  }
+
+  .hero-rocket-col {
+    max-width: 360px;
+    margin: 0 auto;
+    height: 360px !important;
+  }
+
+  .rocket-container {
+    height: 360px !important;
+  }
+
+  .cta-group {
+    justify-content: center !important;
+    width: 100%;
+  }
+
+  /* SOBRE MOBILE */
+  .sobre-split {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    text-align: center;
+  }
+
+  .sobre-text-col {
+    text-align: center;
+  }
+
+  .sobre-text-col h2 {
+    text-align: center !important;
+  }
+
+  .sobre-card-col {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  /* CONTATO MOBILE */
+  .contato-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .contato-info-col {
+    text-align: center;
+  }
+
+  .contato-info-title {
+    text-align: center !important;
+  }
+
+  .contato-info-subtitle {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .contato-info-list {
+    align-items: stretch;
+  }
+
+  .contato-social-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  /* GPU & PERFORMANCE FIXES FOR MOBILE PHONES */
+  body {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Soften backdrop blur filters to preserve 60fps on mobile WebKit */
+  .card-premium,
+  .objective-card,
+  .portfolio-card,
+  .nav-pill-v16,
+  .launch-card,
+  .quiz-panel {
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+  }
+
+  .vfx-orb {
+    filter: blur(40px) !important;
+    opacity: 0.08 !important;
+  }
+
+  .section-v16 {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+  }
+
+  /* PORTFOLIO GRID MOBILE */
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  /* OBJECTIVE GRID MOBILE */
+  .objective-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* QUIZ PANEL MOBILE */
+  .quiz-panel {
+    padding: 1.5rem 1.2rem;
+    border-radius: 1.25rem;
+  }
+
+  .quiz-options-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .quiz-input-text {
+    font-size: 16px !important; /* Prevents auto-zoom on iOS */
+    padding: 0.85rem 1rem;
+  }
+
+  .cta-group .btn-v16 {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .floating-capsule {
+    bottom: 14px !important;
+    right: 14px !important;
+    padding: 0.6rem 1.1rem !important;
+    font-size: 0.76rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .title-lg {
+    font-size: 1.65rem !important;
+  }
+
+  .nav-pill-v16 {
+    height: 56px;
+    top: 8px;
+    padding: 0 0.9rem;
+  }
+
+  .logo img {
+    height: 32px !important;
+  }
+
+  .logo-text {
+    font-size: 1.05rem !important;
+  }
+}
 
 
 

@@ -235,7 +235,6 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                     onKeyDown={(e) => e.key === 'Enter' && handleNext()}
                     className="quiz-input-text"
-                    autoFocus
                   />
                   <div className="input-focus-line" />
                 </div>

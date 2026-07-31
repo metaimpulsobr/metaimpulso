@@ -22,12 +22,31 @@ function App() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0)
     const handleScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  useEffect(() => {
+    if (!loading) {
+      window.scrollTo(0, 0)
+    }
+  }, [loading])
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const targetId = href.replace('#', '')
+    const el = document.getElementById(targetId)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   const navLinks = [
     { name: 'Sobre',      href: '#sobre' },
@@ -39,7 +58,10 @@ function App() {
   ]
 
   if (loading) {
-    return <RocketPreloader onComplete={() => setLoading(false)} />
+    return <RocketPreloader onComplete={() => {
+      setLoading(false)
+      window.scrollTo(0, 0)
+    }} />
   }
 
   return (
@@ -71,7 +93,14 @@ function App() {
 
         <div className="nav-links">
           {navLinks.map((link) => (
-            <a key={link.name} href={link.href} className="core-link">{link.name}</a>
+            <a
+              key={link.name}
+              href={link.href}
+              className="core-link"
+              onClick={(e) => handleNavClick(e, link.href)}
+            >
+              {link.name}
+            </a>
           ))}
         </div>
 
@@ -136,7 +165,10 @@ function App() {
                   letterSpacing: '0.05em',
                   fontFamily: 'var(--font-heading)'
                 }}
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => {
+                  setIsMenuOpen(false);
+                  handleNavClick(e, link.href);
+                }}
               >
                 {link.name}
               </motion.a>
@@ -390,8 +422,9 @@ function App() {
           </div>
         </section>
 
-        {/* ======== OBJECTIVE SELECTOR (PROPULSION) ======== */}
-        <section id="solucoes" className="section-v16">
+        {/* ======== MARKETING E SOLUÇÕES ======== */}
+        <section id="marketing" className="section-v16">
+          <div id="solucoes" />
           <div className="container">
             <Suspense fallback={<div style={{ minHeight: '300px' }} />}>
               <ObjectiveSelector />
@@ -399,8 +432,9 @@ function App() {
           </div>
         </section>
 
-        {/* ======== PORTFÓLIO DE PROJETOS ======== */}
-        <section id="portfolio" className="section-v16" style={{ background: 'rgba(15, 23, 42, 0.02)', borderTop: '1px solid rgba(15, 23, 42, 0.06)', borderBottom: '1px solid rgba(15, 23, 42, 0.06)' }}>
+        {/* ======== TECNOLOGIA E PORTFÓLIO DE PROJETOS ======== */}
+        <section id="tecnologia" className="section-v16" style={{ background: 'rgba(15, 23, 42, 0.02)', borderTop: '1px solid rgba(15, 23, 42, 0.06)', borderBottom: '1px solid rgba(15, 23, 42, 0.06)' }}>
+          <div id="portfolio" />
           <div className="container">
             <Suspense fallback={<div style={{ minHeight: '500px', background: 'rgba(255,255,255,0.7)', borderRadius: '2rem' }} />}>
               <PortfolioShowcase />

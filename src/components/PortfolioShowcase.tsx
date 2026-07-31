@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, X, TrendingUp } from 'lucide-react'
+import { ArrowUpRight, X, TrendingUp, ExternalLink, Code, Globe } from 'lucide-react'
 
 interface PortfolioItem {
   id: number
@@ -17,11 +17,14 @@ interface PortfolioItem {
   techStack: string[]
   glowColor: 'magenta' | 'cyan' | 'purple'
   url: string
+  githubUrl?: string
+  vercelUrl?: string
+  isOnline?: boolean
 }
 
 // Mini animated card visual selector component
 function MiniCardPreview({ url, glowColor }: { url: string; glowColor: 'magenta' | 'cyan' | 'purple' }) {
-  if (url === 'www.voogle.com.br' || url === 'dramarianasimoes.com.br') {
+  if (url.includes('voogle.com.br') && !url.includes('crm') && !url.includes('app') && !url.includes('operator')) {
     return (
       <div className={`mini-card-visual glow-${glowColor}`}>
         <div className="mini-browser-bar">
@@ -45,7 +48,7 @@ function MiniCardPreview({ url, glowColor }: { url: string; glowColor: 'magenta'
     )
   }
 
-  if (url === 'app.voogle.com.br') {
+  if (url.includes('app.voogle')) {
     return (
       <div className={`mini-card-visual glow-${glowColor}`}>
         <div className="mini-browser-bar">
@@ -80,7 +83,7 @@ function MiniCardPreview({ url, glowColor }: { url: string; glowColor: 'magenta'
     )
   }
 
-  if (url === 'crm.voogle.com.br') {
+  if (url.includes('crm')) {
     return (
       <div className={`mini-card-visual glow-${glowColor}`}>
         <div className="mini-browser-bar">
@@ -103,7 +106,7 @@ function MiniCardPreview({ url, glowColor }: { url: string; glowColor: 'magenta'
     )
   }
 
-  if (url.includes('autoparts')) {
+  if (url.includes('operator') || url.includes('apresenta')) {
     return (
       <div className={`mini-card-visual glow-${glowColor}`}>
         <div className="mini-radar-mesh">
@@ -134,7 +137,7 @@ function MiniCardPreview({ url, glowColor }: { url: string; glowColor: 'magenta'
 
 // Simulated Browser Animation Component
 function AnimatedProjectPreview({ url }: { url: string }) {
-  if (url === 'www.voogle.com.br') {
+  if (url.includes('voogle.com.br') && !url.includes('crm') && !url.includes('app') && !url.includes('operator')) {
     return (
       <div className="browser-mockup glow-cyan">
         <div className="browser-bar">
@@ -173,7 +176,7 @@ function AnimatedProjectPreview({ url }: { url: string }) {
     )
   }
 
-  if (url === 'app.voogle.com.br') {
+  if (url.includes('app.voogle')) {
     return (
       <div className="browser-mockup glow-cyan">
         <div className="browser-bar">
@@ -228,7 +231,7 @@ function AnimatedProjectPreview({ url }: { url: string }) {
     )
   }
 
-  if (url === 'crm.voogle.com.br') {
+  if (url.includes('crm')) {
     return (
       <div className="browser-mockup glow-purple">
         <div className="browser-bar">
@@ -262,7 +265,7 @@ function AnimatedProjectPreview({ url }: { url: string }) {
 
   // Fallback for other projects
   return (
-    <div className={`browser-mockup ${url.includes('autoparts') ? 'glow-magenta' : 'glow-cyan'}`}>
+    <div className={`browser-mockup ${url.includes('centralfarma') ? 'glow-magenta' : 'glow-cyan'}`}>
       <div className="browser-bar">
         <div className="browser-dots">
           <span className="dot red" />
@@ -272,8 +275,8 @@ function AnimatedProjectPreview({ url }: { url: string }) {
         <div className="browser-address">{url}</div>
       </div>
       <div className="browser-viewport default-viewport">
-        <div className="default-mockup-logo" style={{ color: url.includes('autoparts') ? 'var(--magenta-neon)' : 'var(--cyan-neon)' }}>
-          {url.includes('autoparts') ? 'MÓDULO PARTS' : 'MARIANA ODONTO'}
+        <div className="default-mockup-logo" style={{ color: url.includes('centralfarma') ? 'var(--magenta-neon)' : 'var(--cyan-neon)' }}>
+          {url.includes('centralfarma') ? 'DROGARIA CENTRAL FARMA' : 'META IMPULSO SUITE'}
         </div>
         <div className="default-mockup-hud">
           <div className="telemetry-bar" />
@@ -299,99 +302,155 @@ export default function PortfolioShowcase() {
   const portfolioItems: PortfolioItem[] = [
     {
       id: 1,
-      client: 'Buscador de Leads Voogle',
-      title: 'Criação de Site Otimizado para SEO',
+      client: 'Grupo Voogle (Portal Corporativo)',
+      title: 'Portal Institucional & Inteligência B2B',
       category: 'websites',
-      categoryLabel: 'WEBSITES & LANDING PAGES',
+      categoryLabel: 'WEBSITES & PORTAIS',
       stat: '1ª Página do Google',
-      statLabel: 'Aparecer no Google sem pagar anúncios',
-      shortDesc: 'Criação de site institucional profissional estruturado com as melhores práticas de SEO técnico para atrair milhares de acessos orgânicos e gerar leads comerciais.',
-      longDesc: 'Desenvolvimento do portal institucional Voogle com otimização completa de desempenho e metadados, focado em rankeamento SEO e em capturar tráfego de busca de forma gratuita.',
-      challenge: 'A marca precisava de um site veloz, moderno e otimizado para o Google que carregasse instantaneamente para reter visitas de potenciais clientes B2B.',
-      solution: 'Estruturamos o site utilizando Next.js com renderização no servidor (SSR). Configuramos metatags dinâmicos e otimizamos o desempenho do código para atingir notas acima de 95 no Google PageSpeed Insights.',
-      techStack: ['Next.js', 'React', 'TypeScript', 'SEO Técnico', 'Google Analytics'],
+      statLabel: 'SEO Orgânico de Alto Desempenho',
+      shortDesc: 'Desenvolvimento do portal corporativo do Grupo Voogle em Next.js com SEO técnico e velocidade de carregamento instantânea.',
+      longDesc: 'Construção do portal de comunicação corporativa do Grupo Voogle com renderização no servidor (SSR) e arquitetura de dados otimizada para capturar tráfego de busca qualificado.',
+      challenge: 'A marca necessitava de uma presença web autoritária, moderna e perfeitamente otimizada para rankear nos motores de busca e converter visitantes B2B.',
+      solution: 'Desenvolvemos a estrutura em Next.js e TypeScript com metadados estruturados dinâmicos, garantindo pontuação máxima de performance no Google PageSpeed Insights.',
+      techStack: ['Next.js', 'React', 'TypeScript', 'SEO Técnico', 'Tailwind CSS'],
       glowColor: 'cyan',
-      url: 'www.voogle.com.br'
+      url: 'voogle-institucional.vercel.app',
+      vercelUrl: 'https://voogle-institucional.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/voogle-institucional',
+      isOnline: true
     },
     {
       id: 2,
-      client: 'Painel de Clientes Voogle',
-      title: 'Desenvolvimento de Plataforma SaaS',
+      client: 'Voogle CRM Commercial Suite',
+      title: 'Plataforma CRM Omnichannel com Kanban',
       category: 'sistemas',
-      categoryLabel: 'SISTEMAS & INTEGRAÇÕES',
-      stat: 'Carregamento < 1s',
-      statLabel: 'Velocidade que o cliente e o Google valorizam',
-      shortDesc: 'Desenvolvimento de sistema web sob medida de altíssima performance. Painel interativo de gestão de leads com gráficos em tempo real e carregamento instantâneo.',
-      longDesc: 'Painel administrativo para clientes assinantes do software Voogle, integrado com APIs de leads e painéis gráficos interativos de alta velocidade.',
-      challenge: 'A plataforma precisava receber e processar milhares de requisições de dados em tempo real sem lentidão na tela do usuário.',
-      solution: 'Desenvolvemos a área de clientes em React otimizado com conexão via WebSockets. Renderizamos gráficos vetoriais SVG leves que garantem carregamento abaixo de 1 segundo.',
-      techStack: ['React', 'TypeScript', 'Tailwind CSS', 'WebSockets', 'Chart.js'],
-      glowColor: 'cyan',
-      url: 'app.voogle.com.br'
+      categoryLabel: 'SISTEMAS & AUTOMAÇÃO',
+      stat: '+350% de Produtividade',
+      statLabel: 'Organização do Funil Comercial via WhatsApp',
+      shortDesc: 'Desenvolvimento de software CRM customizado com funil de vendas Kanban, multiatendimento e automação de acompanhamento comercial.',
+      longDesc: 'Plataforma corporativa de gestão comercial com acompanhamento de leads em tempo real, relatórios de conversão e integração direta ao WhatsApp.',
+      challenge: 'As equipes comerciais perdiam leads por falta de histórico de conversas e desorganização no acompanhamento dos potenciais clientes.',
+      solution: 'Criamos um ecossistema CRM web com visualização Kanban drag-and-drop, centralização de chats em tempo real e relatórios analíticos em tempo real.',
+      techStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'API WhatsApp', 'WebSockets'],
+      glowColor: 'purple',
+      url: 'voogle-crm.vercel.app',
+      vercelUrl: 'https://voogle-crm.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/voogle-crm',
+      isOnline: true
     },
     {
       id: 3,
-      client: 'CRM de Vendas Voogle',
-      title: 'Automação Comercial com WhatsApp',
+      client: 'Voogle Credit System (FinTech)',
+      title: 'Sistema de Análise e Esteira de Crédito',
       category: 'sistemas',
-      categoryLabel: 'SISTEMAS & AUTOMAÇÃO',
-      stat: 'Vendas Organizadas',
-      statLabel: 'Chega de perder leads no WhatsApp',
-      shortDesc: 'Automação de processos comerciais com quadro Kanban integrado de WhatsApp. Controle e organize o atendimento da sua equipe e feche mais negócios.',
-      longDesc: 'Desenvolvimento de CRM de vendas personalizado com funil Kanban dinâmico, multiatendimento e disparos automatizados integrados diretamente.',
-      challenge: 'A equipe comercial do cliente utilizava planilhas manuais e celulares separados, gerando atrasos no atendimento e perda frequente de negócios.',
-      solution: 'Criamos um sistema web Kanban com recurso de arrastar e soltar (Drag-and-drop), integrado com uma API unificada de envio de mensagens no WhatsApp e triagem de dados.',
-      techStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Framer Motion', 'API WhatsApp'],
-      glowColor: 'purple',
-      url: 'crm.voogle.com.br'
+      categoryLabel: 'SISTEMAS & FINTECH',
+      stat: 'Aprovação em < 3min',
+      statLabel: 'Automação da Análise Cadastral e Risco',
+      shortDesc: 'Plataforma web de alta segurança para triagem financeira, cálculo de score de crédito e automação da esteira de aprovação.',
+      longDesc: 'Desenvolvimento do sistema corporativo de crédito da Voogle com checagem automática de dados, validação de documentos e esteira de decisão em tempo real.',
+      challenge: 'Análises manuais de crédito geravam filas de espera demoradas e riscos operacionais nas operações de financiamento.',
+      solution: 'Estruturamos um motor de regras de crédito automatizado que cruza dados e calcula o score de aprovação instantaneamente para os operadores.',
+      techStack: ['React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL', 'Docker'],
+      glowColor: 'cyan',
+      url: 'voogle-credit-system.vercel.app',
+      vercelUrl: 'https://voogle-credit-system.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/voogle-credit-system',
+      isOnline: true
     },
     {
       id: 4,
-      client: 'E-commerce AutoParts',
-      title: 'Gestão de Tráfego Pago e Performance',
-      category: 'trafego',
-      categoryLabel: 'TRÁFEGO & MARKETING',
-      stat: 'R$ 5,20 de Retorno',
-      statLabel: 'Para cada R$ 1,00 investido em anúncios',
-      shortDesc: 'Gestão de tráfego pago altamente segmentada no Google Ads e Meta Ads (Instagram/Facebook) focada em acelerar vendas e otimizar o ROI de lojas virtuais.',
-      longDesc: 'Configuração e otimização diária de campanhas de anúncios patrocinados, com pixel de conversão integrado e públicos direcionados para aumento direto no faturamento.',
-      challenge: 'A loja virtual de autopeças sofria com custos de aquisição de clientes (CPA) muito altos e falta de retorno claro dos investimentos em publicidade.',
-      solution: 'Implementamos rastreamento de dados de servidor (Server-side API), reestruturamos as campanhas de Google Shopping e rodamos criativos em vídeo focados em públicos compradores específicos.',
-      techStack: ['Google Ads', 'Meta Ads', 'Server-Side API', 'Looker Studio', 'Copywriting'],
+      client: 'Voogle Infinity Club',
+      title: 'Portal de Membros & Clube de Benefícios',
+      category: 'websites',
+      categoryLabel: 'WEBSITES & ÁREA DE MEMBROS',
+      stat: '+12.000 Membros',
+      statLabel: 'Engajamento e Retenção Ativa de Clientes',
+      shortDesc: 'Desenvolvimento de portal exclusivo de membros com cupons dinâmicos, programa de vantagens e carteira de benefícios.',
+      longDesc: 'Plataforma interativa desenvolvida para o programa de fidelidade Voogle Infinity Club com resgate de vouchers e parcerias estratégicas.',
+      challenge: 'Criar uma experiência fluida no celular para milhares de associados acessarem seus descontos e vouchers sem travamentos.',
+      solution: 'Desenvolvemos a aplicação PWA leve e ultra-responsiva integrada com banco de dados em tempo real e sistema de validação via QR Code.',
+      techStack: ['Next.js', 'React', 'TypeScript', 'Node.js', 'Redis', 'PWA'],
       glowColor: 'magenta',
-      url: 'modulo.autoparts.com.br'
+      url: 'voogle-infinityclub.vercel.app',
+      vercelUrl: 'https://voogle-infinityclub.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/voogle-infinityclub',
+      isOnline: true
     },
     {
       id: 5,
-      client: 'Clínica Dra. Mariana Simões',
-      title: 'Landing Page de Alta Conversão',
-      category: 'websites',
-      categoryLabel: 'WEBSITES & LANDING PAGES',
-      stat: '22% de Conversão',
-      statLabel: 'A cada 100 visitas, 22 chamam no WhatsApp',
-      shortDesc: 'Desenvolvimento de landing page profissional estruturada especificamente para atração e conversão de pacientes de alto padrão em clínicas e consultórios.',
-      longDesc: 'Landing Page estética de alta performance, contendo design limpo, depoimentos reais, prova social estruturada e foco total no agendamento de consultas pelo WhatsApp.',
-      challenge: 'O site institucional anterior convertia menos de 3% das visitas geradas pelas redes sociais, desperdiçando o orçamento de publicidade da clínica.',
-      solution: 'Nova Landing Page ultraveloz com carregamento instantâneo, gatilhos mentais estruturados, design premium focado em credibilidade e botão de contato em destaque.',
-      techStack: ['HTML5', 'Vanilla CSS', 'JavaScript', 'Google Tag Manager', 'Copywriting'],
-      glowColor: 'cyan',
-      url: 'dramarianasimoes.com.br'
+      client: 'Voogle Operator AI',
+      title: 'Agente de Inteligência Artificial para Atendimento',
+      category: 'sistemas',
+      categoryLabel: 'SISTEMAS & IA',
+      stat: 'Atendimento 24h por Dia',
+      statLabel: 'Triagem e Qualificação Automática por IA',
+      shortDesc: 'Assistente inteligente baseado em IA treinado com a base de dados da empresa para atendimento, triagem e agendamento automático de clientes.',
+      longDesc: 'Implementação de agente autônomo de Inteligência Artificial conectado ao WhatsApp e chat web corporativo para qualificar contatos e direcionar leads.',
+      challenge: 'Atender centenas de mensagens diárias fora do horário comercial com respostas precisas e humanas.',
+      solution: 'Integramos modelos de linguagem natural (LLM) avançados configurados com a base de conhecimento da empresa e webhook direto com o CRM.',
+      techStack: ['OpenAI API', 'Node.js', 'WebSockets', 'WhatsApp Business API', 'Docker'],
+      glowColor: 'purple',
+      url: 'voogle-operator.vercel.app',
+      vercelUrl: 'https://voogle-operator.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/voogle-operator',
+      isOnline: true
     },
     {
       id: 6,
-      client: 'IA Commerce Pilot',
-      title: 'Inteligência Artificial de Vendas',
+      client: 'Voogle Academy',
+      title: 'Plataforma EAD & Treinamento Comercial',
       category: 'sistemas',
-      categoryLabel: 'SISTEMAS & INTELIGÊNCIA ARTIFICIAL',
-      stat: 'Atendimento 24h por Dia',
-      statLabel: 'IA atende e qualifica clientes sozinha',
-      shortDesc: 'Implementação de assistente virtual inteligente integrado ao WhatsApp para fazer a triagem automática de leads, tirar dúvidas técnicas e agendar reuniões.',
-      longDesc: 'Criação de agente autônomo baseado em Inteligência Artificial treinado com as informações específicas da empresa para atuar no atendimento de leads em tempo integral.',
-      challenge: 'Os vendedores de campo perdiam muito tempo respondendo a dúvidas repetitivas ou qualificando leads sem perfil de compra real.',
-      solution: 'Integramos um agente inteligente de IA (baseado na API da OpenAI) conectado ao WhatsApp. O robô atende de forma natural, qualifica o lead e registra tudo no CRM automaticamente.',
-      techStack: ['OpenAI API', 'Node.js', 'WhatsApp Business API', 'CRM Integration', 'Webhooks'],
-      glowColor: 'purple',
-      url: 'ia.commercepilot.com'
+      categoryLabel: 'SISTEMAS & EAD',
+      stat: '+1.500 Alunos',
+      statLabel: 'Capacitação Contínua de Equipes de Vendas',
+      shortDesc: 'Plataforma de ensino a distância sob medida para treinamento de consultores, streaming de vídeos e gestão de certificados.',
+      longDesc: 'Ambiente EAD customizado para formação de times de vendas com trilhas de aprendizagem, avaliações práticas e relatórios de progresso.',
+      challenge: 'Garantir a reprodução fluida de videoaulas em qualquer conexão de internet e acompanhar o desempenho dos colaboradores.',
+      solution: 'Desenvolvemos a plataforma com reprodutor de vídeo adaptativo HLS e dashboard analítico para os gestores acompanharem o aprendizado.',
+      techStack: ['React', 'TypeScript', 'Node.js', 'AWS S3', 'GraphQL'],
+      glowColor: 'cyan',
+      url: 'voogle-academy.vercel.app',
+      vercelUrl: 'https://voogle-academy.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/voogle-academy',
+      isOnline: true
+    },
+    {
+      id: 7,
+      client: 'Voogle Seguros & Consultoria',
+      title: 'Gestão de Tráfego Pago & Performance',
+      category: 'trafego',
+      categoryLabel: 'TRÁFEGO & MARKETING',
+      stat: 'R$ 6,80 de Retorno',
+      statLabel: 'Para cada R$ 1,00 investido em anúncios',
+      shortDesc: 'Gestão estratégica de tráfego pago no Google Ads e Meta Ads focada em capturar clientes em busca de apólices e consultoria de seguros.',
+      longDesc: 'Estruturação de campanhas de alta intenção de busca no Google e criativos patrocinados de alta conversão no Instagram/Facebook.',
+      challenge: 'Reduzir o Custo por Lead (CPL) no mercado altamente competitivo de seguros e aumentar a taxa de fechamento de contratos.',
+      solution: 'Implementamos páginas de captura ultralógicas combinadas com anúncios direcionados por palavra-chave de alta intenção e remarketing estratégico.',
+      techStack: ['Google Ads', 'Meta Ads', 'Google Tag Manager', 'Looker Studio', 'Copywriting'],
+      glowColor: 'magenta',
+      url: 'voogle-seguros.vercel.app',
+      vercelUrl: 'https://voogle-seguros.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/voogle-seguros-e-consultoria',
+      isOnline: true
+    },
+    {
+      id: 8,
+      client: 'Dom Delivery & Drogaria Central Farma',
+      title: 'Plataforma de Pedidos & E-Commerce',
+      category: 'websites',
+      categoryLabel: 'WEBSITES & E-COMMERCE',
+      stat: '28% de Conversão',
+      statLabel: 'Compras Rápidas com Checkout no WhatsApp',
+      shortDesc: 'Desenvolvimento de plataforma de vendas e e-commerce ultraveloz otimizado para compras no celular e disparo direto de pedidos.',
+      longDesc: 'Construção de catálogo digital responsivo para farmacêutica e delivery com sistema de carrinho inteligente e checkout simplificado.',
+      challenge: 'Simplificar o processo de compra do cliente em pouquíssimos toques sem necessidade de cadastros extensos.',
+      solution: 'Criamos um catálogo PWA leve com busca instantânea de produtos e envio automático de pedido pré-formatado via WhatsApp.',
+      techStack: ['Next.js', 'React', 'Tailwind CSS', 'PWA', 'WhatsApp Checkout'],
+      glowColor: 'cyan',
+      url: 'dom-delivery.vercel.app',
+      vercelUrl: 'https://dom-delivery.vercel.app',
+      githubUrl: 'https://github.com/metaimpulsobr/meta-impulso-Dom-Delivery',
+      isOnline: true
     }
   ]
 
@@ -423,7 +482,7 @@ export default function PortfolioShowcase() {
           Nossos <span className="text-gradient">Casos de Sucesso</span>
         </h2>
         <p className="subtitle-main">
-          Conheça os sites profissionais, campanhas de tráfego pago e automações de vendas que desenvolvemos para acelerar negócios.
+          Conheça os sistemas corporativos, portais interativos e plataformas digitais reais que desenvolvemos e colocamos no ar.
         </p>
 
         {/* Category Filters */}
@@ -448,14 +507,14 @@ export default function PortfolioShowcase() {
       >
         <AnimatePresence mode="popLayout">
           {filteredItems.map((item) => {
-            let glowClass = 'card-glow-purple'
+            let glowClass = 'glow-purple'
             let accentColor = 'var(--purple-text)'
             
             if (item.glowColor === 'cyan') {
-              glowClass = 'card-glow-cyan'
+              glowClass = 'glow-cyan'
               accentColor = 'var(--cyan-text)'
             } else if (item.glowColor === 'magenta') {
-              glowClass = 'card-glow-magenta'
+              glowClass = 'glow-magenta'
               accentColor = 'var(--magenta-text)'
             }
 
@@ -478,13 +537,20 @@ export default function PortfolioShowcase() {
                     : '0 15px 40px rgba(123, 46, 255, 0.15), inset 0 0 10px rgba(123, 46, 255, 0.1)'
                 }}
               >
-                {/* 🎨 NEW MINI ANIMATED SCREEN */}
+                {/* 🎨 MINI ANIMATED SCREEN */}
                 <MiniCardPreview url={item.url} glowColor={item.glowColor} />
 
                 {/* HUD Header */}
-                <div className="card-telemetry" style={{ marginTop: '1.25rem' }}>
+                <div className="card-telemetry" style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span>CASE_PROTOCOL::0{item.id}</span>
-                  <span className="dot" style={{ backgroundColor: accentColor }} />
+                  <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                    {item.isOnline && (
+                      <span style={{ fontSize: '0.6rem', background: 'rgba(0, 240, 255, 0.12)', color: 'var(--cyan-text)', border: '1px solid rgba(0, 240, 255, 0.3)', padding: '0.1rem 0.45rem', borderRadius: '100px', fontWeight: 'bold' }}>
+                        ● ONLINE
+                      </span>
+                    )}
+                    <span className="dot" style={{ backgroundColor: accentColor }} />
+                  </div>
                 </div>
 
                 <span className="card-seo-tag" style={{ color: accentColor, marginBottom: '0.25rem' }}>
@@ -512,7 +578,7 @@ export default function PortfolioShowcase() {
 
                 {/* Action details */}
                 <div className="portfolio-card-action" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '1.5rem', fontSize: '0.8rem', fontWeight: '700', color: accentColor }}>
-                  <span>Ver Como Fizemos Isso</span>
+                  <span>Ver Detalhes do Projeto</span>
                   <ArrowUpRight size={14} />
                 </div>
               </motion.div>
@@ -601,14 +667,40 @@ export default function PortfolioShowcase() {
                     <p>{selectedProject.solution}</p>
                   </div>
 
-                  {/* Modal CTA */}
-                  <button 
-                    onClick={handleModalCTA}
-                    className="btn-v16 btn-v16-primary modal-cta-btn"
-                    style={{ width: '100%', marginTop: '2rem' }}
-                  >
-                    SOLICITAR PROJETO SIMILAR
-                  </button>
+                  {/* Modal Action Buttons: Vercel & GitHub */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '2rem' }}>
+                    {selectedProject.vercelUrl && (
+                      <a
+                        href={selectedProject.vercelUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-v16 btn-v16-primary"
+                        style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
+                      >
+                        <Globe size={18} /> VER PROJETO <ExternalLink size={16} />
+                      </a>
+                    )}
+
+                    {selectedProject.githubUrl && (
+                      <a
+                        href={selectedProject.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-v16 btn-v16-secondary"
+                        style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
+                      >
+                        <Code size={18} /> CÓDIGO NO GITHUB <ExternalLink size={16} />
+                      </a>
+                    )}
+
+                    <button 
+                      onClick={handleModalCTA}
+                      className="btn-v16 btn-v16-secondary"
+                      style={{ width: '100%', background: 'rgba(214, 73, 251, 0.06)', borderColor: 'var(--magenta-neon)', justifyContent: 'center' }}
+                    >
+                      SOLICITAR PROJETO SIMILAR
+                    </button>
+                  </div>
                 </div>
 
               </div>

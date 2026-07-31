@@ -53,31 +53,37 @@ export default function SpaceBackground() {
       }
     }
 
-    const starCount = isMobile ? 35 : 75;
+    const starCount = isMobile ? 18 : 65;
     const stars: Star[] = Array.from({ length: starCount }, () => new Star());
 
     const handleResize = () => {
       width = window.innerWidth; height = window.innerHeight;
       canvas.width = width; canvas.height = height;
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     let animId: number;
     const animate = () => {
+      if (document.hidden) {
+        animId = requestAnimationFrame(animate);
+        return;
+      }
       ctx.clearRect(0, 0, width, height);
       ctx.globalAlpha = 1;
-      for (let i = 0; i < stars.length; i++) {
-        for (let j = i + 1; j < stars.length; j++) {
-          const dx = stars[i].x - stars[j].x;
-          const dy = stars[i].y - stars[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 110) {
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(15, 23, 42, ${0.05 - (dist / 110) * 0.05})`;
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(stars[i].x, stars[i].y);
-            ctx.lineTo(stars[j].x, stars[j].y);
-            ctx.stroke();
+      if (!isMobile) {
+        for (let i = 0; i < stars.length; i++) {
+          for (let j = i + 1; j < stars.length; j++) {
+            const dx = stars[i].x - stars[j].x;
+            const dy = stars[i].y - stars[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 100) {
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(15, 23, 42, ${0.05 - (dist / 100) * 0.05})`;
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(stars[i].x, stars[i].y);
+              ctx.lineTo(stars[j].x, stars[j].y);
+              ctx.stroke();
+            }
           }
         }
       }
