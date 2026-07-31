@@ -39,7 +39,7 @@ function App() {
     }
   }, [loading])
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
     e.preventDefault()
     const targetId = href.replace('#', '')
     const el = document.getElementById(targetId)
@@ -84,12 +84,17 @@ function App() {
 
       {/* NAVIGATION */}
       <nav className={`nav-pill-v16 ${scrolled ? 'nav-scrolled' : ''}`}>
-        <div className="logo">
-          <img src="/logo.png" alt="Meta Impulso" style={{ height: '48px' }} />
+        <a 
+          href="#hero"
+          className="logo" 
+          style={{ textDecoration: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.65rem' }}
+          onClick={(e) => handleNavClick(e, '#hero')}
+        >
+          <img src="/logo.png" alt="Meta Impulso" style={{ height: '42px', width: 'auto', objectFit: 'contain' }} />
           <span className="logo-text" style={{ fontWeight: '900', fontSize: '1.35rem', letterSpacing: '0.1em' }}>
             META <span className="text-gradient">IMPULSO</span>
           </span>
-        </div>
+        </a>
 
         <div className="nav-links">
           {navLinks.map((link) => (
