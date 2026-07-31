@@ -409,8 +409,8 @@ export default function PortfolioShowcase() {
       solution: 'Criamos um catálogo PWA leve com busca instantânea de produtos e envio automático de pedido pré-formatado via WhatsApp.',
       techStack: ['Next.js', 'React', 'Tailwind CSS', 'PWA', 'WhatsApp Checkout'],
       glowColor: 'cyan',
-      url: 'centralfarma.metaimpulso.com.br',
-      vercelUrl: 'https://centralfarma.metaimpulso.com.br',
+      url: 'centralfarm.metaimpulso.com.br',
+      vercelUrl: 'https://centralfarm.metaimpulso.com.br',
       githubUrl: 'https://github.com/metaimpulsobr/meta-impulso-Drogaria-Central-Farma-Drugstore-Sol-Nascente',
       isOnline: true
     },
