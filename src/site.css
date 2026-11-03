@@ -581,3 +581,32 @@ ol.launch-timeline { list-style: none; }
 /* Service pages keep a left-aligned hero on every breakpoint */
 .service-hero .hero-subtitle { text-align: left; margin-left: 0; }
 .service-hero .eyebrow { display: inline-block; margin-left: 0; }
+
+/* ============================================================
+   14. TYPOGRAPHY BALANCE (no orphan words / ragged line breaks)
+   ============================================================ */
+h1, h2, h3, h4,
+.title-lg, .title-md,
+summary {
+  text-wrap: balance;
+}
+
+p, li, .subtitle-main, .hero-subtitle {
+  text-wrap: pretty;
+}
+
+@media (min-width: 769px) {
+  /* Keeps the gradient phrase on one line: "cliques em clientes" */
+  .hero-title .text-gradient {
+    white-space: nowrap;
+  }
+
+  /* Hero CTAs side by side */
+  .hero-text-col .cta-group {
+    gap: 1rem;
+    flex-wrap: nowrap;
+  }
+  .hero-text-col .cta-group .btn-v16 {
+    padding: 1rem 1.9rem;
+  }
+}
