@@ -374,7 +374,7 @@ export function HeroTechIcons() {
       {/* ② TypeScript — ejects to left + down */}
       <HeroTechIcon
         rgbColor="49, 120, 198"
-        top="30%" left={isMobile ? "3%" : "6%"}
+        top="12%" left={isMobile ? "-4%" : "52%"}
         desktopSize={85} mobileSize={55}
         floatConfig={{ duration: 6, x: [6, -6, 6], y: [10, -10, 10], rotate: [8, -8, 8] }}
         isMobile={isMobile}
@@ -414,7 +414,7 @@ export function HeroTechIcons() {
       {/* ④ Tailwind — ejects to left + up */}
       <HeroTechIcon
         rgbColor="56, 189, 248"
-        top="65%" left={isMobile ? "4%" : "8%"}
+        top="70%" left={isMobile ? "-4%" : "55%"}
         desktopSize={90} mobileSize={60}
         floatConfig={{ duration: 6.5, x: [-6, 6, -6], y: [10, -10, 10], rotate: [6, -6, 6] }}
         isMobile={isMobile}
@@ -454,7 +454,7 @@ export function HeroTechIcons() {
       {/* ⑥ JavaScript — ejects to bottom-left */}
       <HeroTechIcon
         rgbColor="247, 223, 30"
-        top="90%" left={isMobile ? "5%" : "15%"}
+        top="88%" left={isMobile ? "-3%" : "50%"}
         desktopSize={75} mobileSize={50}
         floatConfig={{ duration: 5.5, x: [-5, 5, -5], y: [8, -8, 8], rotate: [10, -10, 10] }}
         isMobile={isMobile}

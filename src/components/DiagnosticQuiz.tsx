@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Target, Layout, Workflow, Cpu, HelpCircle, User, Phone, Mail, ArrowLeft, ArrowRight, Rocket, CheckCircle2 } from 'lucide-react'
+import { Target, Layout, Workflow, Cpu, HelpCircle, User, Phone, Mail, ArrowLeft, ArrowRight, MessageCircle, CheckCircle2 } from 'lucide-react'
+import { submitLead } from '../lib/leads'
+import { track } from '../lib/analytics'
+import { whatsappLink } from '../content/site'
 
 interface QuizData {
   companyName: string
@@ -25,7 +28,7 @@ const INITIAL_DATA: QuizData = {
 export default function DiagnosticQuiz() {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState<QuizData>(INITIAL_DATA)
-  const [loadingTextIndex, setLoadingTextIndex] = useState(0)
+  const [consent, setConsent] = useState(false)
   const [direction, setDirection] = useState(1) // 1 = forward, -1 = backward
   const [error, setError] = useState('')
 
@@ -50,36 +53,6 @@ export default function DiagnosticQuiz() {
     'R$ 5.000 a R$ 15.000 / mês',
     'Acima de R$ 15.000 / mês'
   ]
-
-  const loadingSteps = [
-    'Inicializando telemetria de negócios...',
-    'Escaneando gargalos de captação digital...',
-    'Calculando vetores de aceleração comercial...',
-    'Mapeando soluções sob medida de IA e tráfego...',
-    'Planilha de voo estruturada com sucesso!'
-  ]
-
-  // Animate processing step texts
-  useEffect(() => {
-    if (step === 6) {
-      const interval = setInterval(() => {
-        setLoadingTextIndex((prev) => {
-          if (prev < loadingSteps.length - 1) {
-            return prev + 1
-          } else {
-            clearInterval(interval)
-            // Auto advance to final step after processing
-            setTimeout(() => {
-              setDirection(1)
-              setStep(7)
-            }, 800)
-            return prev
-          }
-        })
-      }, 700)
-      return () => clearInterval(interval)
-    }
-  }, [step])
 
   const handleNext = () => {
     setError('')
@@ -108,11 +81,22 @@ export default function DiagnosticQuiz() {
         setError('Por favor, informe seu WhatsApp.')
         return
       }
-      if (!formData.userEmail.trim()) {
-        setError('Por favor, informe seu e-mail.')
+      if (formData.userPhone.replace(/\D/g, '').length < 10) {
+        setError('Informe um WhatsApp válido, com DDD.')
         return
       }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail.trim())) {
+        setError('Por favor, informe um e-mail válido.')
+        return
+      }
+      if (!consent) {
+        setError('Para continuar, autorize o contato e o uso dos dados conforme a política de privacidade.')
+        return
+      }
+      submitLead(formData)
+      track('generate_lead', { form: 'diagnostico', objective: formData.objective, revenue: formData.revenue, budget: formData.budget })
     }
+    if (step === 1) track('quiz_start', { form: 'diagnostico' })
 
     setDirection(1)
     setStep((prev) => prev + 1)
@@ -126,14 +110,13 @@ export default function DiagnosticQuiz() {
 
   const handleRestart = () => {
     setFormData(INITIAL_DATA)
-    setLoadingTextIndex(0)
+    setConsent(false)
     setStep(1)
     setError('')
   }
 
   const sendToWhatsApp = () => {
-    const phone = '556195011614' // Target phone number (Brasília)
-    const text = `🚀 *NOVO DIAGNÓSTICO DIGITAL SOLICITADO*
+    const text = `*DIAGNÓSTICO DIGITAL SOLICITADO PELO SITE*
 
 🏢 *Empresa:* ${formData.companyName}
 🎯 *Objetivo:* ${formData.objective}
@@ -144,10 +127,10 @@ export default function DiagnosticQuiz() {
 ✉️ *E-mail:* ${formData.userEmail}
 📱 *WhatsApp:* ${formData.userPhone}
 
-_Gerado automaticamente pelo Portal Meta Impulso_`
+_Enviado pelo site da Meta Impulso_`
 
-    const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`
-    window.open(url, '_blank')
+    track('whatsapp_click', { origin: 'diagnostico_concluido' })
+    window.open(whatsappLink(text), '_blank')
   }
 
   const totalSteps = 5
@@ -175,12 +158,12 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
     <div id="diagnostico-quiz" className="quiz-panel card-premium glow-magenta" style={{ border: '1px solid var(--magenta-neon)' }}>
       {/* HUD Telemetry Top Header */}
       <div className="card-telemetry" style={{ marginBottom: '1.5rem' }}>
-        <span>DIAGNOSTIC_PROTOCOL::V1.6</span>
+        <span>DIAGNÓSTICO DIGITAL GRATUITO</span>
         {step <= totalSteps ? (
           <span className="quiz-step-indicator">PASSO {step} DE {totalSteps}</span>
         ) : (
           <span className="quiz-step-indicator" style={{ color: 'var(--cyan-text)' }}>
-            {step === 6 ? 'PROCESSANDO_TELEMETRIA' : 'SISTEMA_PRONTO'}
+            CONCLUÍDO
           </span>
         )}
       </div>
@@ -226,10 +209,12 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
             {step === 1 && (
               <div className="quiz-step">
                 <h3 className="title-md">Qual é o nome da sua empresa?</h3>
-                <p className="quiz-helper">Para iniciarmos a varredura e mapeamento de marca.</p>
+                <p className="quiz-helper">Assim já pesquisamos sua presença digital antes da conversa.</p>
                 <div className="quiz-input-wrapper">
                   <input
                     type="text"
+                    aria-label="Nome da empresa"
+                    autoComplete="organization"
                     placeholder="Ex: Minha Empresa LTDA"
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
@@ -245,7 +230,7 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
             {step === 2 && (
               <div className="quiz-step">
                 <h3 className="title-md">Qual é o seu principal objetivo hoje?</h3>
-                <p className="quiz-helper">Selecione o vetor de tração que seu negócio precisa.</p>
+                <p className="quiz-helper">Escolha a frente mais urgente. Na conversa olhamos o cenário completo.</p>
                 <div className="quiz-options-grid">
                   {objectives.map((obj, i) => (
                     <button
@@ -268,7 +253,7 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
             {step === 3 && (
               <div className="quiz-step">
                 <h3 className="title-md">Qual o faturamento mensal da sua empresa?</h3>
-                <p className="quiz-helper">Essencial para entender a maturidade e capacidade operacional.</p>
+                <p className="quiz-helper">Ajuda a indicar a solução adequada ao momento da empresa. Os dados são confidenciais.</p>
                 <div className="quiz-options-vertical">
                   {revenues.map((rev, i) => (
                     <button
@@ -288,7 +273,7 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
             {step === 4 && (
               <div className="quiz-step">
                 <h3 className="title-md">Quanto sua empresa pode investir em marketing e tecnologia por mês?</h3>
-                <p className="quiz-helper">Orçamento disponível para alocação de anúncios e desenvolvimento.</p>
+                <p className="quiz-helper">Considere mídia (anúncios) e serviços. Usamos essa resposta para montar uma proposta realista.</p>
                 <div className="quiz-options-vertical">
                   {budgets.map((bud, i) => (
                     <button
@@ -307,12 +292,14 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
             {/* STEP 5: Contact Details */}
             {step === 5 && (
               <div className="quiz-step">
-                <h3 className="title-md">Quem receberá este diagnóstico?</h3>
-                <p className="quiz-helper">Insira seus dados para entrarmos em contato com a análise.</p>
+                <h3 className="title-md">Para quem enviamos o diagnóstico?</h3>
+                <p className="quiz-helper">Entraremos em contato em horário comercial para agendar a conversa.</p>
                 <div className="quiz-contact-fields">
                   <div className="quiz-field-group">
-                    <label><User size={14} /> Nome Completo</label>
+                    <label htmlFor="quiz-nome"><User size={14} /> Nome completo</label>
                     <input
+                      id="quiz-nome"
+                      autoComplete="name"
                       type="text"
                       placeholder="Seu nome"
                       value={formData.userName}
@@ -321,8 +308,11 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
                     />
                   </div>
                   <div className="quiz-field-group">
-                    <label><Phone size={14} /> WhatsApp (com DDD)</label>
+                    <label htmlFor="quiz-whatsapp"><Phone size={14} /> WhatsApp (com DDD)</label>
                     <input
+                      id="quiz-whatsapp"
+                      autoComplete="tel"
+                      inputMode="tel"
                       type="tel"
                       placeholder="Ex: (61) 99999-9999"
                       value={formData.userPhone}
@@ -331,8 +321,10 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
                     />
                   </div>
                   <div className="quiz-field-group">
-                    <label><Mail size={14} /> E-mail Profissional</label>
+                    <label htmlFor="quiz-email"><Mail size={14} /> E-mail profissional</label>
                     <input
+                      id="quiz-email"
+                      autoComplete="email"
                       type="email"
                       placeholder="voce@empresa.com.br"
                       value={formData.userEmail}
@@ -340,47 +332,28 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
                       className="quiz-input-text"
                     />
                   </div>
+                  <label className="quiz-consent">
+                    <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+                    <span>
+                      Autorizo a Meta Impulso a entrar em contato e a tratar meus dados para preparar o diagnóstico, conforme a{' '}
+                      <a href="/politica-de-privacidade" target="_blank" rel="noopener noreferrer">política de privacidade</a>.
+                    </span>
+                  </label>
                 </div>
               </div>
             )}
 
-            {/* STEP 6: Simulated calculation */}
+            {/* STEP 6: Success & Call to Action */}
             {step === 6 && (
-              <div className="quiz-step quiz-loading-step">
-                <div className="quiz-loader-orb">
-                  <div className="loader-inner-core" />
-                  <div className="loader-pulse-ring" />
-                </div>
-                <h3 className="title-md glow-cyan" style={{ color: 'var(--cyan-text)', marginTop: '2rem' }}>
-                  PROCESSANDO DADOS
-                </h3>
-                <div className="loading-step-box">
-                  {loadingSteps.map((txt, idx) => (
-                    <div 
-                      key={idx} 
-                      className={`loading-step-item ${idx === loadingTextIndex ? 'active' : ''} ${idx < loadingTextIndex ? 'completed' : ''}`}
-                    >
-                      <span className="step-icon">
-                        {idx < loadingTextIndex ? '✓' : '●'}
-                      </span>
-                      <span>{txt}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* STEP 7: Success & Call to Action */}
-            {step === 7 && (
               <div className="quiz-step quiz-success-step">
                 <div className="success-icon-wrapper">
                   <CheckCircle2 size={54} color="var(--cyan-text)" style={{ filter: 'drop-shadow(0 0 10px rgba(0, 240, 255, 0.4))' }} />
                 </div>
                 <h3 className="title-lg" style={{ fontSize: '1.6rem', marginBottom: '1rem' }}>
-                  Plano de Decolagem <span className="text-gradient">Estruturado!</span>
+                  Recebemos suas <span className="text-gradient">respostas!</span>
                 </h3>
                 <p style={{ color: 'var(--text-tech)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '2rem' }}>
-                  A telemetria da <strong>{formData.companyName}</strong> está pronta! Para receber o diagnóstico completo e reservar sua sessão estratégica gratuita de 30 minutos com nossos especialistas, clique no botão abaixo para iniciar o contato no WhatsApp.
+                  Obrigado! Vamos analisar o cenário da <strong>{formData.companyName}</strong>. Para agendar agora sua conversa estratégica gratuita de 30 minutos, envie suas respostas pelo WhatsApp.
                 </p>
 
                 <button 
@@ -388,7 +361,7 @@ _Gerado automaticamente pelo Portal Meta Impulso_`
                   className="btn-v16 btn-v16-primary"
                   style={{ width: '100%', padding: '1.1rem', fontSize: '0.88rem' }}
                 >
-                  DECOLAR CONVERSA NO WHATSAPP <Rocket size={18} />
+                  AGENDAR PELO WHATSAPP <MessageCircle size={18} />
                 </button>
 
                 <button 

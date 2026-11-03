@@ -1,6 +1,23 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useState, useRef } from 'react'
 
+// Deterministic pseudo-random values: identical on the server (prerender) and in the browser,
+// so hydration matches and render stays pure.
+const seeded = (n: number) => {
+  const v = Math.sin(n * 12.9898) * 43758.5453
+  return v - Math.floor(v)
+}
+
+// Floating particles representing rocket exhaust sparks
+const particles = Array.from({ length: 25 }, (_, i) => ({
+  id: i,
+  delay: i * 0.08,
+  x: (seeded(i + 1) - 0.5) * 60, // spread
+  size: seeded(i + 101) * 5 + 2,
+  duration: seeded(i + 201) * 1.0 + 0.6,
+  color: seeded(i + 301) > 0.55 ? '#00F0FF' : '#D649FB',
+}))
+
 export default function RocketShowcase() {
   const [isHovered, setIsHovered] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -33,14 +50,6 @@ export default function RocketShowcase() {
     setIsHovered(true)
   }
 
-  // Floating particles representing rocket exhaust sparks
-  const particles = Array.from({ length: 25 }, (_, i) => ({
-    id: i,
-    delay: i * 0.08,
-    x: (Math.random() - 0.5) * 60, // spread
-    size: Math.random() * 5 + 2,
-    duration: Math.random() * 1.0 + 0.6
-  }))
 
   return (
     <div 
@@ -393,7 +402,7 @@ export default function RocketShowcase() {
                   position: 'absolute',
                   width: `${p.size}px`,
                   height: `${p.size}px`,
-                  background: Math.random() > 0.55 ? '#00F0FF' : '#D649FB',
+                  background: p.color,
                   borderRadius: '50%',
                   boxShadow: '0 0 10px currentColor',
                 }}

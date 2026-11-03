@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, X, TrendingUp, ExternalLink, Code, Globe } from 'lucide-react'
+import { ArrowUpRight, X, TrendingUp, ExternalLink, Globe } from 'lucide-react'
 
 interface PortfolioItem {
   id: number
@@ -17,7 +17,6 @@ interface PortfolioItem {
   techStack: string[]
   glowColor: 'magenta' | 'cyan' | 'purple'
   url: string
-  githubUrl?: string
   vercelUrl?: string
   isOnline?: boolean
 }
@@ -292,9 +291,9 @@ export default function PortfolioShowcase() {
   const [activeFilter, setActiveFilter] = useState<'todos' | 'trafego' | 'websites' | 'sistemas'>('todos')
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null)
 
-  const categories = [
+  // No public paid-traffic case yet, so that filter stays hidden until one exists
+  const categories: { value: typeof activeFilter; label: string }[] = [
     { value: 'todos', label: 'Todos' },
-    { value: 'trafego', label: 'Tráfego Pago' },
     { value: 'websites', label: 'Websites & LPs' },
     { value: 'sistemas', label: 'Sistemas & IA' }
   ]
@@ -302,21 +301,20 @@ export default function PortfolioShowcase() {
   const portfolioItems: PortfolioItem[] = [
     {
       id: 1,
-      client: 'Grupo Voogle (Portal Corporativo)',
-      title: 'Portal Institucional & Inteligência B2B',
+      client: 'Grupo Voogle (Seguros e Consultorias)',
+      title: 'Portal Institucional de Seguros e Consultorias',
       category: 'websites',
       categoryLabel: 'WEBSITES & PORTAIS',
-      stat: '1ª Página do Google',
-      statLabel: 'SEO Orgânico de Alto Desempenho',
+      stat: 'SEO técnico + SSR',
+      statLabel: 'Portal institucional pronto para busca orgânica',
       shortDesc: 'Desenvolvimento do portal corporativo do Grupo Voogle em Next.js com SEO técnico e velocidade de carregamento instantânea.',
       longDesc: 'Construção do portal de comunicação corporativa do Grupo Voogle com renderização no servidor (SSR) e arquitetura de dados otimizada para capturar tráfego de busca qualificado.',
-      challenge: 'A marca necessitava de uma presença web autoritária, moderna e perfeitamente otimizada para rankear nos motores de busca e converter visitantes B2B.',
-      solution: 'Desenvolvemos a estrutura em Next.js e TypeScript com metadados estruturados dinâmicos, garantindo pontuação máxima de performance no Google PageSpeed Insights.',
+      challenge: 'A marca precisava de uma presença web moderna, otimizada para os mecanismos de busca e capaz de converter visitantes em contatos comerciais.',
+      solution: 'Desenvolvemos a estrutura em Next.js e TypeScript com renderização no servidor, metadados estruturados e foco em desempenho de carregamento.',
       techStack: ['Next.js', 'React', 'TypeScript', 'SEO Técnico', 'Tailwind CSS'],
       glowColor: 'cyan',
       url: 'www.voogle.com.br',
       vercelUrl: 'https://www.voogle.com.br',
-      githubUrl: 'https://github.com/metaimpulsobr/voogle-institucional',
       isOnline: true
     },
     {
@@ -325,8 +323,8 @@ export default function PortfolioShowcase() {
       title: 'Plataforma CRM Omnichannel com Kanban',
       category: 'sistemas',
       categoryLabel: 'SISTEMAS & AUTOMAÇÃO',
-      stat: '+350% de Produtividade',
-      statLabel: 'Organização do Funil Comercial via WhatsApp',
+      stat: 'Funil Kanban',
+      statLabel: 'Atendimento e follow-up centralizados com WhatsApp',
       shortDesc: 'Desenvolvimento de software CRM customizado com funil de vendas Kanban, multiatendimento e automação de acompanhamento comercial.',
       longDesc: 'Plataforma corporativa de gestão comercial com acompanhamento de leads em tempo real, relatórios de conversão e integração direta ao WhatsApp.',
       challenge: 'As equipes comerciais perdiam leads por falta de histórico de conversas e desorganização no acompanhamento dos potenciais clientes.',
@@ -335,7 +333,6 @@ export default function PortfolioShowcase() {
       glowColor: 'purple',
       url: 'crm.voogle.com.br',
       vercelUrl: 'https://crm.voogle.com.br',
-      githubUrl: 'https://github.com/metaimpulsobr/voogle-crm',
       isOnline: true
     },
     {
@@ -344,8 +341,8 @@ export default function PortfolioShowcase() {
       title: 'Sistema de Análise e Esteira de Crédito',
       category: 'sistemas',
       categoryLabel: 'SISTEMAS & FINTECH',
-      stat: 'Aprovação em < 3min',
-      statLabel: 'Automação da Análise Cadastral e Risco',
+      stat: 'Esteira automatizada',
+      statLabel: 'Análise cadastral e de risco com regras de negócio',
       shortDesc: 'Plataforma web de alta segurança para triagem financeira, cálculo de score de crédito e automação da esteira de aprovação.',
       longDesc: 'Desenvolvimento do sistema corporativo de crédito da Voogle com checagem automática de dados, validação de documentos e esteira de decisão em tempo real.',
       challenge: 'Análises manuais de crédito geravam filas de espera demoradas e riscos operacionais nas operações de financiamento.',
@@ -354,7 +351,6 @@ export default function PortfolioShowcase() {
       glowColor: 'cyan',
       url: 'app.voogle.com.br',
       vercelUrl: 'https://app.voogle.com.br',
-      githubUrl: 'https://github.com/metaimpulsobr/voogle-credit-system',
       isOnline: true
     },
     {
@@ -363,8 +359,8 @@ export default function PortfolioShowcase() {
       title: 'Portal de Membros & Clube de Benefícios',
       category: 'websites',
       categoryLabel: 'WEBSITES & ÁREA DE MEMBROS',
-      stat: '+12.000 Membros',
-      statLabel: 'Engajamento e Retenção Ativa de Clientes',
+      stat: 'Área de membros PWA',
+      statLabel: 'Benefícios e vouchers acessíveis pelo celular',
       shortDesc: 'Desenvolvimento de portal exclusivo de membros com cupons dinâmicos, programa de vantagens e carteira de benefícios.',
       longDesc: 'Plataforma interativa desenvolvida para o programa de fidelidade Voogle Infinity Club com resgate de vouchers e parcerias estratégicas.',
       challenge: 'Criar uma experiência fluida no celular para milhares de associados acessarem seus descontos e vouchers sem travamentos.',
@@ -373,7 +369,6 @@ export default function PortfolioShowcase() {
       glowColor: 'magenta',
       url: 'infinityclub.voogle.com.br',
       vercelUrl: 'https://infinityclub.voogle.com.br',
-      githubUrl: 'https://github.com/metaimpulsobr/voogle-infinityclub',
       isOnline: true
     },
     {
@@ -387,12 +382,11 @@ export default function PortfolioShowcase() {
       shortDesc: 'Assistente inteligente baseado em IA treinado com a base de dados da empresa para atendimento, triagem e agendamento automático de clientes.',
       longDesc: 'Implementação de agente autônomo de Inteligência Artificial conectado ao WhatsApp e chat web corporativo para qualificar contatos e direcionar leads.',
       challenge: 'Atender centenas de mensagens diárias fora do horário comercial com respostas precisas e humanas.',
-      solution: 'Integramos modelos de linguagem natural (LLM) avançados configurados com a base de conhecimento da empresa e webhook direto com o CRM.',
-      techStack: ['OpenAI API', 'Node.js', 'WebSockets', 'WhatsApp Business API', 'Docker'],
+      solution: 'Configuramos um modelo de linguagem (LLM) com a base de conhecimento da empresa e integração com o CRM para registrar e direcionar cada atendimento.',
+      techStack: ['LLM', 'Base de conhecimento', 'Integração com CRM', 'Chat web e WhatsApp'],
       glowColor: 'purple',
       url: 'operator.voogle.com.br',
       vercelUrl: 'https://operator.voogle.com.br',
-      githubUrl: 'https://github.com/metaimpulsobr/voogle-operator',
       isOnline: true
     },
     {
@@ -401,18 +395,16 @@ export default function PortfolioShowcase() {
       title: 'E-Commerce & Plataforma Farmacêutica',
       category: 'websites',
       categoryLabel: 'WEBSITES & E-COMMERCE',
-      stat: '28% de Conversão',
-      statLabel: 'Compras Rápidas com Checkout no WhatsApp',
+      stat: 'Checkout no WhatsApp',
+      statLabel: 'Pedido em poucos toques, sem cadastro longo',
       shortDesc: 'Desenvolvimento de plataforma de vendas e e-commerce ultraveloz otimizado para compras no celular e disparo direto de pedidos.',
       longDesc: 'Construção de catálogo digital responsivo para farmacêutica e drugstore com sistema de carrinho inteligente e checkout simplificado.',
       challenge: 'Simplificar o processo de compra do cliente em pouquíssimos toques sem necessidade de cadastros extensos.',
       solution: 'Criamos um catálogo PWA leve com busca instantânea de produtos e envio automático de pedido pré-formatado via WhatsApp.',
       techStack: ['Next.js', 'React', 'Tailwind CSS', 'PWA', 'WhatsApp Checkout'],
       glowColor: 'cyan',
-      url: 'centralfarm.metaimpulso.com.br',
-      vercelUrl: 'https://centralfarm.metaimpulso.com.br',
-      githubUrl: 'https://github.com/metaimpulsobr/meta-impulso-Drogaria-Central-Farma-Drugstore-Sol-Nascente',
-      isOnline: true
+      url: 'centralfarma · catálogo PWA',
+      isOnline: false
     },
     {
       id: 7,
@@ -420,17 +412,16 @@ export default function PortfolioShowcase() {
       title: 'Core CRM Comercial & API Multi-tenant',
       category: 'sistemas',
       categoryLabel: 'SISTEMAS & AUTOMAÇÃO',
-      stat: '+300% de Escala',
-      statLabel: 'Infraestrutura de Gestão Multi-equipes',
+      stat: 'Multi-tenant',
+      statLabel: 'Gestão comercial para múltiplas equipes',
       shortDesc: 'Arquitetura e desenvolvimento de plataforma CRM comercial com APIs integradas e gestão centralizada de atendimentos.',
       longDesc: 'Sistema de engenharia comercial para orquestração de funis de vendas, telemetria de atendimento e integração de APIs de mensagem.',
       challenge: 'Unificar múltiplos canais de vendas em uma única interface centralizada.',
-      solution: 'Criamos a suíte Meta Core CRM com arquitetura modular altamente escalável e resposta em sub-segundos.',
+      solution: 'Criamos a suíte Meta Core CRM com arquitetura modular e multi-tenant, preparada para crescer com novas equipes e canais.',
       techStack: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Docker'],
       glowColor: 'magenta',
       url: 'meta-core-crm.vercel.app',
       vercelUrl: 'https://meta-core-crm.vercel.app',
-      githubUrl: 'https://github.com/metaimpulsobr/Meta-Core-CRM',
       isOnline: true
     },
     {
@@ -439,17 +430,16 @@ export default function PortfolioShowcase() {
       title: 'Portal de Apresentações & Propostas de Valor',
       category: 'websites',
       categoryLabel: 'WEBSITES & APRESENTAÇÕES',
-      stat: 'Alta Conversão',
-      statLabel: 'Apresentações Interativas de Alto Impacto Visual',
+      stat: 'Propostas interativas',
+      statLabel: 'Apresentações comerciais na web',
       shortDesc: 'Portal interativo web de propostas comerciais e apresentações corporativas com animações de alto desempenho.',
       longDesc: 'Desenvolvimento de portal de apresentações executivas para apresentação comercial interativa a clientes e investidores.',
       challenge: 'Transmitir autoridade e diferencial tecnológico em propostas comerciais de alto valor.',
-      solution: 'Estruturamos apresentações web interativas dinâmicas com métricas e visualizadores 3D.',
-      techStack: ['React', 'TypeScript', 'Framer Motion', 'Vite', 'Tailwind CSS'],
+      solution: 'Estruturamos apresentações web interativas, acessíveis por link, com navegação fluida e conteúdo comercial organizado.',
+      techStack: ['React', 'TypeScript', 'Vite', 'Animações web'],
       glowColor: 'cyan',
       url: 'meta-impulso-apresenta-o.vercel.app',
       vercelUrl: 'https://meta-impulso-apresenta-o.vercel.app',
-      githubUrl: 'https://github.com/metaimpulsobr/Meta-Impulso-Apresenta-o',
       isOnline: true
     }
   ]
@@ -476,13 +466,13 @@ export default function PortfolioShowcase() {
   }
 
   return (
-    <div id="portfolio" className="portfolio-section">
+    <div className="portfolio-section">
       <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
         <h2 className="title-lg">
-          Nossos <span className="text-gradient">Casos de Sucesso</span>
+          Projetos <span className="text-gradient">no ar</span>
         </h2>
         <p className="subtitle-main">
-          Conheça os sistemas corporativos, portais interativos e plataformas digitais reais que desenvolvemos e colocamos no ar.
+          Portais, CRMs, sistemas e agentes de IA que desenvolvemos para clientes e para a nossa própria operação.
         </p>
 
         {/* Category Filters */}
@@ -490,7 +480,7 @@ export default function PortfolioShowcase() {
           {categories.map((cat) => (
             <button
               key={cat.value}
-              onClick={() => setActiveFilter(cat.value as any)}
+              onClick={() => setActiveFilter(cat.value)}
               className={`portfolio-filter-btn ${activeFilter === cat.value ? 'active' : ''}`}
             >
               {cat.label}
@@ -527,6 +517,10 @@ export default function PortfolioShowcase() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.35, ease: 'easeOut' }}
                 onClick={() => openModal(item)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(item) } }}
+                role="button"
+                tabIndex={0}
+                aria-label={`Ver detalhes do projeto ${item.title}`}
                 className={`portfolio-card ${glowClass}`}
                 whileHover={{ 
                   y: -10,
@@ -542,7 +536,7 @@ export default function PortfolioShowcase() {
 
                 {/* HUD Header */}
                 <div className="card-telemetry" style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>CASE_PROTOCOL::0{item.id}</span>
+                  <span>Case 0{item.id}</span>
                   <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
                     {item.isOnline && (
                       <span style={{ fontSize: '0.6rem', background: 'rgba(0, 240, 255, 0.12)', color: 'var(--cyan-text)', border: '1px solid rgba(0, 240, 255, 0.3)', padding: '0.1rem 0.45rem', borderRadius: '100px', fontWeight: 'bold' }}>
@@ -681,17 +675,6 @@ export default function PortfolioShowcase() {
                       </a>
                     )}
 
-                    {selectedProject.githubUrl && (
-                      <a
-                        href={selectedProject.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-v16 btn-v16-secondary"
-                        style={{ width: '100%', textDecoration: 'none', justifyContent: 'center' }}
-                      >
-                        <Code size={18} /> CÓDIGO NO GITHUB <ExternalLink size={16} />
-                      </a>
-                    )}
 
                     <button 
                       onClick={handleModalCTA}

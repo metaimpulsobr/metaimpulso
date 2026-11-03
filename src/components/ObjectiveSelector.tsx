@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { Target, Layout, Fingerprint, Workflow, Cpu, Share2, Search, Code, ArrowUpRight } from 'lucide-react'
+import { whatsappLink } from '../content/site'
+import { track } from '../lib/analytics'
 
 interface Objective {
   title: string
@@ -8,6 +10,8 @@ interface Objective {
   tag: string
   color: 'magenta' | 'cyan' | 'purple'
   whatsappMsg: string
+  /** Dedicated SEO page; cards without one open WhatsApp */
+  href?: string
 }
 
 export default function ObjectiveSelector() {
@@ -17,6 +21,7 @@ export default function ObjectiveSelector() {
       desc: 'Campanhas de alta performance no Google Ads, Meta Ads e TikTok Ads estrategicamente configuradas para gerar leads qualificados e vendas recorrentes.',
       icon: <Target size={28} />,
       tag: 'TRAFEGO_PAGO',
+      href: '/trafego-pago-brasilia',
       color: 'magenta',
       whatsappMsg: 'Olá! Gostaria de alavancar minhas vendas com a Gestão de Tráfego Pago da Meta Impulso.'
     },
@@ -25,6 +30,7 @@ export default function ObjectiveSelector() {
       desc: 'Desenvolvimento de landing pages focadas em conversão, sites institucionais otimizados para SEO e e-commerces ultravelozes com design premium.',
       icon: <Layout size={28} />,
       tag: 'WEBSITES_LPS',
+      href: '/criacao-de-sites-brasilia',
       color: 'cyan',
       whatsappMsg: 'Olá! Gostaria de desenvolver um site ou landing page de alta conversão com a Meta Impulso.'
     },
@@ -41,6 +47,7 @@ export default function ObjectiveSelector() {
       desc: 'Integração de sistemas de CRM, funis de atendimento via WhatsApp e automações de processos operacionais para multiplicar a produtividade comercial.',
       icon: <Workflow size={28} />,
       tag: 'AUTOMACAO_CRM',
+      href: '/automacao-e-inteligencia-artificial',
       color: 'magenta',
       whatsappMsg: 'Olá! Gostaria de automatizar os processos de atendimento e vendas da minha empresa com a Meta Impulso.'
     },
@@ -49,6 +56,7 @@ export default function ObjectiveSelector() {
       desc: 'Implementação de assistentes virtuais inteligentes, triagem automática de leads e agentes autônomos de IA integrados à sua operação diária.',
       icon: <Cpu size={28} />,
       tag: 'IA_OPERACIONAL',
+      href: '/automacao-e-inteligencia-artificial',
       color: 'cyan',
       whatsappMsg: 'Olá! Tenho interesse em implementar soluções de Inteligência Artificial nas operações do meu negócio.'
     },
@@ -65,6 +73,7 @@ export default function ObjectiveSelector() {
       desc: 'Otimização técnica estrutural e de conteúdo para rankear seu site no topo do Google de forma orgânica, atraindo leads altamente qualificados sem custo de mídia.',
       icon: <Search size={28} />,
       tag: 'SEO_GOOGLE',
+      href: '/seo-brasilia',
       color: 'magenta',
       whatsappMsg: 'Olá! Quero otimizar meu posicionamento orgânico e rankear meu site no Google com a Meta Impulso.'
     },
@@ -73,15 +82,11 @@ export default function ObjectiveSelector() {
       desc: 'Construção de aplicações web customizadas, painéis administrativos (dashboards), e-commerces robustos e soluções digitais sob medida para a sua operação.',
       icon: <Code size={28} />,
       tag: 'SISTEMAS_WEB',
+      href: '/desenvolvimento-de-software-brasilia',
       color: 'cyan',
       whatsappMsg: 'Olá! Tenho a necessidade de desenvolver um software sob medida e gostaria de fazer um diagnóstico.'
     }
   ]
-
-  const handleSelect = (msg: string) => {
-    const encoded = encodeURIComponent(msg)
-    window.open(`https://wa.me/556195011614?text=${encoded}`, '_blank')
-  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -99,11 +104,12 @@ export default function ObjectiveSelector() {
   return (
     <div className="objective-selector-section">
       <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+        <span className="eyebrow">Serviços</span>
         <h2 className="title-lg" style={{ fontSize: 'clamp(1.6rem, 3.3vw, 3rem)' }}>
-          Qual <span className="text-gradient">combustível de escala</span> sua empresa <span style={{ whiteSpace: 'nowrap' }}>precisa hoje?</span>
+          Soluções de <span className="text-gradient">marketing e tecnologia</span> para vender mais
         </h2>
         <p className="subtitle-main" style={{ maxWidth: '650px' }}>
-          Selecione a órbita de crescimento desejada para iniciar a decolagem do seu negócio imediata.
+          Contrate um serviço específico ou combine tudo em um plano integrado. Cada entrega conversa com as outras.
         </p>
       </div>
 
@@ -127,10 +133,12 @@ export default function ObjectiveSelector() {
           }
 
           return (
-            <motion.div
+            <motion.a
               key={i}
               variants={itemVariants}
-              onClick={() => handleSelect(obj.whatsappMsg)}
+              href={obj.href ?? whatsappLink(obj.whatsappMsg)}
+              {...(obj.href ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+              onClick={() => { if (!obj.href) track('whatsapp_click', { origin: `servico_${obj.tag.toLowerCase()}` }) }}
               className={`objective-card ${borderGlowClass}`}
               whileHover={{ 
                 y: -10, 
@@ -141,12 +149,6 @@ export default function ObjectiveSelector() {
               }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
-              {/* Telemetry coordinate header */}
-              <div className="card-telemetry">
-                <span>SYS_OP::{obj.tag}</span>
-                <span className="dot" style={{ backgroundColor: iconColor }} />
-              </div>
-
               {/* Icon assembly */}
               <div className="objective-icon-wrapper" style={{ color: iconColor }}>
                 {obj.icon}
@@ -162,10 +164,10 @@ export default function ObjectiveSelector() {
 
               {/* Action indicator */}
               <div className="objective-action">
-                <span>Decolar Solução</span>
+                <span>{obj.href ? 'Conhecer o serviço' : 'Solicitar no WhatsApp'}</span>
                 <ArrowUpRight size={16} />
               </div>
-            </motion.div>
+            </motion.a>
           )
         })}
       </motion.div>

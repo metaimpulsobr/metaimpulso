@@ -1,73 +1,37 @@
-# React + TypeScript + Vite
+# Meta Impulso — site institucional
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Site da Meta Impulso (marketing digital e tecnologia, Brasília) em React 19 + TypeScript + Vite, com **pré-renderização estática** para SEO: cada rota é gerada no build como HTML completo (conteúdo, metatags, Open Graph e JSON-LD) e depois hidratada no navegador.
 
-Currently, two official plugins are available:
+## Comandos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev       # desenvolvimento (renderiza no cliente)
+npm run build     # build + pré-renderização + sitemap.xml em dist/
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Estrutura
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Caminho | Conteúdo |
+|---|---|
+| `src/content/site.ts` | Dados da empresa (NAP), planos, FAQ, processo — fonte única para UI e schema |
+| `src/content/services.ts` | Conteúdo das páginas de serviço (SEO) |
+| `src/seo/routes.ts` | Rotas, títulos, descrições, canonical e JSON-LD |
+| `src/pages/` | Home, página de serviço, privacidade e 404 |
+| `src/lib/analytics.ts` | dataLayer, carregamento do GTM após consentimento, UTMs |
+| `src/lib/leads.ts` | Envio dos leads do diagnóstico para webhook |
+| `src/entry-server.tsx` + `scripts/prerender.mjs` | Pré-renderização no build |
+| `vercel.json` | `cleanUrls`, cache dos assets e headers de segurança |
+| `docs/` | Checklist pós-deploy de SEO e playbook de prospecção |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Nova página de serviço
+
+Adicione um item em `SERVICES` (`src/content/services.ts`). A rota, o menu do rodapé, o sitemap e o schema são gerados automaticamente.
+
+## Variáveis de ambiente
+
+Veja `.env.example`. Cadastre na Vercel e faça redeploy:
+
+- `VITE_GTM_ID` — container do Google Tag Manager (carregado só após aceite de cookies).
+- `VITE_LEAD_WEBHOOK_URL` — webhook que recebe os leads do diagnóstico.
