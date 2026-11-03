@@ -39,7 +39,7 @@ export default function PrivacyPage() {
 
         <h2>6. Cookies</h2>
         <p>
-          Cookies de análise e marketing só são ativados se você clicar em “Aceitar” no aviso de cookies. Você pode mudar sua escolha limpando os dados do site no navegador.
+          Cookies de análise e marketing só são ativados se você clicar em “Aceitar” no aviso de cookies. Você pode mudar sua escolha limpando os dados do site no navegador. Também utilizamos medições de audiência anônimas e sem cookies (Vercel Web Analytics e Cloudflare Web Analytics), que contam visitas e páginas acessadas sem identificar o visitante.
         </p>
 
         <h2>7. Por quanto tempo guardamos</h2>
