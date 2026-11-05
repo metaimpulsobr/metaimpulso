@@ -67,11 +67,11 @@
 }
 
 .objective-card.card-glow-cyan:hover {
-  border-color: rgba(0, 240, 255, 0.4);
+  border-color: rgba(107, 205, 231, 0.4);
 }
 
 .objective-card.card-glow-purple:hover {
-  border-color: rgba(214, 73, 251, 0.4);
+  border-color: rgba(179, 82, 159, 0.4);
 }
 
 .objective-icon-wrapper {
@@ -176,7 +176,7 @@
   background: var(--gradient-meta);
   color: white;
   border-color: transparent;
-  box-shadow: 0 4px 20px rgba(214, 73, 251, 0.3);
+  box-shadow: 0 4px 20px rgba(179, 82, 159, 0.3);
 }
 
 .contato-grid {
@@ -223,14 +223,14 @@
 
 .contato-info-item:hover {
   transform: translateX(4px);
-  border-color: rgba(214, 73, 251, 0.3);
+  border-color: rgba(179, 82, 159, 0.3);
 }
 
 .contato-info-icon-box {
   width: 44px;
   height: 44px;
   border-radius: 0.85rem;
-  background: rgba(214, 73, 251, 0.08);
+  background: rgba(179, 82, 159, 0.08);
   color: var(--magenta-text);
   display: flex;
   align-items: center;
@@ -357,7 +357,7 @@
 
 .nav-scrolled {
   background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(214, 73, 251, 0.2);
+  border-color: rgba(179, 82, 159, 0.2);
   box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
   top: 12px;
 }
@@ -410,7 +410,7 @@
   text-decoration: none;
   flex-shrink: 0;
 }
-.logo-text { color: #0F172A; }
+.logo-text { color: var(--brand-violet); }
 
 /* ============================================================
    5. CTA BUTTONS
@@ -437,7 +437,7 @@
 .btn-v16-primary {
   background: var(--gradient-meta);
   color: white;
-  box-shadow: 0 0 30px rgba(214, 73, 251, 0.4);
+  box-shadow: 0 0 30px rgba(179, 82, 159, 0.4);
   position: relative;
   overflow: hidden;
 }
@@ -461,7 +461,7 @@
 
 .btn-v16-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 50px rgba(214, 73, 251, 0.65);
+  box-shadow: 0 0 50px rgba(179, 82, 159, 0.65);
 }
 
 .btn-v16-secondary {
@@ -578,9 +578,9 @@
 }
 
 .launch-track-fill {
-  background: linear-gradient(90deg, #FF9F43 0%, #D649FB 40%, #7B2EFF 65%, #6BCFFE 85%, #00F0FF 100%);
+  background: var(--gradient-brand);
   transform-origin: left center;
-  box-shadow: 0 0 12px rgba(214, 73, 251, 0.4);
+  box-shadow: 0 0 12px rgba(179, 82, 159, 0.4);
 }
 
 /* ── Each step column ── */
@@ -646,7 +646,7 @@
 }
 
 .launch-card:hover {
-  border-color: color-mix(in srgb, var(--step-color, #D649FB) 35%, transparent);
+  border-color: color-mix(in srgb, var(--step-color, #B3529F) 35%, transparent);
 }
 
 /* ── Big number ── */
@@ -761,7 +761,7 @@
 .nebula-magenta {
   width: clamp(300px, 40vw, 600px);
   height: clamp(300px, 40vw, 600px);
-  background: radial-gradient(circle, var(--magenta-neon) 0%, rgba(214, 73, 251, 0) 70%);
+  background: radial-gradient(circle, var(--magenta-neon) 0%, rgba(179, 82, 159, 0) 70%);
   top: -10%; left: 10%;
   animation: float-nebula-1 40s infinite alternate ease-in-out;
 }
@@ -769,7 +769,7 @@
 .nebula-blue {
   width: clamp(350px, 45vw, 700px);
   height: clamp(350px, 45vw, 700px);
-  background: radial-gradient(circle, var(--blue-electric) 0%, rgba(107, 207, 254, 0) 70%);
+  background: radial-gradient(circle, var(--blue-electric) 0%, rgba(107, 205, 231, 0) 70%);
   bottom: -15%; right: 5%;
   animation: float-nebula-2 50s infinite alternate ease-in-out;
 }
@@ -777,7 +777,7 @@
 .nebula-purple {
   width: clamp(250px, 35vw, 500px);
   height: clamp(250px, 35vw, 500px);
-  background: radial-gradient(circle, var(--purple-cosmic) 0%, rgba(123, 46, 255, 0) 70%);
+  background: radial-gradient(circle, var(--purple-cosmic) 0%, rgba(114, 91, 167, 0) 70%);
   top: 40%; left: 50%;
   transform: translate(-50%, -50%);
   animation: float-nebula-3 45s infinite alternate ease-in-out;
@@ -820,7 +820,7 @@
   top: -15%; left: -10%;
   width: clamp(300px, 50vw, 700px);
   height: clamp(300px, 50vw, 700px);
-  background: radial-gradient(circle, #FF9F43 0%, rgba(255, 159, 67, 0) 70%);
+  background: radial-gradient(circle, #B3529F 0%, rgba(179, 82, 159, 0) 70%);
   animation: vfx-blob-magenta 30s infinite linear;
 }
 
@@ -828,7 +828,7 @@
   top: 20%; right: -15%;
   width: clamp(250px, 45vw, 650px);
   height: clamp(250px, 45vw, 650px);
-  background: radial-gradient(circle, var(--magenta-neon) 0%, rgba(214, 73, 251, 0) 70%);
+  background: radial-gradient(circle, var(--magenta-neon) 0%, rgba(179, 82, 159, 0) 70%);
   animation: vfx-blob-blue 35s infinite linear;
 }
 
@@ -836,7 +836,7 @@
   bottom: -20%; left: 15%;
   width: clamp(300px, 55vw, 750px);
   height: clamp(300px, 55vw, 750px);
-  background: radial-gradient(circle, var(--purple-cosmic) 0%, rgba(123, 46, 255, 0) 70%);
+  background: radial-gradient(circle, var(--purple-cosmic) 0%, rgba(114, 91, 167, 0) 70%);
   animation: vfx-blob-purple 40s infinite linear;
 }
 
@@ -895,8 +895,8 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, rgba(0,240,255,0) 0%, rgba(0,240,255,0.45) 50%, rgba(0,240,255,0) 100%);
-  box-shadow: 0 0 15px rgba(0,240,255,0.75), 0 0 30px rgba(0,240,255,0.35);
+  background: linear-gradient(90deg, rgba(107, 205, 231,0) 0%, rgba(107, 205, 231,0.45) 50%, rgba(107, 205, 231,0) 100%);
+  box-shadow: 0 0 15px rgba(107, 205, 231,0.75), 0 0 30px rgba(107, 205, 231,0.35);
   z-index: 2999;
   pointer-events: none;
   animation: cyber-scan 9s infinite cubic-bezier(0.4, 0, 0.2, 1);
@@ -1176,14 +1176,14 @@
   box-shadow: 0 0 0 transparent;
 }
 .card-glow-cyan:hover {
-  border-color: rgba(0, 240, 255, 0.4);
+  border-color: rgba(107, 205, 231, 0.4);
 }
 
 .card-glow-purple {
   box-shadow: 0 0 0 transparent;
 }
 .card-glow-purple:hover {
-  border-color: rgba(214, 73, 251, 0.4);
+  border-color: rgba(179, 82, 159, 0.4);
 }
 
 /* Card Telemetry styling */
@@ -1337,13 +1337,13 @@
   align-items: center;
   gap: 0.75rem;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(214, 73, 251, 0.35);
+  box-shadow: 0 10px 30px rgba(179, 82, 159, 0.35);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .floating-capsule:hover {
   transform: translateY(-5px) scale(1.03);
-  box-shadow: 0 15px 40px rgba(214, 73, 251, 0.5);
+  box-shadow: 0 15px 40px rgba(179, 82, 159, 0.5);
 }
 
 .capsule-text {
@@ -1605,7 +1605,7 @@
 .contato-info-item:hover .contato-info-icon-box {
   background: var(--magenta-neon);
   color: white;
-  box-shadow: 0 0 15px rgba(214, 73, 251, 0.4);
+  box-shadow: 0 0 15px rgba(179, 82, 159, 0.4);
   transform: scale(1.05);
 }
 
@@ -1661,7 +1661,7 @@ a.contato-info-value:hover {
   color: white;
   border-color: transparent;
   transform: translateY(-5px) rotate(8deg);
-  box-shadow: 0 8px 20px rgba(214, 73, 251, 0.35);
+  box-shadow: 0 8px 20px rgba(179, 82, 159, 0.35);
 }
 
 /* QUIZ PANEL - CARD PRINCIPAL */
@@ -1693,7 +1693,7 @@ a.contato-info-value:hover {
   height: 100%;
   background: var(--gradient-meta);
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(214, 73, 251, 0.5);
+  box-shadow: 0 0 8px rgba(179, 82, 159, 0.5);
 }
 
 /* Alerta de erro */
@@ -1810,16 +1810,16 @@ a.contato-info-value:hover {
 }
 
 .quiz-option-card.active {
-  background: rgba(214, 73, 251, 0.04);
+  background: rgba(179, 82, 159, 0.04);
   border-color: var(--magenta-neon);
-  box-shadow: 0 8px 24px rgba(214, 73, 251, 0.08), inset 0 0 0 1px var(--magenta-neon);
+  box-shadow: 0 8px 24px rgba(179, 82, 159, 0.08), inset 0 0 0 1px var(--magenta-neon);
 }
 
 .quiz-option-icon {
   width: 42px;
   height: 42px;
   border-radius: 0.75rem;
-  background: rgba(214, 73, 251, 0.08);
+  background: rgba(179, 82, 159, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1880,7 +1880,7 @@ a.contato-info-value:hover {
 }
 
 .quiz-option-strip.active {
-  background: rgba(214, 73, 251, 0.04);
+  background: rgba(179, 82, 159, 0.04);
   border-color: var(--magenta-neon);
   box-shadow: inset 0 0 0 1px var(--magenta-neon);
 }
@@ -1983,12 +1983,12 @@ a.contato-info-value:hover {
 .quiz-btn-next {
   background: var(--gradient-meta);
   color: white;
-  box-shadow: 0 4px 15px rgba(214, 73, 251, 0.25);
+  box-shadow: 0 4px 15px rgba(179, 82, 159, 0.25);
 }
 
 .quiz-btn-next:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(214, 73, 251, 0.4);
+  box-shadow: 0 6px 20px rgba(179, 82, 159, 0.4);
 }
 
 /* Etapa de Carregamento Simulada */
@@ -2080,8 +2080,8 @@ a.contato-info-value:hover {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  background: rgba(0, 240, 255, 0.06);
-  border: 1px solid rgba(0, 240, 255, 0.15);
+  background: rgba(107, 205, 231, 0.06);
+  border: 1px solid rgba(107, 205, 231, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2557,7 +2557,7 @@ a.contato-info-value:hover {
   width: 12px;
   height: 12px;
   border-radius: 3px;
-  background: rgba(0, 240, 255, 0.08);
+  background: rgba(107, 205, 231, 0.08);
 }
 
 .sim-f-line {
@@ -2785,17 +2785,17 @@ a.contato-info-value:hover {
 /* GLOBO GLOWS PARA MAQUETES */
 .browser-mockup.glow-cyan {
   box-shadow: var(--glow-cyan);
-  border-color: rgba(0, 240, 255, 0.15);
+  border-color: rgba(107, 205, 231, 0.15);
 }
 
 .browser-mockup.glow-magenta {
   box-shadow: var(--glow-magenta);
-  border-color: rgba(214, 73, 251, 0.15);
+  border-color: rgba(179, 82, 159, 0.15);
 }
 
 .browser-mockup.glow-purple {
-  box-shadow: 0 8px 30px rgba(123, 46, 255, 0.12);
-  border-color: rgba(123, 46, 255, 0.15);
+  box-shadow: 0 8px 30px rgba(114, 91, 167, 0.12);
+  border-color: rgba(114, 91, 167, 0.15);
 }
 
 /* ============================================================
@@ -2859,20 +2859,20 @@ a.contato-info-value:hover {
 
 /* Glows compactos */
 .mini-card-visual.glow-cyan {
-  box-shadow: 0 4px 12px rgba(0, 240, 255, 0.03);
-  border-color: rgba(0, 240, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(107, 205, 231, 0.03);
+  border-color: rgba(107, 205, 231, 0.1);
   background: #F8FAFC;
 }
 
 .mini-card-visual.glow-magenta {
-  box-shadow: 0 4px 12px rgba(214, 73, 251, 0.03);
-  border-color: rgba(214, 73, 251, 0.1);
+  box-shadow: 0 4px 12px rgba(179, 82, 159, 0.03);
+  border-color: rgba(179, 82, 159, 0.1);
   background: #0F172A;
 }
 
 .mini-card-visual.glow-purple {
-  box-shadow: 0 4px 12px rgba(123, 46, 255, 0.03);
-  border-color: rgba(123, 46, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(114, 91, 167, 0.03);
+  border-color: rgba(114, 91, 167, 0.1);
   background: #090a0f;
 }
 
@@ -3069,7 +3069,7 @@ a.contato-info-value:hover {
 }
 
 .radar-circle {
-  border: 0.8px solid rgba(214, 73, 251, 0.15);
+  border: 0.8px solid rgba(179, 82, 159, 0.15);
   border-radius: 50%;
   position: absolute;
 }
@@ -3081,7 +3081,7 @@ a.contato-info-value:hover {
   position: absolute;
   width: 100px;
   height: 100px;
-  background: conic-gradient(from 0deg at 50% 50%, rgba(214, 73, 251, 0.15) 0%, transparent 40%);
+  background: conic-gradient(from 0deg at 50% 50%, rgba(179, 82, 159, 0.15) 0%, transparent 40%);
   border-radius: 50%;
   animation: sweep-radar-lines 4s infinite linear;
 }
@@ -3152,7 +3152,7 @@ a.contato-info-value:hover {
 
 .ai-node-connector {
   height: 1px;
-  background: rgba(123, 46, 255, 0.15);
+  background: rgba(114, 91, 167, 0.15);
   position: absolute;
   transform-origin: left center;
 }

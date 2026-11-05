@@ -10,7 +10,7 @@ export default function SiteFooter() {
             <a href="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem' }}>
               <img src="/logo-96.png" alt="" width="44" height="44" loading="lazy" />
               <span className="logo-text" style={{ fontSize: '1.4rem', fontWeight: 900, letterSpacing: '0.08em' }}>
-                META <span className="text-gradient">IMPULSO</span>
+                META IMPULSO
               </span>
             </a>
             <p>

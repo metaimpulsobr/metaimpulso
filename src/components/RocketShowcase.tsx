@@ -15,7 +15,7 @@ const particles = Array.from({ length: 12 }, (_, i) => ({
   x: (seeded(i + 1) - 0.5) * 60, // spread
   size: seeded(i + 101) * 5 + 2,
   duration: seeded(i + 201) * 1.0 + 0.6,
-  color: seeded(i + 301) > 0.55 ? '#00F0FF' : '#D649FB',
+  color: seeded(i + 301) > 0.55 ? '#6BCDE7' : '#B3529F',
 }))
 
 export default function RocketShowcase() {
@@ -78,8 +78,8 @@ export default function RocketShowcase() {
           width: '360px',
           height: '360px',
           background: isHovered 
-            ? 'radial-gradient(circle, rgba(255, 159, 67, 0.25) 0%, rgba(214, 73, 251, 0.15) 45%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(123, 46, 255, 0.18) 0%, rgba(0, 240, 255, 0.08) 50%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(179, 82, 159, 0.25) 0%, rgba(179, 82, 159, 0.15) 45%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(114, 91, 167, 0.18) 0%, rgba(107, 205, 231, 0.08) 50%, transparent 70%)',
           filter: 'blur(45px)',
           borderRadius: '50%',
           zIndex: 1,
@@ -107,8 +107,8 @@ export default function RocketShowcase() {
           cx="430"
           cy="240"
           r="4.5"
-          fill="#00F0FF"
-          style={{ filter: 'drop-shadow(0 0 6px #00F0FF)' }}
+          fill="#6BCDE7"
+          style={{ filter: 'drop-shadow(0 0 6px #6BCDE7)' }}
           animate={{
             cx: [250 + 180, 250, 250 - 180, 250, 250 + 180],
             cy: [240, 240 - 180, 240, 240 + 180, 240],
@@ -123,7 +123,7 @@ export default function RocketShowcase() {
         {/* Orbit Ring 2 (Dashed) */}
         <motion.circle 
           cx="250" cy="240" r="140" 
-          stroke="rgba(214, 73, 251, 0.08)" 
+          stroke="rgba(179, 82, 159, 0.08)" 
           strokeWidth="1.2" 
           fill="none" 
           strokeDasharray="30 15"
@@ -135,8 +135,8 @@ export default function RocketShowcase() {
           cx="390"
           cy="240"
           r="3.5"
-          fill="#D649FB"
-          style={{ filter: 'drop-shadow(0 0 6px #D649FB)' }}
+          fill="#B3529F"
+          style={{ filter: 'drop-shadow(0 0 6px #B3529F)' }}
           animate={{
             cx: [250 + 140, 250, 250 - 140, 250, 250 + 140],
             cy: [240, 240 + 140, 240, 240 - 140, 240],
@@ -307,8 +307,8 @@ export default function RocketShowcase() {
             />
 
             {/* 9. Interactive LED Telemetry Lights */}
-            <circle cx="100" cy="195" r="3.5" fill="#00F0FF" className="pulse-led" style={{ filter: 'drop-shadow(0 0 4px #00F0FF)' }} />
-            <circle cx="100" cy="212" r="3.5" fill="#D649FB" className="pulse-led" style={{ filter: 'drop-shadow(0 0 4px #D649FB)' }} />
+            <circle cx="100" cy="195" r="3.5" fill="#6BCDE7" className="pulse-led" style={{ filter: 'drop-shadow(0 0 4px #6BCDE7)' }} />
+            <circle cx="100" cy="212" r="3.5" fill="#B3529F" className="pulse-led" style={{ filter: 'drop-shadow(0 0 4px #B3529F)' }} />
 
             {/* 🌐 Gradients & Custom Colors Definitions */}
             <defs>
@@ -322,8 +322,8 @@ export default function RocketShowcase() {
 
               {/* Nose Cone Sunset Gradient */}
               <linearGradient id="noseGradient" x1="100" y1="30" x2="100" y2="90" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FF9F43" />
-                <stop offset="100%" stopColor="#D649FB" />
+                <stop offset="0%" stopColor="#B3529F" />
+                <stop offset="100%" stopColor="#B3529F" />
               </linearGradient>
 
               {/* Side Boosters Metal Gradient */}
@@ -334,48 +334,48 @@ export default function RocketShowcase() {
 
               {/* Fin Gradient */}
               <linearGradient id="finGradient" x1="100" y1="180" x2="100" y2="245" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#D649FB" />
-                <stop offset="100%" stopColor="#7B2EFF" />
+                <stop offset="0%" stopColor="#B3529F" />
+                <stop offset="100%" stopColor="#725BA7" />
               </linearGradient>
 
               {/* Border Glow Gradient */}
               <linearGradient id="borderGradient" x1="60" y1="130" x2="140" y2="130" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FF9F43" />
-                <stop offset="50%" stopColor="#D649FB" />
-                <stop offset="100%" stopColor="#00F0FF" />
+                <stop offset="0%" stopColor="#B3529F" />
+                <stop offset="50%" stopColor="#B3529F" />
+                <stop offset="100%" stopColor="#6BCDE7" />
               </linearGradient>
 
               {/* Cabin Glass Window Gradient */}
               <radialGradient id="windowGradient" cx="100" cy="110" r="22" fx="100" fy="110" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#00F0FF" />
+                <stop offset="0%" stopColor="#6BCDE7" />
                 <stop offset="70%" stopColor="#0284C7" />
                 <stop offset="100%" stopColor="#0F172A" />
               </radialGradient>
 
               {/* Small Telemetry Screen Window Gradient */}
               <radialGradient id="windowGradientSmall" cx="100" cy="168" r="10" fx="100" fy="168" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#D649FB" />
-                <stop offset="70%" stopColor="#7B2EFF" />
+                <stop offset="0%" stopColor="#B3529F" />
+                <stop offset="70%" stopColor="#725BA7" />
                 <stop offset="100%" stopColor="#020308" />
               </radialGradient>
 
               {/* Main Flame Sunset Plume */}
               <linearGradient id="outerFlameGradient" x1="100" y1="230" x2="100" y2="315" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FF9F43" stopOpacity="0.95" />
+                <stop offset="0%" stopColor="#B3529F" stopOpacity="0.95" />
                 <stop offset="40%" stopColor="#FF5252" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#7B2EFF" stopOpacity="0" />
+                <stop offset="100%" stopColor="#725BA7" stopOpacity="0" />
               </linearGradient>
 
               <linearGradient id="innerFlameGradient" x1="100" y1="230" x2="100" y2="295" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFEAA7" />
-                <stop offset="50%" stopColor="#FF9F43" />
+                <stop offset="0%" stopColor="#EAF8FC" />
+                <stop offset="50%" stopColor="#B3529F" />
                 <stop offset="100%" stopColor="#FF5252" stopOpacity="0" />
               </linearGradient>
 
               {/* Booster Lateral Flame Gradient */}
               <linearGradient id="boosterFlameGradient" x1="100" y1="225" x2="100" y2="270" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stopColor="#FFEAA7" />
-                <stop offset="60%" stopColor="#FF9F43" stopOpacity="0.85" />
+                <stop offset="0%" stopColor="#EAF8FC" />
+                <stop offset="60%" stopColor="#B3529F" stopOpacity="0.85" />
                 <stop offset="100%" stopColor="#FF5252" stopOpacity="0" />
               </linearGradient>
             </defs>

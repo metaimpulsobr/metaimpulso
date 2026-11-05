@@ -37,7 +37,7 @@ input:focus-visible {
   left: 0;
   right: 0;
   height: 4px;
-  background: var(--gradient-meta);
+  background: var(--gradient-brand);
   z-index: 3000;
   transform-origin: 0 50%;
 }
@@ -50,8 +50,8 @@ input:focus-visible {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--magenta-text);
-  background: rgba(214, 73, 251, 0.08);
-  border: 1px solid rgba(214, 73, 251, 0.2);
+  background: rgba(179, 82, 159, 0.08);
+  border: 1px solid rgba(179, 82, 159, 0.2);
   padding: 0.35rem 0.85rem;
   border-radius: 100px;
   margin-bottom: 1.25rem;
@@ -194,7 +194,7 @@ input:focus-visible {
   align-items: center;
   justify-content: center;
   color: var(--magenta-text);
-  background: rgba(214, 73, 251, 0.08);
+  background: rgba(179, 82, 159, 0.08);
   margin-bottom: 1.25rem;
 }
 
@@ -254,7 +254,7 @@ input:focus-visible {
   background:
     linear-gradient(#fff, #fff) padding-box,
     var(--gradient-meta) border-box;
-  box-shadow: 0 20px 50px rgba(214, 73, 251, 0.15);
+  box-shadow: 0 20px 50px rgba(179, 82, 159, 0.15);
 }
 
 .plan-badge {
@@ -313,7 +313,7 @@ input:focus-visible {
   padding: 0 1.5rem;
   transition: border-color 0.3s;
 }
-.faq-item[open] { border-color: rgba(214, 73, 251, 0.35); }
+.faq-item[open] { border-color: rgba(179, 82, 159, 0.35); }
 
 .faq-item summary {
   cursor: pointer;
@@ -356,7 +356,7 @@ input:focus-visible {
   background:
     linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)) padding-box,
     var(--gradient-meta) border-box;
-  box-shadow: 0 25px 60px rgba(123, 46, 255, 0.1);
+  box-shadow: 0 25px 60px rgba(114, 91, 167, 0.1);
 }
 .cta-banner .subtitle-main { margin-bottom: 2rem; }
 
@@ -578,6 +578,9 @@ ol.launch-timeline { list-style: none; }
   .hero-icons { display: none; }
 }
 
+/* Third-party tech logos stay in the background so the brand colors and the CTA lead */
+.hero-icons { filter: saturate(0.35); opacity: 0.7; }
+
 /* Service pages keep a left-aligned hero on every breakpoint */
 .service-hero .hero-subtitle { text-align: left; margin-left: 0; }
 .service-hero .eyebrow { display: inline-block; margin-left: 0; }
@@ -615,8 +618,6 @@ p, li, .subtitle-main, .hero-subtitle {
    15. MOBILE PERFORMANCE + CONTRAST (Lighthouse follow-up)
    ============================================================ */
 :root {
-  /* Darker teal so small badges/labels pass WCAG AA on tinted backgrounds */
-  --cyan-text: #006570;
 }
 
 .logo img {
@@ -677,9 +678,9 @@ p, li, .subtitle-main, .hero-subtitle {
 .oneteam-us {
   background:
     linear-gradient(#fff, #fff) padding-box,
-    var(--gradient-meta) border-box;
+    var(--gradient-brand) border-box;
   border: 2px solid transparent;
-  box-shadow: 0 18px 45px rgba(214, 73, 251, 0.14);
+  box-shadow: 0 18px 45px rgba(179, 82, 159, 0.14);
 }
 .oneteam-title {
   font-size: 1.25rem;
@@ -720,6 +721,43 @@ p, li, .subtitle-main, .hero-subtitle {
   color: var(--purple-text);
 }
 .oneteam-chain-item svg { color: var(--magenta-text); }
+
+/* --- Dark brand band (official dark application of the logo: #231F20) --- */
+.section-dark {
+  position: relative;
+  background:
+    radial-gradient(60% 50% at 10% 0%, rgba(179, 82, 159, 0.22) 0%, transparent 70%),
+    radial-gradient(50% 45% at 95% 100%, rgba(107, 205, 231, 0.16) 0%, transparent 70%),
+    var(--brand-ink);
+  color: #F8FAFC;
+}
+.section-dark .title-lg { color: #FFFFFF; }
+.section-dark .subtitle-main { color: rgba(248, 250, 252, 0.74); }
+.section-dark .text-gradient {
+  background: linear-gradient(120deg, #D78CC9 0%, #A795D6 50%, #6BCDE7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.section-dark .eyebrow {
+  color: #E6B3DB;
+  background: rgba(179, 82, 159, 0.16);
+  border-color: rgba(214, 140, 201, 0.35);
+}
+.section-dark .oneteam-usual {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.section-dark .oneteam-usual .oneteam-title,
+.section-dark .oneteam-usual li { color: rgba(248, 250, 252, 0.72); }
+.section-dark .oneteam-usual li svg { color: #F08AA0; }
+.section-dark .oneteam-us { box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35); }
+.section-dark .oneteam-us .text-gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.section-dark .oneteam-chain-item { color: #A9E4F3; }
+.section-dark .oneteam-chain-item svg { color: #D78CC9; }
 
 /* --- Diagnostic section (#contato): heading + offer on the left, quiz on the right;
        on phones the quiz comes right after the heading --- */
@@ -829,7 +867,7 @@ a.diag-direct-item:hover { color: var(--magenta-text); }
   padding: 1.1rem 1.25rem;
   background:
     linear-gradient(#fff, #fff) padding-box,
-    var(--gradient-meta) border-box;
+    var(--gradient-brand) border-box;
   border: 1.5px solid transparent;
   margin-bottom: 1.25rem;
 }

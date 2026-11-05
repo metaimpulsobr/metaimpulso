@@ -144,8 +144,8 @@ export default function ObjectiveSelector() {
                 y: -10, 
                 scale: 1.02,
                 boxShadow: obj.color === 'cyan' 
-                  ? '0 15px 40px rgba(0, 240, 255, 0.15), inset 0 0 10px rgba(0, 240, 255, 0.1)'
-                  : '0 15px 40px rgba(214, 73, 251, 0.15), inset 0 0 10px rgba(214, 73, 251, 0.1)'
+                  ? '0 15px 40px rgba(107, 205, 231, 0.15), inset 0 0 10px rgba(107, 205, 231, 0.1)'
+                  : '0 15px 40px rgba(179, 82, 159, 0.15), inset 0 0 10px rgba(179, 82, 159, 0.1)'
               }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >

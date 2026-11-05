@@ -35,7 +35,7 @@ export default function SiteHeader({ contactHref = '/#contato' }: { contactHref?
         >
           <img src="/logo-96.png" alt="" width="42" height="42" style={{ height: '42px', width: '42px', objectFit: 'contain' }} />
           <span className="logo-text" style={{ fontWeight: '900', fontSize: '1.35rem', letterSpacing: '0.1em' }}>
-            META <span className="text-gradient">IMPULSO</span>
+            META IMPULSO
           </span>
         </a>
 

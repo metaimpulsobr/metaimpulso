@@ -64,7 +64,7 @@ function MiniCardPreview({ url, glowColor }: { url: string; glowColor: 'magenta'
             </div>
             <div className="mini-chart-area">
               <svg viewBox="0 0 100 40" className="mini-svg-line-chart">
-                <path d="M0,40 Q15,10 30,25 T60,5 T90,20 L100,40 Z" fill="rgba(0, 240, 255, 0.05)" />
+                <path d="M0,40 Q15,10 30,25 T60,5 T90,20 L100,40 Z" fill="rgba(107, 205, 231, 0.05)" />
                 <motion.path
                   d="M0,40 Q15,10 30,25 T60,5 T90,20"
                   fill="none"
@@ -522,10 +522,10 @@ export default function PortfolioShowcase() {
                 whileHover={{ 
                   y: -10,
                   boxShadow: item.glowColor === 'cyan'
-                    ? '0 15px 40px rgba(0, 240, 255, 0.15), inset 0 0 10px rgba(0, 240, 255, 0.1)'
+                    ? '0 15px 40px rgba(107, 205, 231, 0.15), inset 0 0 10px rgba(107, 205, 231, 0.1)'
                     : item.glowColor === 'magenta'
-                    ? '0 15px 40px rgba(214, 73, 251, 0.15), inset 0 0 10px rgba(214, 73, 251, 0.1)'
-                    : '0 15px 40px rgba(123, 46, 255, 0.15), inset 0 0 10px rgba(123, 46, 255, 0.1)'
+                    ? '0 15px 40px rgba(179, 82, 159, 0.15), inset 0 0 10px rgba(179, 82, 159, 0.1)'
+                    : '0 15px 40px rgba(114, 91, 167, 0.15), inset 0 0 10px rgba(114, 91, 167, 0.1)'
                 }}
               >
                 {/* 🎨 MINI ANIMATED SCREEN */}
@@ -536,7 +536,7 @@ export default function PortfolioShowcase() {
                   <span>Case 0{item.id}</span>
                   <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
                     {item.isOnline && (
-                      <span style={{ fontSize: '0.6rem', background: 'rgba(0, 240, 255, 0.12)', color: 'var(--cyan-text)', border: '1px solid rgba(0, 240, 255, 0.3)', padding: '0.1rem 0.45rem', borderRadius: '100px', fontWeight: 'bold' }}>
+                      <span style={{ fontSize: '0.6rem', background: 'rgba(107, 205, 231, 0.12)', color: 'var(--cyan-text)', border: '1px solid rgba(107, 205, 231, 0.3)', padding: '0.1rem 0.45rem', borderRadius: '100px', fontWeight: 'bold' }}>
                         ● ONLINE
                       </span>
                     )}
@@ -676,7 +676,7 @@ export default function PortfolioShowcase() {
                     <button 
                       onClick={handleModalCTA}
                       className="btn-v16 btn-v16-secondary"
-                      style={{ width: '100%', background: 'rgba(214, 73, 251, 0.06)', borderColor: 'var(--magenta-neon)', justifyContent: 'center' }}
+                      style={{ width: '100%', background: 'rgba(179, 82, 159, 0.06)', borderColor: 'var(--magenta-neon)', justifyContent: 'center' }}
                     >
                       SOLICITAR PROJETO SIMILAR
                     </button>

@@ -84,7 +84,7 @@ export default function AboutLogoVfx() {
             width: '190px',
             height: '190px',
             borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(214, 73, 251, 0.4) 0%, rgba(255, 159, 67, 0.2) 50%, transparent 100%)',
+            background: 'radial-gradient(circle, rgba(179, 82, 159, 0.4) 0%, rgba(179, 82, 159, 0.2) 50%, transparent 100%)',
             filter: 'blur(30px)',
             zIndex: 1,
             pointerEvents: 'none'
@@ -101,9 +101,9 @@ export default function AboutLogoVfx() {
             width: '250px',
             height: '250px',
             borderRadius: '50%',
-            border: '1.5px dashed rgba(214, 73, 251, 0.2)',
-            borderTopColor: 'rgba(0, 240, 255, 0.45)',
-            borderBottomColor: 'rgba(214, 73, 251, 0.45)',
+            border: '1.5px dashed rgba(179, 82, 159, 0.2)',
+            borderTopColor: 'rgba(107, 205, 231, 0.45)',
+            borderBottomColor: 'rgba(179, 82, 159, 0.45)',
             zIndex: 2,
             transformStyle: 'preserve-3d',
             transform: 'translateZ(10px)'
@@ -120,8 +120,8 @@ export default function AboutLogoVfx() {
             height: '200px',
             borderRadius: '50%',
             border: '1px solid rgba(15, 23, 42, 0.04)',
-            borderLeftColor: 'rgba(0, 240, 255, 0.35)',
-            borderRightColor: 'rgba(214, 73, 251, 0.35)',
+            borderLeftColor: 'rgba(107, 205, 231, 0.35)',
+            borderRightColor: 'rgba(179, 82, 159, 0.35)',
             zIndex: 3,
             transformStyle: 'preserve-3d',
             transform: 'translateZ(20px)'
@@ -162,7 +162,7 @@ export default function AboutLogoVfx() {
             transformStyle: 'preserve-3d',
             transform: 'translateZ(40px)',
             filter: hovered 
-              ? 'drop-shadow(0 8px 16px rgba(214, 73, 251, 0.25)) drop-shadow(0 4px 8px rgba(0, 240, 255, 0.2))' 
+              ? 'drop-shadow(0 8px 16px rgba(179, 82, 159, 0.25)) drop-shadow(0 4px 8px rgba(107, 205, 231, 0.2))' 
               : 'drop-shadow(0 4px 8px rgba(15, 23, 42, 0.1))'
           }}
         >
@@ -191,8 +191,8 @@ export default function AboutLogoVfx() {
               left: 0,
               width: '100%',
               height: '3px',
-              background: 'linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.7), rgba(214, 73, 251, 0.7), transparent)',
-              boxShadow: '0 0 6px rgba(0, 240, 255, 0.4), 0 0 12px rgba(214, 73, 251, 0.4)',
+              background: 'linear-gradient(90deg, transparent, rgba(107, 205, 231, 0.7), rgba(179, 82, 159, 0.7), transparent)',
+              boxShadow: '0 0 6px rgba(107, 205, 231, 0.4), 0 0 12px rgba(179, 82, 159, 0.4)',
               zIndex: 6,
               pointerEvents: 'none'
             }}

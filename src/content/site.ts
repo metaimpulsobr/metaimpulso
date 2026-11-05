@@ -121,11 +121,11 @@ export const HOME_FAQ: Faq[] = [
 ]
 
 export const PROCESS_STEPS = [
-  { num: '01', title: 'Diagnóstico', desc: 'Analisamos seu mercado, sua presença digital, seus números e o processo comercial atual.', color: '#FF9F43' },
-  { num: '02', title: 'Estratégia', desc: 'Definimos posicionamento, oferta, canais, metas e o plano de execução priorizado.', color: '#D649FB' },
-  { num: '03', title: 'Implementação', desc: 'Colocamos no ar sites, campanhas, CRM, automações e integrações.', color: '#7B2EFF' },
-  { num: '04', title: 'Medição', desc: 'Acompanhamos custo por lead, conversão e vendas com rastreamento ponta a ponta.', color: '#0597D8' },
-  { num: '05', title: 'Escala', desc: 'Otimizamos o que funciona e ampliamos verba, canais e automações com segurança.', color: '#00B4CC' },
+  { num: '01', title: 'Diagnóstico', desc: 'Analisamos seu mercado, sua presença digital, seus números e o processo comercial atual.', color: '#B3529F' },
+  { num: '02', title: 'Estratégia', desc: 'Definimos posicionamento, oferta, canais, metas e o plano de execução priorizado.', color: '#935AA6' },
+  { num: '03', title: 'Implementação', desc: 'Colocamos no ar sites, campanhas, CRM, automações e integrações.', color: '#725BA7' },
+  { num: '04', title: 'Medição', desc: 'Acompanhamos custo por lead, conversão e vendas com rastreamento ponta a ponta.', color: '#4A7FC0' },
+  { num: '05', title: 'Escala', desc: 'Otimizamos o que funciona e ampliamos verba, canais e automações com segurança.', color: '#2E8FBF' },
 ]
 
 /** What the free diagnostic actually checks (offer made concrete). */
