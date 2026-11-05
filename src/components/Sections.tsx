@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import { Check, MessageCircle, Target } from 'lucide-react'
-import { PLANS, PROCESS_STEPS, whatsappLink, type Faq } from '../content/site'
+import { Check, X, ArrowRight, Quote } from 'lucide-react'
+import { PLANS, PROCESS_STEPS, ONE_TEAM, TESTIMONIALS, whatsappLink, type Faq } from '../content/site'
 import { track } from '../lib/analytics'
 
 export function ProcessSection() {
@@ -93,6 +93,13 @@ export function PlansSection() {
             </article>
           ))}
         </div>
+
+        <p className="plans-help">
+          Não sabe qual escolher?{' '}
+          <a href="#contato" onClick={() => track('cta_click', { origin: 'planos_ajuda' })}>
+            Faça o diagnóstico gratuito e indicamos o plano certo para o seu momento <ArrowRight size={16} aria-hidden="true" />
+          </a>
+        </p>
       </div>
     </section>
   )
@@ -119,29 +126,82 @@ export function FaqSection({ faq, title = 'Perguntas frequentes' }: { faq: Faq[]
   )
 }
 
-export function CtaBanner({ title, whatsappMsg, origin }: { title: string; whatsappMsg: string; origin: string }) {
+/** Core positioning: one company responsible for everything between the ad and the sale. */
+export function OneTeamSection() {
   return (
-    <section className="section-v16">
+    <section id="responsavel" className="section-v16">
       <div className="container">
-        <div className="cta-banner">
-          <h2 className="title-lg">{title}</h2>
+        <div className="section-head">
+          <span className="eyebrow">Um único responsável</span>
+          <h2 className="title-lg">
+            Sua empresa não precisa de cinco fornecedores. <span className="text-gradient">Precisa de um responsável pelo resultado.</span>
+          </h2>
           <p className="subtitle-main">
-            Agende um diagnóstico digital gratuito de 30 minutos. Você sai da conversa com as prioridades para o seu negócio, mesmo que não feche com a gente.
+            Na maioria das empresas, o anúncio é de uma agência, o site de um freelancer, o CRM de outra ferramenta e ninguém responde pela venda. Na Meta Impulso, tudo fica com a mesma equipe.
           </p>
-          <div className="cta-group" style={{ justifyContent: 'center' }}>
-            <a href="/#contato" className="btn-v16 btn-v16-primary">
-              Fazer diagnóstico gratuito <Target size={18} />
-            </a>
-            <a
-              href={whatsappLink(whatsappMsg)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-v16 btn-v16-secondary"
-              onClick={() => track('whatsapp_click', { origin })}
-            >
-              Falar no WhatsApp <MessageCircle size={18} />
-            </a>
+        </div>
+
+        <div className="oneteam-grid">
+          <div className="oneteam-card oneteam-usual">
+            <h3 className="oneteam-title">Como costuma ser</h3>
+            <ul>
+              {ONE_TEAM.usual.map((item) => (
+                <li key={item}><X size={18} aria-hidden="true" /> {item}</li>
+              ))}
+            </ul>
           </div>
+          <div className="oneteam-card oneteam-us">
+            <h3 className="oneteam-title">Com a <span className="text-gradient">Meta Impulso</span></h3>
+            <ul>
+              {ONE_TEAM.withUs.map((item) => (
+                <li key={item}><Check size={18} aria-hidden="true" /> {item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="oneteam-chain" aria-label="Tudo o que a Meta Impulso assume">
+          {ONE_TEAM.chain.map((step, i) => (
+            <span key={step} className="oneteam-chain-item">
+              {step}
+              {i < ONE_TEAM.chain.length - 1 && <ArrowRight size={14} aria-hidden="true" />}
+            </span>
+          ))}
+        </div>
+
+        <div className="cta-group" style={{ justifyContent: 'center', marginTop: '2.5rem' }}>
+          <a href="#contato" className="btn-v16 btn-v16-primary" onClick={() => track('cta_click', { origin: 'responsavel' })}>
+            Quero uma equipe cuidando de tudo <ArrowRight size={18} />
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/** Hidden until real, authorized testimonials are added to TESTIMONIALS. */
+export function TestimonialsSection() {
+  if (TESTIMONIALS.length === 0) return null
+  return (
+    <section id="depoimentos" className="section-v16">
+      <div className="container">
+        <div className="section-head">
+          <span className="eyebrow">Depoimentos</span>
+          <h2 className="title-lg">
+            Quem já trabalha <span className="text-gradient">com a gente</span>
+          </h2>
+        </div>
+        <div className="testimonial-grid">
+          {TESTIMONIALS.map((t) => (
+            <figure key={t.name + t.company} className="testimonial-card">
+              <Quote size={26} aria-hidden="true" className="testimonial-icon" />
+              <blockquote>{t.quote}</blockquote>
+              <figcaption>
+                <strong>{t.name}</strong>
+                <span>{t.role} · {t.company}</span>
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </div>
     </section>

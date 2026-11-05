@@ -22,6 +22,7 @@ export default function PrivacyPage() {
         <h2>3. Para que usamos</h2>
         <ul>
           <li>Responder à sua solicitação e preparar o diagnóstico digital;</li>
+          <li>Classificar internamente a solicitação (prioridade e plano indicado, a partir das respostas do formulário) para direcioná-la à pessoa certa da equipe;</li>
           <li>Entrar em contato com uma proposta comercial relacionada ao que você pediu;</li>
           <li>Medir o desempenho do site e das campanhas de divulgação;</li>
           <li>Cumprir obrigações legais.</li>

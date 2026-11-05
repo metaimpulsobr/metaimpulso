@@ -652,3 +652,310 @@ p, li, .subtitle-main, .hero-subtitle {
   }
   .vfx-orb { display: none; }
 }
+
+/* ============================================================
+   16. SALES MACHINE: one-team positioning, diagnostic offer,
+       qualified quiz result, testimonials, mobile CTA bar
+   ============================================================ */
+
+/* --- "Um único responsável" comparison --- */
+.oneteam-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.oneteam-card {
+  border-radius: 1.5rem;
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+.oneteam-usual {
+  background: rgba(15, 23, 42, 0.035);
+}
+.oneteam-us {
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    var(--gradient-meta) border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 18px 45px rgba(214, 73, 251, 0.14);
+}
+.oneteam-title {
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.oneteam-usual .oneteam-title { color: #475569; }
+.oneteam-card ul { list-style: none; display: grid; gap: 0.9rem; }
+.oneteam-card li {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.oneteam-card li svg { flex-shrink: 0; margin-top: 0.15rem; }
+.oneteam-usual li { color: #475569; }
+.oneteam-usual li svg { color: #b4233c; }
+.oneteam-us li { color: #0F172A; font-weight: 600; }
+.oneteam-us li svg { color: var(--cyan-text); }
+
+.oneteam-chain {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0.4rem;
+  margin: 2.25rem auto 0;
+  max-width: 900px;
+}
+.oneteam-chain-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--purple-text);
+}
+.oneteam-chain-item svg { color: var(--magenta-text); }
+
+/* --- Diagnostic section (#contato): heading + offer on the left, quiz on the right;
+       on phones the quiz comes right after the heading --- */
+.diag-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  grid-template-areas:
+    'head quiz'
+    'side quiz';
+  grid-template-rows: auto 1fr;
+  column-gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+.diag-head { grid-area: head; text-align: left; }
+.diag-quiz { grid-area: quiz; }
+.diag-side { grid-area: side; }
+.diag-head .contato-info-subtitle { margin-bottom: 1.75rem; }
+
+@media (max-width: 1024px) {
+  .diag-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'head' 'quiz' 'side';
+    grid-template-rows: auto;
+    row-gap: 2rem;
+  }
+  .diag-head { text-align: center; max-width: 700px; margin: 0 auto; }
+  .diag-head .contato-info-subtitle { margin-bottom: 0; }
+  .diag-quiz, .diag-side { width: 100%; max-width: 640px; margin: 0 auto; }
+}
+
+.diag-offer {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.25rem;
+  padding: 1.4rem 1.5rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+}
+.diag-offer-title,
+.quiz-plan-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--magenta-text);
+  margin-bottom: 0.9rem;
+}
+.diag-offer-list { list-style: none; display: grid; gap: 0.7rem; }
+.diag-offer-list li {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-tech);
+}
+.diag-offer-list li strong { color: #0F172A; }
+.diag-offer-list svg { color: var(--cyan-text); flex-shrink: 0; margin-top: 0.12rem; }
+.diag-offer-foot {
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed rgba(15, 23, 42, 0.12);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #0F172A;
+}
+.diag-direct {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  text-align: left;
+}
+.diag-direct-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0F172A;
+  width: fit-content;
+}
+.diag-direct-item svg { color: var(--magenta-text); }
+a.diag-direct-item:hover { color: var(--magenta-text); }
+
+/* --- Quiz additions --- */
+.quiz-options-grid { max-height: none; overflow: visible; }
+.quiz-hp {
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+.quiz-success-title { font-size: 1.55rem !important; margin-bottom: 0.75rem; }
+.quiz-success-step .success-icon-wrapper { width: 72px; height: 72px; margin-bottom: 1.25rem; }
+.quiz-success-note {
+  font-size: 0.85rem;
+  color: var(--text-tech);
+  margin-bottom: 1rem;
+}
+.quiz-plan-result {
+  width: 100%;
+  text-align: left;
+  border-radius: 1rem;
+  padding: 1.1rem 1.25rem;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    var(--gradient-meta) border-box;
+  border: 1.5px solid transparent;
+  margin-bottom: 1.25rem;
+}
+.quiz-plan-kicker { margin-bottom: 0.35rem; }
+.quiz-plan-name {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #0F172A;
+}
+.quiz-plan-headline { display: block; font-weight: 700; color: var(--purple-text); margin-bottom: 0.4rem; }
+.quiz-plan-result p { font-size: 0.85rem; color: var(--text-tech); line-height: 1.55; }
+.quiz-next-steps {
+  width: 100%;
+  text-align: left;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.86rem;
+  color: var(--text-tech);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+.quiz-next-steps strong { color: #0F172A; }
+.quiz-success-cta { width: 100%; padding: 1.05rem 1.25rem !important; font-size: 0.8rem !important; white-space: normal; }
+.quiz-success-cta + .quiz-success-cta { margin-top: 0.75rem; }
+.quiz-btn-restart {
+  margin-top: 1.1rem;
+  background: none;
+  border: none;
+  color: var(--text-tech);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* --- Plans helper --- */
+.plans-help {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--text-tech);
+  font-size: 0.95rem;
+}
+.plans-help a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 700;
+  color: var(--purple-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* --- Testimonials (rendered only when TESTIMONIALS has entries) --- */
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+.testimonial-card {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.8rem 1.6rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.testimonial-icon { color: var(--magenta-text); }
+.testimonial-card blockquote { font-size: 0.98rem; line-height: 1.65; color: #0F172A; }
+.testimonial-card figcaption { display: grid; gap: 0.15rem; margin-top: auto; font-size: 0.85rem; color: var(--text-tech); }
+.testimonial-card figcaption strong { color: #0F172A; font-size: 0.95rem; }
+
+
+/* --- Phone sticky CTA bar (replaces the floating WhatsApp bubble on phones) --- */
+.mobile-cta-bar { display: none; }
+
+@media (max-width: 768px) {
+  .floating-capsule { display: none; }
+
+  .mobile-cta-bar {
+    display: flex;
+    gap: 0.6rem;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 2500;
+    padding: 0.5rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.97);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.16);
+    transform: translateY(150%);
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.35s;
+  }
+  .mobile-cta-bar.is-visible {
+    transform: translateY(0);
+    visibility: visible;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .mobile-cta-main {
+    flex: 1;
+    padding: 0.85rem 1rem !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+    gap: 0.5rem !important;
+  }
+  .mobile-cta-whatsapp {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #25D366;
+    color: #fff;
+  }
+  /* Keeps the last lines of the footer clear of the bar */
+  .footer-section { padding-bottom: 96px; }
+
+  .oneteam-grid { grid-template-columns: 1fr; }
+}
+

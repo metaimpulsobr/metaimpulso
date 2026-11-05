@@ -21,9 +21,11 @@ npm run lint
 | `src/pages/` | Home, página de serviço, privacidade e 404 |
 | `src/lib/analytics.ts` | dataLayer, carregamento do GTM após consentimento, UTMs |
 | `src/lib/leads.ts` | Envio dos leads do diagnóstico para webhook |
+| `src/lib/leadScore.ts` | Opções do quiz, lead score, prioridade e plano indicado |
+| `src/components/DiagnosticSection.tsx` | Bloco de conversão (#contato) usado na home e nas páginas de serviço |
 | `src/entry-server.tsx` + `scripts/prerender.mjs` | Pré-renderização no build |
 | `vercel.json` | `cleanUrls`, cache dos assets e headers de segurança |
-| `docs/` | Checklist pós-deploy de SEO e playbook de prospecção |
+| `docs/` | Máquina de vendas (funil, qualificação, roteamento), checklist pós-deploy de SEO e playbook de prospecção |
 
 ### Nova página de serviço
 
@@ -34,4 +36,4 @@ Adicione um item em `SERVICES` (`src/content/services.ts`). A rota, o menu do ro
 Veja `.env.example`. Cadastre na Vercel e faça redeploy:
 
 - `VITE_GTM_ID` — container do Google Tag Manager (carregado só após aceite de cookies).
-- `VITE_LEAD_WEBHOOK_URL` — webhook que recebe os leads do diagnóstico.
+- `VITE_LEAD_WEBHOOK_URL` — webhook que recebe os leads do diagnóstico (campos em `docs/MAQUINA-DE-VENDAS.md`). Sem ele, o quiz envia o lead pelo WhatsApp.

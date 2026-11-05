@@ -20,6 +20,8 @@ export const SITE = {
   linkedin: 'https://linkedin.com/company/metaimpulso',
   ogImage: 'https://www.metaimpulso.com.br/og-image.png',
   logo: 'https://www.metaimpulso.com.br/logo.png',
+  /** Online scheduling link (Google Agenda, Calendly...). When set, the quiz offers "escolher horário". */
+  bookingUrl: '' as string,
 } as const
 
 export const DEFAULT_WHATSAPP_MSG =
@@ -93,6 +95,10 @@ export const HOME_FAQ: Faq[] = [
     a: 'Somos uma empresa de marketing digital e tecnologia de Brasília. Planejamos e executamos tráfego pago (Google Ads e Meta Ads), criamos sites e landing pages, implantamos CRM, automações e agentes de IA e desenvolvemos software sob medida. Tudo integrado para que o investimento em marketing vire venda.',
   },
   {
+    q: 'A Meta Impulso cuida de tudo ou só de uma parte?',
+    a: 'Você escolhe. Podemos assumir uma frente específica, como o tráfego pago ou o site, ou toda a estrutura: estratégia, marca, site, anúncios, CRM, automação, agentes de IA e software. No modelo completo, uma única equipe responde pelo resultado, do anúncio até a venda, e você deixa de coordenar vários fornecedores.',
+  },
+  {
     q: 'Vocês atendem apenas empresas de Brasília?',
     a: 'Não. Nossa sede é em Brasília (DF) e atendemos empresas de todo o Brasil. Reuniões, implantação e acompanhamento podem ser feitos de forma remota ou presencial no DF.',
   },
@@ -121,3 +127,44 @@ export const PROCESS_STEPS = [
   { num: '04', title: 'Medição', desc: 'Acompanhamos custo por lead, conversão e vendas com rastreamento ponta a ponta.', color: '#0597D8' },
   { num: '05', title: 'Escala', desc: 'Otimizamos o que funciona e ampliamos verba, canais e automações com segurança.', color: '#00B4CC' },
 ]
+
+/** What the free diagnostic actually checks (offer made concrete). */
+export const DIAGNOSTIC_DELIVERABLES = [
+  { title: 'Site no celular', desc: 'velocidade, clareza da oferta e o caminho até o contato.' },
+  { title: 'Rastreamento', desc: 'se GA4, Meta Pixel e conversões medem lead e venda de verdade.' },
+  { title: 'Google', desc: 'perfil da empresa, avaliações e presença nas buscas locais.' },
+  { title: 'Anúncios', desc: 'para onde levam e onde a verba pode estar sendo desperdiçada.' },
+  { title: 'Atendimento', desc: 'tempo de resposta e follow-up no WhatsApp e no CRM.' },
+]
+
+/** "One team responsible for everything": the core positioning argument. */
+export const ONE_TEAM = {
+  usual: [
+    'Uma agência para os anúncios e outro fornecedor para o site',
+    'CRM e automações montados por terceiros, sem integração',
+    'Cada um mede uma coisa e ninguém mede a venda',
+    'Quando o resultado não vem, um culpa o outro',
+    'Você vira o gerente de projeto de todo mundo',
+  ],
+  withUs: [
+    'Uma equipe cuida de estratégia, marca, site, anúncios, CRM, automação e IA',
+    'Tudo integrado: o lead do anúncio cai no CRM e recebe resposta na hora',
+    'Custo por lead e por venda de cada canal em um só relatório',
+    'Um único responsável pelo resultado, do clique ao fechamento',
+    'Você decide as prioridades; nós executamos e prestamos contas',
+  ],
+  chain: ['Estratégia', 'Marca', 'Site', 'Tráfego', 'CRM', 'Automação', 'IA', 'Dados'],
+}
+
+export interface Testimonial {
+  quote: string
+  name: string
+  role: string
+  company: string
+}
+
+/**
+ * Real client testimonials only, with written authorization to publish.
+ * The section stays hidden while this list is empty.
+ */
+export const TESTIMONIALS: Testimonial[] = []

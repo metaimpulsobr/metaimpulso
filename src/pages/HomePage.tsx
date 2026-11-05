@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion'
-import { Target, MessageCircle, Phone, Mail, MapPin, Clock, Clock3, MonitorSmartphone, BarChart3, CheckCircle2 } from 'lucide-react'
+import { Target, MessageCircle, Clock3, MonitorSmartphone, BarChart3, CheckCircle2 } from 'lucide-react'
 import { HeroTechIcons } from '../components/SpaceBackground'
 import RocketShowcase from '../components/RocketShowcase'
 import ObjectiveSelector from '../components/ObjectiveSelector'
 import AboutLogoVfx from '../components/AboutLogoVfx'
-import DiagnosticQuiz from '../components/DiagnosticQuiz'
+import DiagnosticSection from '../components/DiagnosticSection'
 import PortfolioShowcase from '../components/PortfolioShowcase'
-import { ProcessSection, PlansSection, FaqSection } from '../components/Sections'
-import { SITE, HOME_FAQ, whatsappLink } from '../content/site'
+import { ProcessSection, PlansSection, FaqSection, OneTeamSection, TestimonialsSection } from '../components/Sections'
+import { HOME_FAQ, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
 
 const TECH = ['GOOGLE ADS', 'META ADS', 'GA4', 'REACT', 'NEXT.JS', 'TYPESCRIPT', 'NODE.JS', 'SUPABASE', 'WHATSAPP', 'IA']
@@ -51,12 +51,12 @@ export default function HomePage() {
         <div className="container">
           <div className="hero-split-grid">
             <div className="hero-text-col">
-              <span className="eyebrow">Marketing digital e tecnologia · Brasília - DF</span>
+              <span className="eyebrow">Marketing, tecnologia e vendas · Brasília - DF</span>
               <h1 className="title-lg hero-title">
                 Agência de marketing digital em Brasília que transforma <span className="text-gradient">cliques em clientes</span>
               </h1>
               <p className="hero-subtitle">
-                Tráfego pago no Google e no Meta Ads, sites que convertem, CRM, automação de WhatsApp e agentes de IA, construídos pela mesma equipe e medidos do anúncio até a venda.
+                Uma única empresa responsável por tudo o que gera venda: estratégia, tráfego pago no Google e no Meta Ads, sites, CRM, automação de WhatsApp e agentes de IA, medidos do anúncio até o fechamento.
               </p>
 
               <div className="cta-group" style={{ justifyContent: 'flex-start' }}>
@@ -75,9 +75,9 @@ export default function HomePage() {
               </div>
 
               <ul className="hero-trust">
+                <li><CheckCircle2 size={16} aria-hidden="true" /> Um só time do anúncio à venda, sem jogo de empurra</li>
+                <li><CheckCircle2 size={16} aria-hidden="true" /> Diagnóstico gratuito de 30 minutos, sem compromisso</li>
                 <li><CheckCircle2 size={16} aria-hidden="true" /> Atendimento em Brasília e em todo o Brasil</li>
-                <li><CheckCircle2 size={16} aria-hidden="true" /> Marketing e engenharia de software no mesmo time</li>
-                <li><CheckCircle2 size={16} aria-hidden="true" /> Diagnóstico estratégico gratuito de 30 minutos</li>
               </ul>
             </div>
 
@@ -126,6 +126,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <OneTeamSection />
 
       {/* SOBRE / DIFERENCIAL */}
       <section id="sobre" className="section-v16">
@@ -181,69 +183,13 @@ export default function HomePage() {
         </div>
       </section>
 
+      <TestimonialsSection />
+
       <ProcessSection />
 
       <FaqSection faq={HOME_FAQ} />
 
-      {/* CONTATO + DIAGNÓSTICO */}
-      <section id="contato" className="section-v16">
-        <div className="container">
-          <div className="contato-grid">
-            <div className="contato-info-col">
-              <span className="eyebrow">Diagnóstico digital gratuito</span>
-              <h2 className="title-lg contato-info-title">
-                Vamos encontrar onde sua empresa está <span className="text-gradient">perdendo vendas?</span>
-              </h2>
-              <p className="contato-info-subtitle" style={{ maxWidth: '480px' }}>
-                Responda 5 perguntas rápidas. Nossa equipe analisa seu cenário e agenda uma conversa estratégica de 30 minutos, sem compromisso.
-              </p>
-
-              <div className="contato-info-list">
-                <div className="contato-info-item">
-                  <div className="contato-info-icon-box"><Phone size={20} /></div>
-                  <div className="contato-info-details">
-                    <span className="contato-info-label">WhatsApp comercial</span>
-                    <a
-                      href={whatsappLink()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="contato-info-value"
-                      onClick={() => track('whatsapp_click', { origin: 'contato' })}
-                    >
-                      {SITE.phoneDisplay}
-                    </a>
-                  </div>
-                </div>
-                <div className="contato-info-item">
-                  <div className="contato-info-icon-box"><Mail size={20} /></div>
-                  <div className="contato-info-details">
-                    <span className="contato-info-label">E-mail</span>
-                    <a href={`mailto:${SITE.email}`} className="contato-info-value">{SITE.email}</a>
-                  </div>
-                </div>
-                <div className="contato-info-item">
-                  <div className="contato-info-icon-box"><MapPin size={20} /></div>
-                  <div className="contato-info-details">
-                    <span className="contato-info-label">Endereço</span>
-                    <span className="contato-info-value">{SITE.address.street}, {SITE.address.district} - {SITE.address.city}, {SITE.address.region}</span>
-                  </div>
-                </div>
-                <div className="contato-info-item">
-                  <div className="contato-info-icon-box"><Clock size={20} /></div>
-                  <div className="contato-info-details">
-                    <span className="contato-info-label">Horário de atendimento</span>
-                    <span className="contato-info-value">{SITE.hoursLabel}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="contato-quiz-col">
-              <DiagnosticQuiz />
-            </div>
-          </div>
-        </div>
-      </section>
+      <DiagnosticSection location="home" />
     </main>
   )
 }

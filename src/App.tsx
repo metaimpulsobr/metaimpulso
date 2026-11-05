@@ -5,6 +5,7 @@ import SpaceBackground from './components/SpaceBackground'
 import SiteHeader from './components/SiteHeader'
 import SiteFooter from './components/SiteFooter'
 import ConsentBanner from './components/ConsentBanner'
+import MobileCtaBar from './components/MobileCtaBar'
 import HomePage from './pages/HomePage'
 import ServicePage from './pages/ServicePage'
 import PrivacyPage from './pages/PrivacyPage'
@@ -17,6 +18,8 @@ import './site.css'
 
 function App({ path }: { path: string }) {
   const route = resolveRoute(path)
+  // Home and service pages embed the diagnostic (#contato); other pages link back to the home one.
+  const contactHref = route.kind === 'home' || route.kind === 'service' ? '#contato' : '/#contato'
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
@@ -32,7 +35,7 @@ function App({ path }: { path: string }) {
         <motion.div className="progress-bar" style={{ scaleX }} aria-hidden="true" />
 
         <SpaceBackground />
-        <SiteHeader />
+        <SiteHeader contactHref={contactHref} />
 
         {route.kind === 'home' && <HomePage />}
         {route.kind === 'service' && route.service && <ServicePage service={route.service} />}
@@ -51,6 +54,8 @@ function App({ path }: { path: string }) {
           <MessageCircle size={20} color="white" />
           <span className="capsule-text">Falar no WhatsApp</span>
         </a>
+
+        <MobileCtaBar contactHref={contactHref} />
 
         <SiteFooter />
         <ConsentBanner />

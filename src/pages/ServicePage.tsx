@@ -3,7 +3,8 @@ import { Target, MessageCircle, AlertCircle, CheckCircle2, ArrowRight } from 'lu
 import type { ServiceContent } from '../content/services'
 import { SERVICES } from '../content/services'
 import { whatsappLink } from '../content/site'
-import { ProcessSection, FaqSection, CtaBanner } from '../components/Sections'
+import { ProcessSection, FaqSection } from '../components/Sections'
+import DiagnosticSection from '../components/DiagnosticSection'
 import { track } from '../lib/analytics'
 
 export default function ServicePage({ service }: { service: ServiceContent }) {
@@ -20,7 +21,7 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
           <h1 className="title-lg service-title">{service.h1}</h1>
           <p className="hero-subtitle service-intro">{service.intro}</p>
           <div className="cta-group" style={{ justifyContent: 'flex-start' }}>
-            <a href="/#contato" className="btn-v16 btn-v16-primary" onClick={() => track('cta_click', { origin: `${service.slug}_hero` })}>
+            <a href="#contato" className="btn-v16 btn-v16-primary" onClick={() => track('cta_click', { origin: `${service.slug}_hero` })}>
               Quero um diagnóstico gratuito <Target size={20} />
             </a>
             <a
@@ -96,7 +97,12 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
 
       <FaqSection faq={service.faq} title={`Dúvidas sobre ${service.navLabel.toLowerCase()}`} />
 
-      <CtaBanner title={service.ctaTitle} whatsappMsg={service.whatsappMsg} origin={`${service.slug}_cta`} />
+      <DiagnosticSection
+        location={service.slug}
+        initialObjective={service.objectiveId}
+        title={service.ctaTitle}
+        whatsappMsg={service.whatsappMsg}
+      />
 
       <section className="section-v16 section-compact">
         <div className="container">

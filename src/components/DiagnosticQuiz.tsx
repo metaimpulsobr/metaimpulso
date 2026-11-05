@@ -1,103 +1,146 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Target, Layout, Workflow, Cpu, HelpCircle, User, Phone, Mail, ArrowLeft, ArrowRight, MessageCircle, CheckCircle2 } from 'lucide-react'
-import { submitLead } from '../lib/leads'
+import { Target, Layout, Workflow, Cpu, Code, Rocket, User, Phone, Mail, ArrowLeft, ArrowRight, MessageCircle, CheckCircle2, CalendarCheck } from 'lucide-react'
+import { submitLead, HAS_LEAD_WEBHOOK } from '../lib/leads'
 import { track } from '../lib/analytics'
-import { whatsappLink } from '../content/site'
+import {
+  OBJECTIVE_OPTIONS,
+  REVENUE_OPTIONS,
+  BUDGET_OPTIONS,
+  qualifyLead,
+  formatPhone,
+  type ObjectiveId,
+  type RevenueId,
+  type BudgetId,
+} from '../lib/leadScore'
+import { SITE, whatsappLink } from '../content/site'
 
 interface QuizData {
   companyName: string
-  objective: string
-  revenue: string
-  budget: string
+  objective: ObjectiveId | ''
+  revenue: RevenueId | ''
+  budget: BudgetId | ''
   userName: string
   userPhone: string
   userEmail: string
 }
 
-const INITIAL_DATA: QuizData = {
-  companyName: '',
-  objective: '',
-  revenue: '',
-  budget: '',
-  userName: '',
-  userPhone: '',
-  userEmail: '',
+const OBJECTIVE_ICONS: Record<ObjectiveId, React.ReactNode> = {
+  completo: <Rocket size={22} />,
+  trafego: <Target size={22} />,
+  site: <Layout size={22} />,
+  crm: <Workflow size={22} />,
+  ia: <Cpu size={22} />,
+  software: <Code size={22} />,
 }
 
-export default function DiagnosticQuiz() {
+const TOTAL_STEPS = 5
+
+const labelOf = (list: { id: string; label: string }[], id: string) => list.find((o) => o.id === id)?.label ?? ''
+
+interface DiagnosticQuizProps {
+  /** "home" or the service page slug; sent with the lead and the analytics events */
+  location?: string
+  /** Pre-selects the objective on service pages */
+  initialObjective?: ObjectiveId
+}
+
+export default function DiagnosticQuiz({ location = 'home', initialObjective }: DiagnosticQuizProps) {
+  const initialData: QuizData = {
+    companyName: '',
+    objective: initialObjective ?? '',
+    revenue: '',
+    budget: '',
+    userName: '',
+    userPhone: '',
+    userEmail: '',
+  }
   const [step, setStep] = useState(1)
-  const [formData, setFormData] = useState<QuizData>(INITIAL_DATA)
+  const [formData, setFormData] = useState<QuizData>(initialData)
   const [consent, setConsent] = useState(false)
+  const [honeypot, setHoneypot] = useState('')
   const [direction, setDirection] = useState(1) // 1 = forward, -1 = backward
   const [error, setError] = useState('')
 
-  const objectives = [
-    { label: 'Gestão de Tráfego Pago', icon: <Target size={22} />, desc: 'Aumentar vendas, leads e visibilidade no Google/Meta.' },
-    { label: 'Novo Website / Landing Page', icon: <Layout size={22} />, desc: 'Páginas velozes de alta conversão e design premium.' },
-    { label: 'Automação Comercial / CRM', icon: <Workflow size={22} />, desc: 'Otimizar o funil de atendimento e processos.' },
-    { label: 'Soluções de Inteligência Artificial', icon: <Cpu size={22} />, desc: 'Integrar agentes inteligentes e chatbots à operação.' },
-    { label: 'Outro / Solução Customizada', icon: <HelpCircle size={22} />, desc: 'Desenvolvimento de software ou outras estratégias.' }
-  ]
+  const qualification =
+    formData.objective && formData.revenue && formData.budget
+      ? qualifyLead(formData.objective, formData.revenue, formData.budget)
+      : null
 
-  const revenues = [
-    'Até R$ 10k / mês',
-    'R$ 10k a R$ 50k / mês',
-    'R$ 50k a R$ 200k / mês',
-    'Acima de R$ 200k / mês'
-  ]
+  const whatsappSummary = () => {
+    const plan = qualification ? `\n🧭 *Plano indicado na pré-análise:* ${qualification.plan.name}` : ''
+    return `*DIAGNÓSTICO DIGITAL SOLICITADO PELO SITE*
 
-  const budgets = [
-    'Até R$ 1.500 / mês',
-    'R$ 1.500 a R$ 5.000 / mês',
-    'R$ 5.000 a R$ 15.000 / mês',
-    'Acima de R$ 15.000 / mês'
-  ]
+🏢 *Empresa:* ${formData.companyName}
+🎯 *Objetivo:* ${labelOf(OBJECTIVE_OPTIONS, formData.objective)}
+📊 *Faturamento:* ${labelOf(REVENUE_OPTIONS, formData.revenue)}
+💰 *Investimento mensal:* ${labelOf(BUDGET_OPTIONS, formData.budget)}${plan}
+
+👤 *Contato:* ${formData.userName}
+✉️ *E-mail:* ${formData.userEmail}
+📱 *WhatsApp:* ${formData.userPhone}
+
+_Enviado pelo site da Meta Impulso_`
+  }
+
+  const openWhatsApp = (origin: string) => {
+    track('whatsapp_click', { origin })
+    window.open(whatsappLink(whatsappSummary()), '_blank', 'noopener,noreferrer')
+  }
+
+  const validate = (): string => {
+    if (step === 1 && !formData.companyName.trim()) return 'Por favor, informe o nome da sua empresa.'
+    if (step === 2 && !formData.objective) return 'Por favor, selecione um objetivo.'
+    if (step === 3 && !formData.revenue) return 'Por favor, selecione uma faixa de faturamento.'
+    if (step === 4 && !formData.budget) return 'Por favor, selecione o investimento disponível.'
+    if (step === 5) {
+      if (!formData.userName.trim()) return 'Por favor, informe seu nome.'
+      if (formData.userPhone.replace(/\D/g, '').length < 10) return 'Informe um WhatsApp válido, com DDD.'
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail.trim())) return 'Por favor, informe um e-mail válido.'
+      if (!consent) return 'Para continuar, autorize o contato e o uso dos dados conforme a política de privacidade.'
+    }
+    return ''
+  }
 
   const handleNext = () => {
-    setError('')
-    if (step === 1 && !formData.companyName.trim()) {
-      setError('Por favor, informe o nome da sua empresa.')
-      return
-    }
-    if (step === 2 && !formData.objective) {
-      setError('Por favor, selecione um objetivo.')
-      return
-    }
-    if (step === 3 && !formData.revenue) {
-      setError('Por favor, selecione uma faixa de faturamento.')
-      return
-    }
-    if (step === 4 && !formData.budget) {
-      setError('Por favor, selecione o orçamento disponível.')
-      return
-    }
-    if (step === 5) {
-      if (!formData.userName.trim()) {
-        setError('Por favor, informe seu nome.')
-        return
-      }
-      if (!formData.userPhone.trim()) {
-        setError('Por favor, informe seu WhatsApp.')
-        return
-      }
-      if (formData.userPhone.replace(/\D/g, '').length < 10) {
-        setError('Informe um WhatsApp válido, com DDD.')
-        return
-      }
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.userEmail.trim())) {
-        setError('Por favor, informe um e-mail válido.')
-        return
-      }
-      if (!consent) {
-        setError('Para continuar, autorize o contato e o uso dos dados conforme a política de privacidade.')
-        return
-      }
-      submitLead(formData)
-      track('generate_lead', { form: 'diagnostico', objective: formData.objective, revenue: formData.revenue, budget: formData.budget })
-    }
-    if (step === 1) track('quiz_start', { form: 'diagnostico' })
+    const message = validate()
+    setError(message)
+    if (message) return
 
+    if (step === 1) track('quiz_start', { form: 'diagnostico', location })
+
+    // Bots fill the hidden field: show the success screen but send nothing.
+    if (step === TOTAL_STEPS && !honeypot && qualification) {
+      submitLead({
+        companyName: formData.companyName.trim(),
+        objective: labelOf(OBJECTIVE_OPTIONS, formData.objective),
+        revenue: labelOf(REVENUE_OPTIONS, formData.revenue),
+        budget: labelOf(BUDGET_OPTIONS, formData.budget),
+        objective_id: formData.objective,
+        revenue_id: formData.revenue,
+        budget_id: formData.budget,
+        userName: formData.userName.trim(),
+        userPhone: formData.userPhone,
+        userEmail: formData.userEmail.trim(),
+        lead_score: qualification.score,
+        lead_priority: qualification.priority,
+        recommended_plan: qualification.plan.name,
+        form_location: location,
+      })
+      track('generate_lead', {
+        form: 'diagnostico',
+        location,
+        objective: formData.objective,
+        revenue: formData.revenue,
+        budget: formData.budget,
+        recommended_plan: qualification.plan.id,
+        lead_priority: qualification.priority,
+      })
+      // Without a webhook the lead would only exist in this browser: hand it straight to WhatsApp.
+      if (!HAS_LEAD_WEBHOOK) openWhatsApp('diagnostico_envio')
+    }
+
+    track('quiz_step', { form: 'diagnostico', location, step: step + 1 })
     setDirection(1)
     setStep((prev) => prev + 1)
   }
@@ -109,107 +152,53 @@ export default function DiagnosticQuiz() {
   }
 
   const handleRestart = () => {
-    setFormData(INITIAL_DATA)
+    setFormData(initialData)
     setConsent(false)
     setStep(1)
     setError('')
   }
 
-  const sendToWhatsApp = () => {
-    const text = `*DIAGNÓSTICO DIGITAL SOLICITADO PELO SITE*
+  const progressPercent = step <= TOTAL_STEPS ? (step / TOTAL_STEPS) * 100 : 100
+  const firstName = formData.userName.trim().split(/\s+/)[0]
 
-🏢 *Empresa:* ${formData.companyName}
-🎯 *Objetivo:* ${formData.objective}
-📊 *Faturamento:* ${formData.revenue}
-💰 *Verba p/ Investimento:* ${formData.budget}
-
-👤 *Contato:* ${formData.userName}
-✉️ *E-mail:* ${formData.userEmail}
-📱 *WhatsApp:* ${formData.userPhone}
-
-_Enviado pelo site da Meta Impulso_`
-
-    track('whatsapp_click', { origin: 'diagnostico_concluido' })
-    window.open(whatsappLink(text), '_blank')
-  }
-
-  const totalSteps = 5
-  const progressPercent = step <= totalSteps ? (step / totalSteps) * 100 : 100
-
-  // Framer Motion slide animation configs
   const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 80 : -80,
-      opacity: 0
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.35, ease: 'easeOut' as const }
-    },
-    exit: (dir: number) => ({
-      x: dir > 0 ? -80 : 80,
-      opacity: 0,
-      transition: { duration: 0.25, ease: 'easeIn' as const }
-    })
+    enter: (dir: number) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
+    center: { x: 0, opacity: 1, transition: { duration: 0.35, ease: 'easeOut' as const } },
+    exit: (dir: number) => ({ x: dir > 0 ? -80 : 80, opacity: 0, transition: { duration: 0.25, ease: 'easeIn' as const } }),
   }
 
   return (
     <div id="diagnostico-quiz" className="quiz-panel card-premium glow-magenta" style={{ border: '1px solid var(--magenta-neon)' }}>
-      {/* HUD Telemetry Top Header */}
       <div className="card-telemetry" style={{ marginBottom: '1.5rem' }}>
         <span>DIAGNÓSTICO DIGITAL GRATUITO</span>
-        {step <= totalSteps ? (
-          <span className="quiz-step-indicator">PASSO {step} DE {totalSteps}</span>
+        {step <= TOTAL_STEPS ? (
+          <span className="quiz-step-indicator">PASSO {step} DE {TOTAL_STEPS}</span>
         ) : (
-          <span className="quiz-step-indicator" style={{ color: 'var(--cyan-text)' }}>
-            CONCLUÍDO
-          </span>
+          <span className="quiz-step-indicator" style={{ color: 'var(--cyan-text)' }}>CONCLUÍDO</span>
         )}
       </div>
 
-      {/* Progress Bar (Only show on input steps) */}
-      {step <= totalSteps && (
+      {step <= TOTAL_STEPS && (
         <div className="quiz-progress-track">
-          <motion.div 
-            className="quiz-progress-bar" 
-            style={{ width: `${progressPercent}%` }}
-            layoutId="progress"
-          />
+          <motion.div className="quiz-progress-bar" style={{ width: `${progressPercent}%` }} layoutId={`progress-${location}`} />
         </div>
       )}
 
-      {/* Error Message */}
       <AnimatePresence>
         {error && (
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            exit={{ opacity: 0 }} 
-            className="quiz-error-alert"
-          >
+          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="quiz-error-alert" role="alert">
             {error}
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Step Contents wrapper */}
       <div className="quiz-step-container">
         <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={step}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="quiz-slide-content"
-          >
-            {/* STEP 1: Company Name */}
+          <motion.div key={step} custom={direction} variants={slideVariants} initial="enter" animate="center" exit="exit" className="quiz-slide-content">
             {step === 1 && (
               <div className="quiz-step">
                 <h3 className="title-md">Qual é o nome da sua empresa?</h3>
-                <p className="quiz-helper">Assim já pesquisamos sua presença digital antes da conversa.</p>
+                <p className="quiz-helper">Leva menos de 1 minuto. Já pesquisamos sua presença digital antes da conversa.</p>
                 <div className="quiz-input-wrapper">
                   <input
                     type="text"
@@ -226,19 +215,20 @@ _Enviado pelo site da Meta Impulso_`
               </div>
             )}
 
-            {/* STEP 2: Main Objective */}
             {step === 2 && (
               <div className="quiz-step">
-                <h3 className="title-md">Qual é o seu principal objetivo hoje?</h3>
-                <p className="quiz-helper">Escolha a frente mais urgente. Na conversa olhamos o cenário completo.</p>
+                <h3 className="title-md">O que é mais urgente para a sua empresa hoje?</h3>
+                <p className="quiz-helper">Escolha a frente principal. Na conversa olhamos o cenário completo.</p>
                 <div className="quiz-options-grid">
-                  {objectives.map((obj, i) => (
+                  {OBJECTIVE_OPTIONS.map((obj) => (
                     <button
-                      key={i}
-                      onClick={() => setFormData({ ...formData, objective: obj.label })}
-                      className={`quiz-option-card ${formData.objective === obj.label ? 'active' : ''}`}
+                      key={obj.id}
+                      type="button"
+                      aria-pressed={formData.objective === obj.id}
+                      onClick={() => setFormData({ ...formData, objective: obj.id })}
+                      className={`quiz-option-card ${formData.objective === obj.id ? 'active' : ''}`}
                     >
-                      <div className="quiz-option-icon">{obj.icon}</div>
+                      <div className="quiz-option-icon">{OBJECTIVE_ICONS[obj.id]}</div>
                       <div className="quiz-option-info">
                         <div className="quiz-option-label">{obj.label}</div>
                         <div className="quiz-option-desc">{obj.desc}</div>
@@ -249,56 +239,57 @@ _Enviado pelo site da Meta Impulso_`
               </div>
             )}
 
-            {/* STEP 3: Monthly Revenue */}
             {step === 3 && (
               <div className="quiz-step">
                 <h3 className="title-md">Qual o faturamento mensal da sua empresa?</h3>
                 <p className="quiz-helper">Ajuda a indicar a solução adequada ao momento da empresa. Os dados são confidenciais.</p>
                 <div className="quiz-options-vertical">
-                  {revenues.map((rev, i) => (
+                  {REVENUE_OPTIONS.map((rev) => (
                     <button
-                      key={i}
-                      onClick={() => setFormData({ ...formData, revenue: rev })}
-                      className={`quiz-option-strip ${formData.revenue === rev ? 'active' : ''}`}
+                      key={rev.id}
+                      type="button"
+                      aria-pressed={formData.revenue === rev.id}
+                      onClick={() => setFormData({ ...formData, revenue: rev.id })}
+                      className={`quiz-option-strip ${formData.revenue === rev.id ? 'active' : ''}`}
                     >
                       <span className="strip-check-dot" />
-                      <span>{rev}</span>
+                      <span>{rev.label}</span>
                     </button>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* STEP 4: Budget */}
             {step === 4 && (
               <div className="quiz-step">
                 <h3 className="title-md">Quanto sua empresa pode investir em marketing e tecnologia por mês?</h3>
                 <p className="quiz-helper">Considere mídia (anúncios) e serviços. Usamos essa resposta para montar uma proposta realista.</p>
                 <div className="quiz-options-vertical">
-                  {budgets.map((bud, i) => (
+                  {BUDGET_OPTIONS.map((bud) => (
                     <button
-                      key={i}
-                      onClick={() => setFormData({ ...formData, budget: bud })}
-                      className={`quiz-option-strip ${formData.budget === bud ? 'active' : ''}`}
+                      key={bud.id}
+                      type="button"
+                      aria-pressed={formData.budget === bud.id}
+                      onClick={() => setFormData({ ...formData, budget: bud.id })}
+                      className={`quiz-option-strip ${formData.budget === bud.id ? 'active' : ''}`}
                     >
                       <span className="strip-check-dot" />
-                      <span>{bud}</span>
+                      <span>{bud.label}</span>
                     </button>
                   ))}
                 </div>
               </div>
             )}
 
-            {/* STEP 5: Contact Details */}
             {step === 5 && (
               <div className="quiz-step">
                 <h3 className="title-md">Para quem enviamos o diagnóstico?</h3>
-                <p className="quiz-helper">Entraremos em contato em horário comercial para agendar a conversa.</p>
+                <p className="quiz-helper">Falamos com você pelo WhatsApp, em horário comercial, para agendar a conversa.</p>
                 <div className="quiz-contact-fields">
                   <div className="quiz-field-group">
-                    <label htmlFor="quiz-nome"><User size={14} /> Nome completo</label>
+                    <label htmlFor={`quiz-nome-${location}`}><User size={14} /> Nome completo</label>
                     <input
-                      id="quiz-nome"
+                      id={`quiz-nome-${location}`}
                       autoComplete="name"
                       type="text"
                       placeholder="Seu nome"
@@ -308,22 +299,22 @@ _Enviado pelo site da Meta Impulso_`
                     />
                   </div>
                   <div className="quiz-field-group">
-                    <label htmlFor="quiz-whatsapp"><Phone size={14} /> WhatsApp (com DDD)</label>
+                    <label htmlFor={`quiz-whatsapp-${location}`}><Phone size={14} /> WhatsApp (com DDD)</label>
                     <input
-                      id="quiz-whatsapp"
-                      autoComplete="tel"
+                      id={`quiz-whatsapp-${location}`}
+                      autoComplete="tel-national"
                       inputMode="tel"
                       type="tel"
-                      placeholder="Ex: (61) 99999-9999"
+                      placeholder="(61) 99999-9999"
                       value={formData.userPhone}
-                      onChange={(e) => setFormData({ ...formData, userPhone: e.target.value })}
+                      onChange={(e) => setFormData({ ...formData, userPhone: formatPhone(e.target.value) })}
                       className="quiz-input-text"
                     />
                   </div>
                   <div className="quiz-field-group">
-                    <label htmlFor="quiz-email"><Mail size={14} /> E-mail profissional</label>
+                    <label htmlFor={`quiz-email-${location}`}><Mail size={14} /> E-mail profissional</label>
                     <input
-                      id="quiz-email"
+                      id={`quiz-email-${location}`}
                       autoComplete="email"
                       type="email"
                       placeholder="voce@empresa.com.br"
@@ -332,6 +323,17 @@ _Enviado pelo site da Meta Impulso_`
                       className="quiz-input-text"
                     />
                   </div>
+                  {/* Honeypot: invisible to people, filled by spam bots */}
+                  <input
+                    className="quiz-hp"
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                  />
                   <label className="quiz-consent">
                     <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
                     <span>
@@ -343,32 +345,62 @@ _Enviado pelo site da Meta Impulso_`
               </div>
             )}
 
-            {/* STEP 6: Success & Call to Action */}
             {step === 6 && (
               <div className="quiz-step quiz-success-step">
                 <div className="success-icon-wrapper">
-                  <CheckCircle2 size={54} color="var(--cyan-text)" style={{ filter: 'drop-shadow(0 0 10px rgba(0, 240, 255, 0.4))' }} />
+                  <CheckCircle2 size={48} color="var(--cyan-text)" />
                 </div>
-                <h3 className="title-lg" style={{ fontSize: '1.6rem', marginBottom: '1rem' }}>
-                  Recebemos suas <span className="text-gradient">respostas!</span>
-                </h3>
-                <p style={{ color: 'var(--text-tech)', fontSize: '0.9rem', lineHeight: '1.6', marginBottom: '2rem' }}>
-                  Obrigado! Vamos analisar o cenário da <strong>{formData.companyName}</strong>. Para agendar agora sua conversa estratégica gratuita de 30 minutos, envie suas respostas pelo WhatsApp.
-                </p>
+                {HAS_LEAD_WEBHOOK ? (
+                  <h3 className="title-lg quiz-success-title">
+                    {firstName ? `${firstName}, recebemos` : 'Recebemos'} <span className="text-gradient">suas respostas!</span>
+                  </h3>
+                ) : (
+                  <>
+                    <h3 className="title-lg quiz-success-title">
+                      {firstName ? `${firstName}, falta` : 'Falta'} <span className="text-gradient">só um toque!</span>
+                    </h3>
+                    <p className="quiz-success-note">
+                      Abrimos o WhatsApp com suas respostas: é só tocar em enviar. Se a janela não apareceu, use o botão abaixo.
+                    </p>
+                  </>
+                )}
 
-                <button 
-                  onClick={sendToWhatsApp}
-                  className="btn-v16 btn-v16-primary"
-                  style={{ width: '100%', padding: '1.1rem', fontSize: '0.88rem' }}
+                {qualification && (
+                  <div className="quiz-plan-result">
+                    <span className="quiz-plan-kicker">Pré-análise · plano indicado</span>
+                    <strong className="quiz-plan-name">{qualification.plan.name}</strong>
+                    <span className="quiz-plan-headline">{qualification.plan.headline}</span>
+                    <p>{qualification.plan.forWho} Confirmamos o escopo na conversa.</p>
+                  </div>
+                )}
+
+                <ol className="quiz-next-steps">
+                  <li>Analisamos o site, o Google e os anúncios da <strong>{formData.companyName}</strong>.</li>
+                  <li>Falamos com você pelo WhatsApp ({SITE.hoursLabel.toLowerCase()}).</li>
+                  <li>Conversa de 30 minutos com o plano de ação priorizado, sem compromisso.</li>
+                </ol>
+
+                <button
+                  type="button"
+                  onClick={() => openWhatsApp('diagnostico_concluido')}
+                  className="btn-v16 btn-v16-primary quiz-success-cta"
                 >
-                  AGENDAR PELO WHATSAPP <MessageCircle size={18} />
+                  {HAS_LEAD_WEBHOOK ? 'Adiantar a conversa no WhatsApp' : 'Enviar pelo WhatsApp'} <MessageCircle size={18} />
                 </button>
 
-                <button 
-                  onClick={handleRestart}
-                  className="quiz-btn-restart"
-                  style={{ marginTop: '1.25rem', background: 'none', border: 'none', color: 'var(--text-tech)', fontSize: '0.75rem', cursor: 'pointer', textDecoration: 'underline' }}
-                >
+                {SITE.bookingUrl && (
+                  <a
+                    href={SITE.bookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-v16 btn-v16-secondary quiz-success-cta"
+                    onClick={() => track('cta_click', { origin: 'diagnostico_agenda' })}
+                  >
+                    Escolher um horário na agenda <CalendarCheck size={18} />
+                  </a>
+                )}
+
+                <button type="button" onClick={handleRestart} className="quiz-btn-restart">
                   Fazer novo diagnóstico
                 </button>
               </div>
@@ -377,25 +409,18 @@ _Enviado pelo site da Meta Impulso_`
         </AnimatePresence>
       </div>
 
-      {/* Controls Bar (Only show on input steps) */}
-      {step <= totalSteps && (
+      {step <= TOTAL_STEPS && (
         <div className="quiz-controls-bar">
           {step > 1 ? (
-            <button 
-              onClick={handlePrev} 
-              className="quiz-btn-nav quiz-btn-prev"
-            >
+            <button type="button" onClick={handlePrev} className="quiz-btn-nav quiz-btn-prev">
               <ArrowLeft size={16} /> Voltar
             </button>
           ) : (
             <div />
           )}
 
-          <button 
-            onClick={handleNext} 
-            className="quiz-btn-nav quiz-btn-next"
-          >
-            {step === totalSteps ? 'Finalizar' : 'Avançar'} <ArrowRight size={16} />
+          <button type="button" onClick={handleNext} className="quiz-btn-nav quiz-btn-next">
+            {step === TOTAL_STEPS ? (HAS_LEAD_WEBHOOK ? 'Quero meu diagnóstico' : 'Enviar pelo WhatsApp') : 'Avançar'} <ArrowRight size={16} />
           </button>
         </div>
       )}

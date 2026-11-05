@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
+import { track } from '../lib/analytics'
 
 const NAV_LINKS = [
   { name: 'Serviços', href: '/#servicos' },
@@ -8,10 +9,11 @@ const NAV_LINKS = [
   { name: 'Cases', href: '/#cases' },
   { name: 'Processo', href: '/#processo' },
   { name: 'FAQ', href: '/#faq' },
-  { name: 'Contato', href: '/#contato' },
 ]
 
-export default function SiteHeader() {
+/** contactHref: "#contato" on pages that embed the diagnostic, "/#contato" elsewhere. */
+export default function SiteHeader({ contactHref = '/#contato' }: { contactHref?: string }) {
+  const links = [...NAV_LINKS, { name: 'Contato', href: contactHref }]
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -38,7 +40,7 @@ export default function SiteHeader() {
         </a>
 
         <nav className="nav-links" aria-label="Navegação principal">
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <a key={link.name} href={link.href} className="core-link">
               {link.name}
             </a>
@@ -46,7 +48,12 @@ export default function SiteHeader() {
         </nav>
 
         <div className="nav-cta">
-          <a href="/#contato" className="btn-v16 btn-v16-primary" style={{ padding: '0.75rem 1.75rem', fontSize: '0.72rem' }}>
+          <a
+            href={contactHref}
+            className="btn-v16 btn-v16-primary"
+            style={{ padding: '0.75rem 1.75rem', fontSize: '0.72rem' }}
+            onClick={() => track('cta_click', { origin: 'header' })}
+          >
             DIAGNÓSTICO GRATUITO
           </a>
         </div>
@@ -73,7 +80,7 @@ export default function SiteHeader() {
               <X size={40} />
             </button>
 
-            {NAV_LINKS.map((link, i) => (
+            {links.map((link, i) => (
               <motion.a
                 key={link.name}
                 href={link.href}
@@ -88,13 +95,16 @@ export default function SiteHeader() {
             ))}
 
             <motion.a
-              href="/#contato"
+              href={contactHref}
               className="btn-v16 btn-v16-primary"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: NAV_LINKS.length * 0.06 + 0.1 }}
+              transition={{ delay: links.length * 0.06 + 0.1 }}
               style={{ marginTop: '1rem', width: '100%', maxWidth: '280px' }}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false)
+                track('cta_click', { origin: 'menu_mobile' })
+              }}
             >
               DIAGNÓSTICO GRATUITO
             </motion.a>

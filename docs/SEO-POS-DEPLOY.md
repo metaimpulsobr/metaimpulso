@@ -46,7 +46,7 @@ Repetir no **Bing Webmaster Tools** (importa direto do Search Console).
 
 1. Criar um cenário no Make (ou Zapier/n8n) com gatilho **Custom Webhook**.
 2. Cadastrar a URL na Vercel como `VITE_LEAD_WEBHOOK_URL` e fazer redeploy.
-3. O site envia um JSON (`Content-Type: text/plain`) com: empresa, objetivo, faturamento, orçamento, nome, WhatsApp, e-mail, página, data, consentimento LGPD e UTMs/gclid/fbclid. No Make, use o módulo *Parse JSON*.
+3. O site envia um JSON (`Content-Type: text/plain`) com: empresa, objetivo, faturamento, orçamento, nome, WhatsApp, e-mail, página, data, consentimento LGPD, UTMs/gclid/fbclid e a qualificação (`lead_score`, `lead_priority`, `recommended_plan`). No Make, use o módulo *Parse JSON*. Roteamento por prioridade: `docs/MAQUINA-DE-VENDAS.md`.
 4. Ações sugeridas: criar o lead no CRM (ou Google Sheets) + mensagem de alerta no WhatsApp/e-mail do comercial.
 5. Fazer um envio de teste pelo site e conferir.
 

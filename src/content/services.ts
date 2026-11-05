@@ -1,4 +1,5 @@
 import type { Faq } from './site'
+import type { ObjectiveId } from '../lib/leadScore'
 
 export interface ServiceContent {
   slug: string
@@ -16,11 +17,14 @@ export interface ServiceContent {
   faq: Faq[]
   ctaTitle: string
   whatsappMsg: string
+  /** Objective pre-selected in this page's diagnostic quiz */
+  objectiveId: ObjectiveId
 }
 
 export const SERVICES: ServiceContent[] = [
   {
     slug: 'trafego-pago-brasilia',
+    objectiveId: 'trafego',
     navLabel: 'Tráfego pago',
     serviceType: 'Gestão de tráfego pago',
     metaTitle: 'Tráfego Pago em Brasília: Google Ads e Meta Ads | Meta Impulso',
@@ -73,6 +77,7 @@ export const SERVICES: ServiceContent[] = [
   },
   {
     slug: 'criacao-de-sites-brasilia',
+    objectiveId: 'site',
     navLabel: 'Criação de sites',
     serviceType: 'Criação de sites e landing pages',
     metaTitle: 'Criação de Sites e Landing Pages em Brasília | Meta Impulso',
@@ -125,6 +130,7 @@ export const SERVICES: ServiceContent[] = [
   },
   {
     slug: 'seo-brasilia',
+    objectiveId: 'site',
     navLabel: 'SEO',
     serviceType: 'Otimização para mecanismos de busca (SEO)',
     metaTitle: 'SEO em Brasília: Otimização de Sites para o Google | Meta Impulso',
@@ -177,6 +183,7 @@ export const SERVICES: ServiceContent[] = [
   },
   {
     slug: 'desenvolvimento-de-software-brasilia',
+    objectiveId: 'software',
     navLabel: 'Software e CRM',
     serviceType: 'Desenvolvimento de software sob medida',
     metaTitle: 'Desenvolvimento de Software e CRM sob Medida em Brasília | Meta Impulso',
@@ -229,6 +236,7 @@ export const SERVICES: ServiceContent[] = [
   },
   {
     slug: 'automacao-e-inteligencia-artificial',
+    objectiveId: 'ia',
     navLabel: 'Automação e IA',
     serviceType: 'Automação comercial e agentes de inteligência artificial',
     metaTitle: 'Automação de WhatsApp, CRM e Agentes de IA para Empresas | Meta Impulso',
