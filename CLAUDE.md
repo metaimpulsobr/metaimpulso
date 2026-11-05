@@ -34,21 +34,33 @@ Este repositório é o site da Meta Impulso **e** a memória da operação. Leia
 - **Roteamento:** alta → alerta imediato ao comercial (meta ≤ 5 min [H]) · média → mesmo dia · baixa → até 24 h.
 - **Eventos:** `cta_click`, `quiz_start`, `quiz_step`, `generate_lead`, `whatsapp_click` (dataLayer/GTM após consentimento + Vercel Analytics).
 
-## 5. SEO e medição (INDEX): `docs/SEO-POS-DEPLOY.md`
+- **Receptor inicial (grátis):** Google Sheets + Apps Script com e-mail de aviso: `docs/RECEBER-LEADS-GOOGLE-SHEETS.md`. Regra geral: todo lead respondido em até 15 min no horário comercial.
+
+## 5. Proposta e preço (CLOSER · LEDGER · SENTINEL): `docs/PROPOSTA-MODELO.md`
+
+- Proposta só **depois** da reunião de diagnóstico, com as palavras do cliente; validade 15 dias; nunca prometer resultado numérico (prometer método, prazo e transparência).
+- Preço calculado pelo custo/hora × (1 + margem 40–60% [H]); faixas por plano ainda **não definidas** (preencher após 2–3 propostas reais; revisar a cada 5).
+- Verba de mídia nunca passa pela conta da Meta Impulso; implantação cobrada (ao menos parte) antes de começar; contrato revisado por advogado.
+
+## 6. SEO e medição (INDEX): `docs/SEO-POS-DEPLOY.md`
 
 Search Console + sitemap, Google Business Profile com NAP idêntico (maior alavanca local), GTM/GA4/Pixel, 2 artigos/mês, backlinks "Desenvolvido por Meta Impulso" nos sites de clientes.
 
-## 6. Identidade visual (AURA · PIXEL): `docs/IDENTIDADE-VISUAL.md`
+## 7. Identidade visual (AURA · PIXEL): `docs/IDENTIDADE-VISUAL.md`
 
 Cores oficiais do logo (`logopdf/`): ameixa `#B3529F` · violeta `#725BA7` · ciano `#6BCDE7` · grafite `#231F20`. Laranja e magenta neon **não** fazem parte da marca. Tokens em `src/index.css` (`--brand-*`, `--gradient-meta`, `--gradient-text`, `--gradient-brand`).
 
-## 7. Pendências abertas (atualize ao resolver)
+## 8. Pendências abertas (atualize ao resolver)
+
+Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search Console → Perfil da Empresa no Google → planilha de leads → robôs de IA na Cloudflare → prova social → preços e prospecção → GTM antes de anunciar).
+
 
 - P0: confirmar `VITE_LEAD_WEBHOOK_URL` na Vercel e montar roteamento por prioridade; definir quem responde leads `alta`.
 - P1: depoimentos autorizados (`TESTIMONIALS`), link de agenda (`SITE.bookingUrl`), decisão sobre preço "a partir de", e-mail no domínio, CNPJ na política de privacidade, Google Business Profile.
-- P1: Central Farma fora do ar (reativar `isOnline` no portfólio quando voltar).
+- P1: Central Farma fora do ar (reativar `isOnline` no portfólio quando voltar); título "My Google AI Studio App" em `operator.voogle.com.br` e `meta-impulso-apresenta-o.vercel.app`.
+- P1: tabela de preços por plano (`docs/PROPOSTA-MODELO.md`) e contrato padrão com advogado.
 
-## 8. Código
+## 9. Código
 
 - React 19 + TypeScript + Vite, pré-renderização estática por rota (`scripts/prerender.mjs`), deploy na Vercel.
 - `npm run build` (inclui prerender e sitemap) e `npm run lint` devem passar antes de qualquer commit.

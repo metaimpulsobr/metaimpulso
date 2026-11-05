@@ -16,8 +16,9 @@ Quando alguém conclui o **Diagnóstico Digital** no site, os dados vão automat
 ```javascript
 // Recebe os leads do site metaimpulso.com.br e grava na planilha.
 const COLUNAS = [
-  'created_at', 'userName', 'userPhone', 'userEmail', 'companyName',
-  'objective', 'revenue', 'budget', 'utm_source', 'utm_medium',
+  'created_at', 'lead_priority', 'lead_score', 'recommended_plan',
+  'userName', 'userPhone', 'userEmail', 'companyName',
+  'objective', 'revenue', 'budget', 'form_location', 'utm_source', 'utm_medium',
   'utm_campaign', 'gclid', 'fbclid', 'landing_page', 'referrer', 'page', 'consent_lgpd',
 ];
 
@@ -28,12 +29,14 @@ function doPost(e) {
   if (aba.getLastRow() === 0) {
     aba.appendRow(COLUNAS.concat(['status', 'proxima_acao']));
   }
-  aba.appendRow(COLUNAS.map((c) => lead[c] || '').concat(['Novo', '']));
+  aba.appendRow(COLUNAS.map((c) => (lead[c] === undefined ? '' : lead[c])).concat(['Novo', '']));
 
+  const prioridade = String(lead.lead_priority || 'sem prioridade').toUpperCase();
   MailApp.sendEmail({
     to: Session.getEffectiveUser().getEmail(),
-    subject: 'Novo lead no site: ' + (lead.companyName || 'sem empresa'),
+    subject: '[' + prioridade + '] Novo lead no site: ' + (lead.companyName || 'sem empresa'),
     body:
+      'Prioridade: ' + prioridade + ' (score ' + lead.lead_score + ') · Plano indicado: ' + lead.recommended_plan + '\n\n' +
       'Empresa: ' + lead.companyName + '\n' +
       'Contato: ' + lead.userName + '\n' +
       'WhatsApp: ' + lead.userPhone + '\n' +
@@ -41,6 +44,7 @@ function doPost(e) {
       'Objetivo: ' + lead.objective + '\n' +
       'Faturamento: ' + lead.revenue + '\n' +
       'Orçamento: ' + lead.budget + '\n' +
+      'Página: ' + lead.form_location + '\n' +
       'Origem: ' + (lead.utm_source || lead.referrer || 'direto') + '\n\n' +
       'WhatsApp direto: https://wa.me/55' + String(lead.userPhone).replace(/\D/g, ''),
   });
@@ -48,6 +52,8 @@ function doPost(e) {
   return ContentService.createTextOutput('ok');
 }
 ```
+
+> **Já criou a planilha com a versão anterior do código?** As colunas mudaram de posição. Crie uma aba nova vazia e coloque-a como a primeira aba (o código grava sempre na primeira), ou apague a linha de títulos antes de testar.
 
 ## Passo 3 — Publicar o receptor
 
@@ -77,6 +83,8 @@ function doPost(e) {
 3. Apague a linha de teste.
 
 ## Usando a planilha como CRM inicial
+
+Ordene pela coluna **lead_priority**: `alta` primeiro (responder em até 5 minutos), depois `media` (no mesmo dia) e `baixa` (até 24 h). Detalhes em [MAQUINA-DE-VENDAS.md](MAQUINA-DE-VENDAS.md).
 
 Use as colunas **status** e **proxima_acao** para acompanhar cada lead:
 `Novo → Contatado → Reunião agendada → Proposta enviada → Ganho / Perdido`

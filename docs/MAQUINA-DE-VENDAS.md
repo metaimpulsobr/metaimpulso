@@ -32,7 +32,9 @@ Cada lead chega ao webhook com estes campos extras (além de nome, WhatsApp, e-m
 
 Regras de pontuação e plano: `src/lib/leadScore.ts`. **[H]** Os pesos são um ponto de partida: revise depois de 30–50 leads comparando score × fechamento.
 
-### Roteamento sugerido no Make / Zapier / n8n
+### Roteamento por prioridade
+
+Opção grátis para começar: planilha Google com aviso por e-mail ([RECEBER-LEADS-GOOGLE-SHEETS.md](RECEBER-LEADS-GOOGLE-SHEETS.md)); a prioridade já vem no assunto do e-mail. Com volume, migre para Make / Zapier / n8n + CRM:
 
 | Prioridade | Ação automática | Meta de resposta [H] |
 |---|---|---|
