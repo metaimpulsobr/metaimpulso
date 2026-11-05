@@ -610,3 +610,45 @@ p, li, .subtitle-main, .hero-subtitle {
     padding: 1rem 1.9rem;
   }
 }
+
+/* ============================================================
+   15. MOBILE PERFORMANCE + CONTRAST (Lighthouse follow-up)
+   ============================================================ */
+:root {
+  /* Darker teal so small badges/labels pass WCAG AA on tinted backgrounds */
+  --cyan-text: #006570;
+}
+
+.logo img {
+  aspect-ratio: 1 / 1;
+  width: auto !important;
+  object-fit: contain;
+}
+
+.mini-url { color: #cbd5e1; } /* sits on the dark browser-mockup screen */
+.card-telemetry,
+.quiz-step-indicator { color: #5b6474 !important; }
+.footer-bottom { color: rgba(15, 23, 42, 0.68); }
+
+@media (max-width: 768px) {
+  /* Glass blur is the most expensive paint on phones: use solid surfaces instead */
+  .card-premium,
+  .objective-card,
+  .portfolio-card,
+  .launch-card,
+  .quiz-panel,
+  .problem-card,
+  .deliverable-card,
+  .plan-card,
+  .btn-v16-secondary {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(255, 255, 255, 0.96);
+  }
+  .plan-card-highlight {
+    background:
+      linear-gradient(#fff, #fff) padding-box,
+      var(--gradient-meta) border-box;
+  }
+  .vfx-orb { display: none; }
+}

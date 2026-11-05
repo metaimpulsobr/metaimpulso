@@ -491,11 +491,10 @@ export default function PortfolioShowcase() {
 
       {/* Portfolio Grid */}
       <motion.div 
-        layout 
         className="portfolio-grid grid-responsive"
         style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))' }}
       >
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence>
           {filteredItems.map((item) => {
             let glowClass = 'glow-purple'
             let accentColor = 'var(--purple-text)'
@@ -510,7 +509,6 @@ export default function PortfolioShowcase() {
 
             return (
               <motion.div
-                layout
                 key={item.id}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -520,7 +518,6 @@ export default function PortfolioShowcase() {
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(item) } }}
                 role="button"
                 tabIndex={0}
-                aria-label={`Ver detalhes do projeto ${item.title}`}
                 className={`portfolio-card ${glowClass}`}
                 whileHover={{ 
                   y: -10,
@@ -532,7 +529,7 @@ export default function PortfolioShowcase() {
                 }}
               >
                 {/* 🎨 MINI ANIMATED SCREEN */}
-                <MiniCardPreview url={item.url} glowColor={item.glowColor} />
+                <div aria-hidden="true"><MiniCardPreview url={item.url} glowColor={item.glowColor} /></div>
 
                 {/* HUD Header */}
                 <div className="card-telemetry" style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

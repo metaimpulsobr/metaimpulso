@@ -9,7 +9,7 @@ const seeded = (n: number) => {
 }
 
 // Floating particles representing rocket exhaust sparks
-const particles = Array.from({ length: 25 }, (_, i) => ({
+const particles = Array.from({ length: 12 }, (_, i) => ({
   id: i,
   delay: i * 0.08,
   x: (seeded(i + 1) - 0.5) * 60, // spread
@@ -205,7 +205,7 @@ export default function RocketShowcase() {
                   scaleY: isHovered ? [1.1, 1.35, 1.1] : [1, 1.15, 1],
                   scaleX: isHovered ? [1, 1.15, 1] : [1, 1.05, 1],
                 }}
-                transition={{ repeat: Infinity, duration: 0.12, ease: "linear" }}
+                transition={{ repeat: Infinity, duration: 0.45, ease: "easeInOut" }}
               />
               {/* Inner flame */}
               <motion.path 
@@ -215,7 +215,7 @@ export default function RocketShowcase() {
                   scaleY: isHovered ? [1, 1.4, 0.9] : [1, 1.2, 1],
                   scaleX: isHovered ? [0.9, 1.15, 0.9] : [1, 1.05, 1],
                 }}
-                transition={{ repeat: Infinity, duration: 0.08, ease: "linear" }}
+                transition={{ repeat: Infinity, duration: 0.35, ease: "easeInOut" }}
               />
             </g>
 
@@ -230,7 +230,7 @@ export default function RocketShowcase() {
                   scale: isHovered ? [1, 1.25, 0.95] : 0,
                   opacity: isHovered ? [0.8, 1, 0.8] : 0 
                 }}
-                transition={{ repeat: Infinity, duration: 0.1, ease: "linear" }}
+                transition={{ repeat: Infinity, duration: 0.3, ease: "easeInOut" }}
               />
               {/* Right booster flame */}
               <motion.path
@@ -241,7 +241,7 @@ export default function RocketShowcase() {
                   scale: isHovered ? [1, 1.25, 0.95] : 0,
                   opacity: isHovered ? [0.8, 1, 0.8] : 0 
                 }}
-                transition={{ repeat: Infinity, duration: 0.1, ease: "linear" }}
+                transition={{ repeat: Infinity, duration: 0.3, ease: "easeInOut" }}
               />
             </g>
 

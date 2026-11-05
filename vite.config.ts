@@ -23,6 +23,8 @@ export default defineConfig({
         },
       },
     },
+    // Pages ship fully prerendered HTML, so JS only hydrates: don't let it compete with CSS for first paint
+    modulePreload: false,
     // minify: default 'oxc' in Vite 8 — fastest, no change needed
     target: 'es2020',
   },

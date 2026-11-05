@@ -18,7 +18,8 @@ export default function SpaceBackground() {
   }, []);
 
   useEffect(() => {
-    if (!isClient) return;
+    // Star canvas is skipped on phones to keep the main thread free
+    if (!isClient || isMobile) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -336,6 +337,9 @@ export function HeroTechIcons() {
       </svg>
     </motion.div>
   );
+
+  // Phones: the stacked hero has no room for them, and their loops cost main-thread time
+  if (isMobile) return null;
 
   return (
     <div

@@ -167,7 +167,7 @@ export default function AboutLogoVfx() {
           }}
         >
           <img 
-            src="/logo.png" 
+            src="/logo-320.png" 
             alt="Logo Meta Impulso" 
             style={{ 
               width: '100%', 
