@@ -28,7 +28,7 @@ const today = new Date().toISOString().slice(0, 10)
 const urls = ROUTES.filter((r) => !r.noindex)
   .map((r) => {
     const loc = `${SITE.url}${r.path === '/' ? '/' : r.path}`
-    const priority = r.kind === 'home' ? '1.0' : r.kind === 'service' ? '0.8' : '0.3'
+    const priority = r.kind === 'home' ? '1.0' : r.kind === 'service' || r.kind === 'tool' ? '0.8' : '0.3'
     return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${priority}</priority>\n  </url>`
   })
   .join('\n')

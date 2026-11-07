@@ -18,7 +18,8 @@ Quando alguém conclui o **Diagnóstico Digital** no site, os dados vão automat
 const COLUNAS = [
   'created_at', 'lead_priority', 'lead_score', 'recommended_plan',
   'userName', 'userPhone', 'userEmail', 'companyName',
-  'objective', 'revenue', 'budget', 'form_location', 'utm_source', 'utm_medium',
+  'objective', 'revenue', 'budget', 'form_location', 'site_url', 'raiox_score', 'raiox_alertas',
+  'utm_source', 'utm_medium',
   'utm_campaign', 'gclid', 'fbclid', 'landing_page', 'referrer', 'page', 'consent_lgpd',
 ];
 
@@ -45,6 +46,7 @@ function doPost(e) {
       'Faturamento: ' + lead.revenue + '\n' +
       'Orçamento: ' + lead.budget + '\n' +
       'Página: ' + lead.form_location + '\n' +
+      (lead.raiox_score !== undefined ? 'Raio-X: ' + lead.site_url + ' · nota ' + lead.raiox_score + '/100 · ' + (lead.raiox_alertas || 'sem furos críticos') + '\n' : '') +
       'Origem: ' + (lead.utm_source || lead.referrer || 'direto') + '\n\n' +
       'WhatsApp direto: https://wa.me/55' + String(lead.userPhone).replace(/\D/g, ''),
   });

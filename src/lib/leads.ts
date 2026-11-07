@@ -24,6 +24,10 @@ export interface LeadPayload {
   recommended_plan: string
   /** Where the form was filled: "home" or the service page slug */
   form_location: string
+  /** Present when the visitor ran the Raio-X before filling the form */
+  site_url?: string
+  raiox_score?: number
+  raiox_alertas?: string
 }
 
 export async function submitLead(lead: LeadPayload): Promise<boolean> {

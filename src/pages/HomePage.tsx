@@ -1,37 +1,14 @@
-import { motion } from 'framer-motion'
-import { Target, MessageCircle, Clock3, MonitorSmartphone, BarChart3, CheckCircle2 } from 'lucide-react'
-import { HeroTechIcons } from '../components/SpaceBackground'
-import RocketShowcase from '../components/RocketShowcase'
+import { CheckCircle2, ScanLine, ArrowRight, XCircle, Wrench } from 'lucide-react'
 import ObjectiveSelector from '../components/ObjectiveSelector'
 import AboutLogoVfx from '../components/AboutLogoVfx'
 import DiagnosticSection from '../components/DiagnosticSection'
 import PortfolioShowcase from '../components/PortfolioShowcase'
+import { RaioXForm } from '../components/RaioX'
 import { ProcessSection, PlansSection, FaqSection, OneTeamSection, TestimonialsSection } from '../components/Sections'
-import { HOME_FAQ, whatsappLink } from '../content/site'
+import { HOME_FAQ, FUNNEL_LEAKS, RAIOX_CHECKS, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
 
 const TECH = ['GOOGLE ADS', 'META ADS', 'GA4', 'REACT', 'NEXT.JS', 'TYPESCRIPT', 'NODE.JS', 'SUPABASE', 'WHATSAPP', 'IA']
-
-const PROBLEMS = [
-  {
-    icon: <Clock3 size={26} />,
-    title: 'O lead chega e ninguém responde a tempo',
-    desc: 'Quem pede orçamento fala com vários fornecedores. Se a resposta demora, a venda vai para o concorrente.',
-    fix: 'Automação e agentes de IA no WhatsApp respondem em segundos e registram tudo no CRM.',
-  },
-  {
-    icon: <MonitorSmartphone size={26} />,
-    title: 'O site não convence ou demora para abrir',
-    desc: 'O anúncio funciona, mas a página é lenta, confusa no celular e não deixa claro o próximo passo.',
-    fix: 'Sites e landing pages rápidos, com mensagem alinhada ao anúncio e chamada clara para a ação.',
-  },
-  {
-    icon: <BarChart3 size={26} />,
-    title: 'Ninguém sabe qual campanha trouxe o cliente',
-    desc: 'Sem rastreamento, a verba é decidida no achismo e campanhas boas são cortadas junto com as ruins.',
-    fix: 'Rastreamento ponta a ponta: do clique no anúncio até a venda fechada no CRM.',
-  },
-]
 
 const DIFFERENTIALS = [
   'Estratégia antes da execução: diagnóstico, posicionamento e metas definidos no início',
@@ -43,47 +20,49 @@ const DIFFERENTIALS = [
 export default function HomePage() {
   return (
     <main id="conteudo">
-      {/* HERO: no entrance fade on the H1 so the LCP text paints straight from the prerendered HTML */}
-      <section id="hero" className="section-v16 hero-section">
-        <div className="hero-icons" aria-hidden="true">
-          <HeroTechIcons />
-        </div>
-        <div className="container">
-          <div className="hero-split-grid">
-            <div className="hero-text-col">
-              <span className="eyebrow">Marketing, tecnologia e vendas · Brasília - DF</span>
-              <h1 className="title-lg hero-title">
-                Agência de marketing digital em Brasília que transforma <span className="text-gradient">cliques em clientes</span>
-              </h1>
-              <p className="hero-subtitle">
-                Uma única empresa responsável por tudo o que gera venda: estratégia, tráfego pago no Google e no Meta Ads, sites, CRM, automação de WhatsApp e agentes de IA, medidos do anúncio até o fechamento.
-              </p>
+      {/* HERO — the proof comes first: a live Raio-X of the visitor's own site.
+          No entrance animation on the H1 so the LCP text paints straight from the prerendered HTML. */}
+      <section id="hero" className="hero-cmd">
+        <div className="container hero-cmd-grid">
+          <div className="hero-cmd-copy">
+            <span className="eyebrow eyebrow-dark">Marketing, tecnologia e vendas · Brasília - DF</span>
+            <h1 className="title-lg hero-cmd-title">
+              Agência de marketing digital em Brasília que <span className="text-gradient-light">prova antes de prometer</span>
+            </h1>
+            <p className="hero-cmd-sub">
+              Cole o endereço do seu site e veja agora, de graça, onde ele está perdendo clientes. Se fizer sentido, uma única equipe fecha todos os furos: anúncio, site, WhatsApp, CRM e IA, medidos até a venda.
+            </p>
+          </div>
 
-              <div className="cta-group" style={{ justifyContent: 'flex-start' }}>
-                <a href="#contato" className="btn-v16 btn-v16-primary" onClick={() => track('cta_click', { origin: 'hero_diagnostico' })}>
-                  Quero meu diagnóstico gratuito <Target size={20} />
-                </a>
-                <a
-                  href={whatsappLink()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-v16 btn-v16-secondary"
-                  onClick={() => track('whatsapp_click', { origin: 'hero' })}
-                >
-                  Falar no WhatsApp <MessageCircle size={20} />
-                </a>
-              </div>
+          <ul className="hero-cmd-trust">
+            <li><CheckCircle2 size={16} aria-hidden="true" /> Do anúncio à venda, um só time responsável</li>
+            <li><CheckCircle2 size={16} aria-hidden="true" /> Diagnóstico gratuito de 30 minutos, sem compromisso</li>
+            <li><CheckCircle2 size={16} aria-hidden="true" /> Atendimento em Brasília e em todo o Brasil</li>
+          </ul>
 
-              <ul className="hero-trust">
-                <li><CheckCircle2 size={16} aria-hidden="true" /> Um só time do anúncio à venda, sem jogo de empurra</li>
-                <li><CheckCircle2 size={16} aria-hidden="true" /> Diagnóstico gratuito de 30 minutos, sem compromisso</li>
-                <li><CheckCircle2 size={16} aria-hidden="true" /> Atendimento em Brasília e em todo o Brasil</li>
-              </ul>
+          <div className="hero-cmd-card" id="raio-x">
+            <div className="hero-cmd-card-head">
+              <span className="live-dot" aria-hidden="true" /> Raio-X de Vendas · grátis
             </div>
-
-            <div className="hero-rocket-col" aria-hidden="true">
-              <RocketShowcase />
-            </div>
+            <RaioXForm location="home_hero" dark />
+            <ul className="raiox-scanlist" aria-label="O que o Raio-X analisa">
+              {RAIOX_CHECKS.map((c) => (
+                <li key={c.title}><ScanLine size={16} aria-hidden="true" /> {c.title}</li>
+              ))}
+            </ul>
+            <p className="hero-cmd-alt">
+              Ainda não tem site?{' '}
+              <a href="#contato" onClick={() => track('cta_click', { origin: 'hero_sem_site' })}>Faça o diagnóstico gratuito</a> ou{' '}
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track('whatsapp_click', { origin: 'hero' })}
+              >
+                fale no WhatsApp
+              </a>
+              .
+            </p>
           </div>
         </div>
       </section>
@@ -98,38 +77,59 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* PROBLEMA → SOLUÇÃO */}
+      {/* FUNIL FURADO: problem + agitation + named mechanism */}
       <section id="problema" className="section-v16">
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">Onde as vendas se perdem</span>
             <h2 className="title-lg">
-              Anúncio sozinho não vende. <span className="text-gradient">O que vende é o que acontece depois do clique.</span>
+              Você não precisa de mais anúncio. <span className="text-gradient">Precisa parar de perder quem já chegou.</span>
             </h2>
+            <p className="subtitle-main">
+              Todo funil tem furos. Eles costumam estar em um destes cinco pontos, e basta um para o anúncio sair caro.
+            </p>
           </div>
-          <div className="problem-grid">
-            {PROBLEMS.map((p, i) => (
-              <motion.article
-                key={p.title}
-                className="problem-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <div className="problem-icon" aria-hidden="true">{p.icon}</div>
-                <h3 className="title-md">{p.title}</h3>
-                <p>{p.desc}</p>
-                <p className="problem-fix"><strong>Como resolvemos:</strong> {p.fix}</p>
-              </motion.article>
+
+          <ol className="leak-flow">
+            {FUNNEL_LEAKS.map((l, i) => (
+              <li key={l.stage} className="leak-step">
+                <span className="leak-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3 className="leak-stage">{l.stage}</h3>
+                <p className="leak-text"><XCircle size={16} aria-hidden="true" /> <span><strong>O furo:</strong> {l.leak}</span></p>
+                <p className="leak-fix"><Wrench size={16} aria-hidden="true" /> <span><strong>Como fechamos:</strong> {l.fix}</span></p>
+              </li>
             ))}
+          </ol>
+
+          <div className="leak-foot">
+            <p>
+              É isso que chamamos de <strong>Funil Blindado</strong>: os cinco pontos cuidados pela mesma equipe e medidos do clique até a venda.
+            </p>
+            <a href="#raio-x" className="btn-v16 btn-v16-primary" onClick={() => track('cta_click', { origin: 'funil_raiox' })}>
+              Descobrir os furos do meu site <ArrowRight size={18} aria-hidden="true" />
+            </a>
           </div>
         </div>
       </section>
 
       <OneTeamSection />
 
-      {/* SOBRE / DIFERENCIAL */}
+      <section id="servicos" className="section-v16">
+        <div className="container">
+          <ObjectiveSelector />
+        </div>
+      </section>
+
+      <PlansSection />
+
+      <section id="cases" className="section-v16 section-tinted">
+        <div className="container">
+          <PortfolioShowcase />
+        </div>
+      </section>
+
+      <TestimonialsSection />
+
       <section id="sobre" className="section-v16">
         <div className="container">
           <div className="sobre-split">
@@ -168,22 +168,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      <section id="servicos" className="section-v16">
-        <div className="container">
-          <ObjectiveSelector />
-        </div>
-      </section>
-
-      <PlansSection />
-
-      <section id="cases" className="section-v16 section-tinted">
-        <div className="container">
-          <PortfolioShowcase />
-        </div>
-      </section>
-
-      <TestimonialsSection />
 
       <ProcessSection />
 

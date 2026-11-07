@@ -12,7 +12,7 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
 
   return (
     <main id="conteudo">
-      <section className="section-v16 service-hero">
+      <section className="hero-cmd hero-cmd-compact service-hero">
         <div className="container">
           <nav className="breadcrumb" aria-label="Você está em">
             <a href="/">Início</a> <span aria-hidden="true">/</span> <span>{service.navLabel}</span>
@@ -34,6 +34,9 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
               Falar no WhatsApp <MessageCircle size={20} />
             </a>
           </div>
+          <p className="service-raiox-link">
+            Quer ver antes onde está o problema? <a href="/analise-de-site-gratis" onClick={() => track('cta_click', { origin: `${service.slug}_raiox` })}>Faça o Raio-X grátis do seu site</a> em 30 segundos.
+          </p>
         </div>
       </section>
 

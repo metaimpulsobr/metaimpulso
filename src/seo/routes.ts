@@ -1,7 +1,7 @@
-import { SITE, HOME_FAQ, type Faq } from '../content/site'
+import { SITE, HOME_FAQ, TOOL_FAQ, type Faq } from '../content/site'
 import { SERVICES, type ServiceContent } from '../content/services'
 
-export type RouteKind = 'home' | 'service' | 'privacy' | 'notfound'
+export type RouteKind = 'home' | 'service' | 'tool' | 'privacy' | 'notfound'
 
 export interface RouteMeta {
   path: string
@@ -21,7 +21,7 @@ export const ROUTES: RouteMeta[] = [
     file: 'index.html',
     title: 'Meta Impulso | Marketing Digital, Tráfego Pago e Sites em Brasília',
     description:
-      'Agência de marketing digital e tecnologia em Brasília: tráfego pago (Google e Meta Ads), criação de sites, SEO, CRM, automação e agentes de IA. Diagnóstico gratuito.',
+      'Agência de marketing digital em Brasília que prova antes de prometer: Raio-X de Vendas grátis do seu site, tráfego pago, sites, CRM e IA com um só time.',
   },
   ...SERVICES.map((s) => ({
     path: `/${s.slug}`,
@@ -31,6 +31,14 @@ export const ROUTES: RouteMeta[] = [
     description: s.metaDescription,
     service: s,
   })),
+  {
+    path: '/analise-de-site-gratis',
+    kind: 'tool',
+    file: 'analise-de-site-gratis.html',
+    title: 'Análise de Site Grátis: Raio-X de Vendas em 30 Segundos | Meta Impulso',
+    description:
+      'Descubra grátis, em 30 segundos, onde o seu site perde vendas: velocidade no celular, Pixel da Meta, Google Analytics, WhatsApp, formulário e SEO. Sem cadastro.',
+  },
   {
     path: '/politica-de-privacidade',
     kind: 'privacy',
@@ -133,6 +141,30 @@ export function jsonLd(route: RouteMeta) {
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE.url}/` },
           { '@type': 'ListItem', position: 2, name: s.navLabel, item: url },
+        ],
+      },
+    )
+  }
+
+  if (route.kind === 'tool') {
+    graph.push(
+      {
+        '@type': 'WebApplication',
+        name: 'Raio-X de Vendas: análise de site grátis',
+        url,
+        applicationCategory: 'BusinessApplication',
+        operatingSystem: 'Web',
+        inLanguage: 'pt-BR',
+        description: route.description,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'BRL' },
+        provider: { '@id': ORG_ID },
+      },
+      faqPage(TOOL_FAQ),
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE.url}/` },
+          { '@type': 'ListItem', position: 2, name: 'Análise de site grátis', item: url },
         ],
       },
     )

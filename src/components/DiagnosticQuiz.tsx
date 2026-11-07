@@ -14,6 +14,7 @@ import {
   type BudgetId,
 } from '../lib/leadScore'
 import { SITE, whatsappLink } from '../content/site'
+import { getRememberedReport } from '../lib/raiox'
 
 interface QuizData {
   companyName: string
@@ -35,6 +36,12 @@ const OBJECTIVE_ICONS: Record<ObjectiveId, React.ReactNode> = {
 }
 
 const TOTAL_STEPS = 5
+
+/** Raio-X result from this visit (if any), so the team starts the call already knowing the gaps. */
+function raioxFields() {
+  const r = getRememberedReport()
+  return r ? { site_url: r.url, raiox_score: r.score, raiox_alertas: r.criticos.join('; ') } : {}
+}
 
 const labelOf = (list: { id: string; label: string }[], id: string) => list.find((o) => o.id === id)?.label ?? ''
 
@@ -69,12 +76,14 @@ export default function DiagnosticQuiz({ location = 'home', initialObjective }: 
 
   const whatsappSummary = () => {
     const plan = qualification ? `\n🧭 *Plano indicado na pré-análise:* ${qualification.plan.name}` : ''
+    const raiox = getRememberedReport()
+    const raioxLine = raiox ? `\n🔎 *Raio-X do site:* ${raiox.url} · nota ${raiox.score}/100` : ''
     return `*DIAGNÓSTICO DIGITAL SOLICITADO PELO SITE*
 
 🏢 *Empresa:* ${formData.companyName}
 🎯 *Objetivo:* ${labelOf(OBJECTIVE_OPTIONS, formData.objective)}
 📊 *Faturamento:* ${labelOf(REVENUE_OPTIONS, formData.revenue)}
-💰 *Investimento mensal:* ${labelOf(BUDGET_OPTIONS, formData.budget)}${plan}
+💰 *Investimento mensal:* ${labelOf(BUDGET_OPTIONS, formData.budget)}${plan}${raioxLine}
 
 👤 *Contato:* ${formData.userName}
 ✉️ *E-mail:* ${formData.userEmail}
@@ -122,6 +131,7 @@ _Enviado pelo site da Meta Impulso_`
         userName: formData.userName.trim(),
         userPhone: formData.userPhone,
         userEmail: formData.userEmail.trim(),
+        ...raioxFields(),
         lead_score: qualification.score,
         lead_priority: qualification.priority,
         recommended_plan: qualification.plan.name,
@@ -168,7 +178,16 @@ _Enviado pelo site da Meta Impulso_`
   }
 
   return (
-    <div id="diagnostico-quiz" className="quiz-panel card-premium glow-magenta" style={{ border: '1px solid var(--magenta-neon)' }}>
+    <form
+      id="diagnostico-quiz"
+      className="quiz-panel card-premium glow-magenta"
+      style={{ border: '1px solid var(--magenta-neon)' }}
+      noValidate
+      onSubmit={(e) => {
+        e.preventDefault()
+        if (step <= TOTAL_STEPS) handleNext()
+      }}
+    >
       <div className="card-telemetry" style={{ marginBottom: '1.5rem' }}>
         <span>DIAGNÓSTICO DIGITAL GRATUITO</span>
         {step <= TOTAL_STEPS ? (
@@ -207,7 +226,6 @@ _Enviado pelo site da Meta Impulso_`
                     placeholder="Ex: Minha Empresa LTDA"
                     value={formData.companyName}
                     onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                    onKeyDown={(e) => e.key === 'Enter' && handleNext()}
                     className="quiz-input-text"
                   />
                   <div className="input-focus-line" />
@@ -419,11 +437,11 @@ _Enviado pelo site da Meta Impulso_`
             <div />
           )}
 
-          <button type="button" onClick={handleNext} className="quiz-btn-nav quiz-btn-next">
+          <button type="submit" className="quiz-btn-nav quiz-btn-next">
             {step === TOTAL_STEPS ? (HAS_LEAD_WEBHOOK ? 'Quero meu diagnóstico' : 'Enviar pelo WhatsApp') : 'Avançar'} <ArrowRight size={16} />
           </button>
         </div>
       )}
-    </div>
+    </form>
   )
 }

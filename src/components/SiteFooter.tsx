@@ -32,6 +32,7 @@ export default function SiteFooter() {
           <div>
             <h2 className="footer-title">Empresa</h2>
             <ul className="footer-list">
+              <li><a href="/analise-de-site-gratis">Análise de site grátis</a></li>
               <li><a href="/#planos">Planos</a></li>
               <li><a href="/#cases">Cases</a></li>
               <li><a href="/#processo">Como trabalhamos</a></li>

@@ -15,6 +15,7 @@ export default function PrivacyPage() {
         <h2>2. Quais dados coletamos</h2>
         <ul>
           <li><strong>Formulário de diagnóstico:</strong> nome, WhatsApp, e-mail, nome da empresa, objetivo, faixa de faturamento e orçamento disponível.</li>
+          <li><strong>Raio-X de Vendas (análise de site grátis):</strong> o endereço do site que você digitar é lido pelo nosso servidor e enviado ao Google PageSpeed Insights para medir a velocidade. Não pedimos cadastro e não salvamos o resultado; ele só chega até nós se você enviar o formulário de diagnóstico depois.</li>
           <li><strong>Contato pelo WhatsApp ou e-mail:</strong> as informações que você enviar na conversa.</li>
           <li><strong>Dados de navegação:</strong> páginas visitadas, origem da visita (por exemplo, parâmetros de campanha) e, somente com o seu consentimento, cookies de análise e marketing.</li>
         </ul>

@@ -29,6 +29,7 @@ Cada lead chega ao webhook com estes campos extras (além de nome, WhatsApp, e-m
 | `recommended_plan` | `START` / `GROWTH` / `SCALE` | Mesmo plano mostrado ao visitante como "pré-análise" |
 | `objective_id`, `revenue_id`, `budget_id` | `ia`, `200mais`, `5000a15000` | Ids estáveis para filtros no CRM |
 | `form_location` | `home` ou slug da página | Qual página converteu |
+| `site_url`, `raiox_score`, `raiox_alertas` | `clinica.com.br`, `45`, `Sem botão de WhatsApp; Site lento no celular` | Só quando o visitante fez o Raio-X antes: a conversa já começa com os furos na mão |
 
 Regras de pontuação e plano: `src/lib/leadScore.ts`. **[H]** Os pesos são um ponto de partida: revise depois de 30–50 leads comparando score × fechamento.
 
@@ -55,6 +56,7 @@ Eventos enviados ao `dataLayer` (GTM, após consentimento) **e** ao Vercel Web A
 | `quiz_step` | Cada avanço (2 a 6; 6 = concluído) | `step`, `location` |
 | `generate_lead` | Envio do diagnóstico | `objective`, `revenue`, `budget`, `recommended_plan`, `lead_priority`, `location` |
 | `whatsapp_click` | Qualquer botão de WhatsApp | `origin` |
+| `raiox_start` / `raiox_result` / `raiox_error` | Raio-X iniciado, concluído (faixa da nota, nº de furos críticos) ou com erro | `location`, `score_bucket`, `criticos`, `reason` |
 
 Funil para acompanhar toda sexta: `cta_click → quiz_start → quiz_step (2…5) → generate_lead → reunião → proposta → venda`. O passo com maior queda é o primeiro a otimizar.
 

@@ -107,6 +107,18 @@ export const HOME_FAQ: Faq[] = [
     a: 'Além de anúncios e criativos, construímos a tecnologia que transforma o clique em cliente: sites rápidos, CRM, automações de WhatsApp, agentes de IA e sistemas próprios. Marketing e engenharia ficam na mesma equipe, com uma única responsabilidade pelo resultado.',
   },
   {
+    q: 'Já tenho agência. Por que falaria com vocês?',
+    a: 'Porque a pergunta certa não é quem faz os anúncios, e sim se você sabe quanto custa cada cliente que eles trazem. Se a resposta for sim, ótimo. Se não for, o Raio-X e o diagnóstico mostram onde está o furo, e o resultado serve até para a sua agência atual.',
+  },
+  {
+    q: 'Já tentei tráfego pago e não funcionou. Por que agora seria diferente?',
+    a: 'Na maioria das vezes, o problema não é o anúncio: é o que acontece depois do clique. Página lenta, ninguém respondendo o WhatsApp a tempo, nenhum follow-up e nenhuma medição. Nós cuidamos do caminho inteiro, do anúncio até a venda, e mostramos os números de cada etapa.',
+  },
+  {
+    q: 'Vocês garantem resultado?',
+    a: 'Não prometemos número garantido, e desconfie de quem promete. Garantimos método, prazo de entrega e transparência: você vê o custo por lead e por venda de cada canal, e decide com dados.',
+  },
+  {
     q: 'Quanto custa contratar a Meta Impulso?',
     a: 'O investimento depende do escopo e do plano (START, GROWTH ou SCALE). Em tráfego pago, a verba de mídia é paga diretamente ao Google e à Meta e fica separada da gestão. Definimos tudo após o diagnóstico gratuito, com proposta por escrito.',
   },
@@ -168,3 +180,55 @@ export interface Testimonial {
  * The section stays hidden while this list is empty.
  */
 export const TESTIMONIALS: Testimonial[] = []
+
+/** Home "funil furado": the five places where sales leak, and how we close each one. */
+export const FUNNEL_LEAKS = [
+  { stage: 'Anúncio', leak: 'O anúncio leva para o Instagram ou para uma página genérica, e ninguém sabe qual campanha trouxe o cliente.', fix: 'Campanhas no Google e no Meta com rastreamento do clique até a venda.' },
+  { stage: 'Site', leak: 'A página demora no celular, a oferta não fica clara e não existe um próximo passo óbvio.', fix: 'Site e landing pages rápidos, com uma única ação: falar com você.' },
+  { stage: 'Atendimento', leak: 'O lead chama no WhatsApp e espera horas. Quem pede orçamento fala com três concorrentes ao mesmo tempo.', fix: 'Resposta em segundos com automação e agente de IA, inclusive fora do horário.' },
+  { stage: 'Follow-up', leak: 'Quem não fechou na hora é esquecido, e a venda dependia de um segundo contato.', fix: 'CRM com funil e follow-up automático: nenhum lead fica sem retorno.' },
+  { stage: 'Medição', leak: 'Sem números, a verba é decidida no achismo e campanhas boas são cortadas junto com as ruins.', fix: 'Custo por lead e por venda de cada canal em um só relatório.' },
+]
+
+/** What the Raio-X checks automatically (hero preview + tool page). */
+export const RAIOX_CHECKS = [
+  { title: 'Velocidade no celular', desc: 'Nota oficial do Google PageSpeed e tempo até o conteúdo principal aparecer.' },
+  { title: 'Rastreamento', desc: 'Google Analytics, Tag Manager, Pixel da Meta e tag de conversão do Google Ads.' },
+  { title: 'Conversão', desc: 'Botão de WhatsApp, telefone clicável e formulário de contato.' },
+  { title: 'O que o Google vê', desc: 'Título, descrição, título principal, HTTPS, ajuste para celular e dados estruturados.' },
+]
+
+/** What only a person checks: the bridge from the free tool to the free diagnostic. */
+export const RAIOX_HUMAN_CHECKS = [
+  'Perfil no Google Maps, fotos e avaliações',
+  'Anúncios ativos e para onde eles levam',
+  'Quanto tempo sua equipe leva para responder no WhatsApp',
+  'Follow-up, CRM e o caminho até a venda',
+]
+
+export const TOOL_FAQ: Faq[] = [
+  {
+    q: 'O Raio-X de Vendas é grátis mesmo?',
+    a: 'Sim. Não pedimos cadastro nem cartão. Se quiser ajuda para corrigir o que apareceu, você pode pedir o diagnóstico gratuito com um especialista da Meta Impulso.',
+  },
+  {
+    q: 'O que a análise de site verifica?',
+    a: 'A velocidade no celular (medida pelo Google PageSpeed Insights), o rastreamento (Google Analytics, Tag Manager, Pixel da Meta e Google Ads), os caminhos de contato (WhatsApp, telefone e formulário) e o que o Google lê da página (título, descrição, HTTPS, ajuste para celular e dados estruturados).',
+  },
+  {
+    q: 'Por que a nota de velocidade muda a cada teste?',
+    a: 'A velocidade é medida pelo Google em um celular simulado, e pequenas variações de rede e de servidor mudam a nota de um teste para outro. Olhe a faixa (lento, médio ou rápido), não o número exato.',
+  },
+  {
+    q: 'Meu site tem aviso de cookies. O Raio-X detecta o rastreamento?',
+    a: 'Se o Google Analytics ou o Pixel só carregam depois do aceite dos cookies, eles não aparecem na leitura automática. Nesse caso, conferimos manualmente na análise completa.',
+  },
+  {
+    q: 'Não tenho site, só Instagram. Serve para mim?',
+    a: 'O Raio-X precisa do endereço de um site. Se você vende pelo Instagram ou pelo WhatsApp, o diagnóstico gratuito é o caminho: analisamos perfil, anúncios e atendimento com você.',
+  },
+  {
+    q: 'Vocês guardam o endereço que eu analiso?',
+    a: 'Não pedimos cadastro e não salvamos o resultado em banco de dados. A velocidade é medida pelo Google PageSpeed Insights. Seus dados só chegam até nós se você pedir o diagnóstico e enviar o formulário.',
+  },
+]

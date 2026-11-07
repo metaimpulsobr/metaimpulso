@@ -65,6 +65,23 @@ Siga o guia **[RECEBER-LEADS-GOOGLE-SHEETS.md](RECEBER-LEADS-GOOGLE-SHEETS.md)**
 
 ---
 
+## ✅ Etapa 4.1 — Ligar o medidor de velocidade do Raio-X (10 min)
+
+O Raio-X usa o Google PageSpeed para medir a velocidade no celular. Sem uma chave própria, o Google costuma recusar por excesso de uso compartilhado e o relatório sai sem a nota de velocidade.
+
+1. Acesse https://console.cloud.google.com e crie um projeto (ex.: "Meta Impulso Site").
+2. Menu **APIs e serviços → Biblioteca** → procure **PageSpeed Insights API** → **Ativar**.
+3. **APIs e serviços → Credenciais → Criar credenciais → Chave de API**.
+4. Clique na chave criada e restrinja:
+   - **Restrições de aplicativo:** Sites → adicione `https://www.metaimpulso.com.br/*` e `https://metaimpulso.com.br/*`
+   - **Restrições de API:** PageSpeed Insights API
+   - **Salvar**
+5. Na Vercel → **Settings → Environment Variables** → `VITE_PSI_API_KEY` com a chave → **Redeploy**.
+
+**Deu certo quando:** o Raio-X mostrar "Nota de velocidade do Google: X/100" em vez de "Velocidade não medida agora". A chave é gratuita e fica visível no site, por isso a restrição ao domínio é obrigatória.
+
+---
+
 ## ✅ Etapa 5 — Aparecer nas respostas de IA (ChatGPT, Gemini) — 2 min, opcional
 
 Hoje a Cloudflare bloqueia esses robôs.

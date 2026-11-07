@@ -32,6 +32,16 @@ O ciano puro `#6BCDE7` não tem contraste suficiente sobre branco: use-o em íco
 - Tipografia do site: **Outfit** (títulos), **Inter** (textos), **JetBrains Mono** (rótulos técnicos).
 - Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, versão escura.
 
+## Linguagem visual: "sala de comando"
+
+O site deixou o tema "espaço" (foguete, estrelas, ícones flutuantes) porque é o visual de modelo pronto que muitas agências usam e não prova nada. A nova linguagem mostra a empresa como **o painel de controle das vendas do cliente**:
+
+- **Topo escuro** (grafite `#231F20` com brilho ameixa e ciano e uma grade fina de fundo) em todas as páginas principais.
+- **O Raio-X é o herói visual:** no lugar de uma ilustração, a primeira tela tem uma ferramenta que funciona.
+- **Elementos de instrumento:** nota em anel, barras de progresso, lista de verificação com ✓ / ✗, rótulos em fonte mono.
+- **Cores de diagnóstico** só dentro do relatório: vermelho `#DC2626` (furo crítico), âmbar `#B45309` (atenção), verde `#059669` (ok).
+- **Faixas escuras** marcam os momentos de decisão ("Um único responsável"); o resto do conteúdo fica em fundo claro para leitura.
+
 ## Pendente (AURA)
 
 - [ ] Arquivo vetorial (SVG) do logo e versão horizontal sem o subtítulo antigo.

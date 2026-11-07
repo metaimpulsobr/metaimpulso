@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { MotionConfig, motion, useScroll, useSpring } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
-import SpaceBackground from './components/SpaceBackground'
 import SiteHeader from './components/SiteHeader'
 import SiteFooter from './components/SiteFooter'
 import ConsentBanner from './components/ConsentBanner'
@@ -9,6 +8,7 @@ import MobileCtaBar from './components/MobileCtaBar'
 import HomePage from './pages/HomePage'
 import ServicePage from './pages/ServicePage'
 import PrivacyPage from './pages/PrivacyPage'
+import ToolPage from './pages/ToolPage'
 import NotFoundPage from './pages/NotFoundPage'
 import { resolveRoute } from './seo/routes'
 import { whatsappLink } from './content/site'
@@ -18,8 +18,8 @@ import './site.css'
 
 function App({ path }: { path: string }) {
   const route = resolveRoute(path)
-  // Home and service pages embed the diagnostic (#contato); other pages link back to the home one.
-  const contactHref = route.kind === 'home' || route.kind === 'service' ? '#contato' : '/#contato'
+  // Home, service and tool pages embed the diagnostic (#contato); other pages link back to the home one.
+  const contactHref = route.kind === 'home' || route.kind === 'service' || route.kind === 'tool' ? '#contato' : '/#contato'
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
@@ -34,11 +34,11 @@ function App({ path }: { path: string }) {
 
         <motion.div className="progress-bar" style={{ scaleX }} aria-hidden="true" />
 
-        <SpaceBackground />
         <SiteHeader contactHref={contactHref} />
 
         {route.kind === 'home' && <HomePage />}
         {route.kind === 'service' && route.service && <ServicePage service={route.service} />}
+        {route.kind === 'tool' && <ToolPage />}
         {route.kind === 'privacy' && <PrivacyPage />}
         {route.kind === 'notfound' && <NotFoundPage />}
 

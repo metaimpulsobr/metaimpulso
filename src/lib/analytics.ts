@@ -4,7 +4,7 @@
 // sales funnel is measurable even before GTM is configured or when cookies are refused.
 import { track as vercelTrack } from '@vercel/analytics'
 
-const VERCEL_EVENTS = new Set(['generate_lead', 'whatsapp_click', 'cta_click', 'quiz_start', 'quiz_step'])
+const VERCEL_EVENTS = new Set(['generate_lead', 'whatsapp_click', 'cta_click', 'quiz_start', 'quiz_step', 'raiox_start', 'raiox_result', 'raiox_error'])
 
 declare global {
   interface Window {

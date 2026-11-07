@@ -4,10 +4,10 @@ import { X } from 'lucide-react'
 import { track } from '../lib/analytics'
 
 const NAV_LINKS = [
+  { name: 'Raio-X grátis', href: '/analise-de-site-gratis' },
   { name: 'Serviços', href: '/#servicos' },
   { name: 'Planos', href: '/#planos' },
   { name: 'Cases', href: '/#cases' },
-  { name: 'Processo', href: '/#processo' },
   { name: 'FAQ', href: '/#faq' },
 ]
 

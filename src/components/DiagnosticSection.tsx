@@ -1,4 +1,4 @@
-import { CheckCircle2, MessageCircle, Mail, Clock } from 'lucide-react'
+import { CheckCircle2, MessageCircle, Mail, Clock, Phone } from 'lucide-react'
 import DiagnosticQuiz from './DiagnosticQuiz'
 import { SITE, DIAGNOSTIC_DELIVERABLES, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
@@ -60,6 +60,9 @@ export default function DiagnosticSection({ location, initialObjective, title, w
                 onClick={() => track('whatsapp_click', { origin: `${location}_contato` })}
               >
                 <MessageCircle size={18} aria-hidden="true" /> WhatsApp {SITE.phoneDisplay}
+              </a>
+              <a href={`tel:${SITE.phoneE164}`} className="diag-direct-item" onClick={() => track('cta_click', { origin: `${location}_ligar` })}>
+                <Phone size={18} aria-hidden="true" /> Ligar: {SITE.phoneDisplay}
               </a>
               <a href={`mailto:${SITE.email}`} className="diag-direct-item">
                 <Mail size={18} aria-hidden="true" /> {SITE.email}
