@@ -1281,7 +1281,8 @@ a.diag-direct-item:hover { color: var(--magenta-text); }
 .cases-tab:hover { border-color: var(--ink); color: var(--ink); }
 .cases-tab.is-active { background: var(--ink); color: #FFFFFF; border-color: var(--ink); }
 .cases-tab.is-active svg { color: #C9BDF0; }
-.cases-tab-num { font-family: var(--font-mono); font-size: 0.7rem; opacity: 0.6; }
+.cases-tab-num { font-family: var(--font-mono); font-size: 0.7rem; color: #5b6474; }
+.cases-tab.is-active .cases-tab-num { color: #B9B6C6; }
 .cases-tab-timer {
   position: absolute;
   left: 0;
@@ -1353,7 +1354,7 @@ a.diag-direct-item:hover { color: var(--magenta-text); }
 
 /* --- Illustrative interfaces --- */
 .cv-stage { width: 100%; display: grid; place-items: center; }
-.cv-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.45rem; border-radius: 100px; background: rgba(15, 23, 42, 0.06); color: #64748B; margin-left: auto; }
+.cv-tag { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.15rem 0.45rem; border-radius: 100px; background: rgba(15, 23, 42, 0.06); color: #475569; margin-left: auto; }
 .cv-tag-float { position: absolute; right: -6px; top: 10px; background: rgba(255, 255, 255, 0.9); }
 .cv-browser { width: 100%; border-radius: 0.9rem; overflow: hidden; background: #FFFFFF; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28); color: #0F172A; text-align: left; }
 .cases-card .cv-browser { box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12); }
@@ -1439,7 +1440,7 @@ a.diag-direct-item:hover { color: var(--magenta-text); }
 
 /* Pharmacy (phone) */
 .cv-shop { padding: 32px 12px 12px; display: flex; flex-direction: column; gap: 0.6rem; min-height: 380px; }
-.cv-shop-search { display: flex; align-items: center; gap: 0.4rem; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 100px; padding: 0.4rem 0.7rem; color: #94A3B8; }
+.cv-shop-search { display: flex; align-items: center; gap: 0.4rem; background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 100px; padding: 0.4rem 0.7rem; color: #64748B; }
 .cv-shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
 .cv-shop-item { background: #FFFFFF; border-radius: 10px; padding: 0.5rem; display: grid; gap: 0.25rem; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06); }
 .cv-shop-img { height: 46px; border-radius: 8px; background: linear-gradient(135deg, #E8F6FB, #F1EEF8); }
@@ -1504,7 +1505,7 @@ body { background: var(--paper); color: var(--ink); }
   -webkit-text-fill-color: currentColor;
   color: var(--brand-violet);
 }
-.partners-carousel-section .text-gradient { color: #8E8C99; }
+.partners-carousel-section .text-gradient { color: #6B6976; }
 .partners-carousel-section { background: var(--paper); border-color: var(--line); }
 
 /* One action color: violet, flat, no glow or shimmer */
