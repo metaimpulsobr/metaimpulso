@@ -30,6 +30,40 @@ const water = new THREE.MeshPhysicalMaterial({ color: 0x8fd6ea, roughness: 0.06,
 const add = (geo, mat, x = 0, y = 0, z = 0) => { const m = new THREE.Mesh(geo, mat); m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; scene.add(m); return m }
 const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), new THREE.ShadowMaterial({ opacity: 0.17 }))
 ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground)
+
+// Flat ramp/ribbon following a path (stays horizontal across its width)
+function ribbon(points, width, thick, mat) {
+  const pos = [], idx = []
+  const n = points.length
+  for (let i = 0; i < n; i++) {
+    const p = points[i], q = points[Math.min(n - 1, i + 1)], o = points[Math.max(0, i - 1)]
+    const dir = new THREE.Vector3().subVectors(q, o); dir.y = 0; dir.normalize()
+    const side = new THREE.Vector3(-dir.z, 0, dir.x).multiplyScalar(width / 2)
+    const a = p.clone().add(side), b = p.clone().sub(side)
+    pos.push(a.x, a.y, a.z, b.x, b.y, b.z, a.x, a.y - thick, a.z, b.x, b.y - thick, b.z)
+  }
+  for (let i = 0; i < n - 1; i++) {
+    const k = i * 4, m = k + 4
+    const quad = (a, b, c, d) => idx.push(a, b, c, b, d, c)
+    quad(k, k + 1, m, m + 1)           // top
+    quad(k + 3, k + 2, m + 3, m + 2)   // bottom
+    quad(k + 2, k, m + 2, m)           // side a
+    quad(k + 1, k + 3, m + 1, m + 3)   // side b
+  }
+  const g = new THREE.BufferGeometry()
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setIndex(idx); g.computeVertexNormals()
+  return add(g, mat)
+}
+// Thin rod between two points
+function rod(a, b, r, mat) {
+  const d = new THREE.Vector3().subVectors(b, a), len = d.length()
+  const m = add(new THREE.CylinderGeometry(r, r, len, 8), mat)
+  m.position.copy(a).addScaledVector(d, 0.5)
+  m.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize())
+  return m
+}
+const V = (x, y, z) => new THREE.Vector3(x, y, z)
+const glassMat = new THREE.MeshPhysicalMaterial({ color: 0xcfe9f2, roughness: 0.08, transparent: true, opacity: 0.5 })
 let camera
 if (which === 'congresso') {
   add(new THREE.BoxGeometry(14, 0.9, 4.6), concrete, 0, 0.45, 0)
@@ -73,7 +107,112 @@ if (which === 'congresso') {
   for (let i = 0; i < 11; i++) add(colGeo, concrete, -6.2 + i * 1.24, 0, 2.05)
   add(new THREE.BoxGeometry(16, 0.05, 3), water, 0, 0.025, 4.4)
   camera = new THREE.PerspectiveCamera(20, W / H, 0.1, 300)
-  camera.position.set(-14, 6.5, 21); camera.lookAt(0.4, 1.35, 1.2)
+  camera.position.set(-17, 8, 27); camera.lookAt(-0.2, 1.35, 1.2)
+} else if (which === 'museu') {
+  const R = 3.2
+  add(new THREE.SphereGeometry(R, 128, 64, 0, Math.PI * 2, 0, Math.PI / 2), concrete)
+  // horizontal opening band around the front of the dome
+  const yb = 1.55, rb = Math.sqrt(R * R - yb * yb) + 0.012
+  add(new THREE.CylinderGeometry(rb, rb + 0.02, 0.2, 96, 1, true, -0.62 - 1.35, 2.7), new THREE.MeshStandardMaterial({ color: 0x6f7586, roughness: 0.55, side: THREE.DoubleSide }), 0, yb, 0)
+  // curved ramp rising from the ground into the dome
+  const pts = []
+  for (let i = 0; i <= 60; i++) {
+    const t = i / 60, a = 2.75 - 1.3 * t, r = 7.6 - (7.6 - 2.95) * t, y = 0.06 + 1.25 * (t * t * (3 - 2 * t))
+    pts.push(V(r * Math.cos(a), y, r * Math.sin(a)))
+  }
+  ribbon(pts, 1.0, 0.16, concrete)
+  for (const k of [18, 30, 42]) { const p = pts[k]; rod(V(p.x, 0, p.z), V(p.x, p.y - 0.12, p.z), 0.06, concrete) }
+  camera = new THREE.PerspectiveCamera(24, W / H, 0.1, 300)
+  camera.position.set(-13, 7.6, 18.5); camera.lookAt(-1.4, 1.1, 2.4)
+} else if (which === 'ponte') {
+  add(new THREE.BoxGeometry(34, 0.04, 12), water, 0, 0.02, 0)
+  add(new THREE.BoxGeometry(27, 0.28, 1.7), concrete, 0, 1.3, 0)
+  const spans = [[-10.5, -3.5], [-3.5, 3.5], [3.5, 10.5]]
+  for (const [a, b] of spans) {
+    const pts = []
+    for (let i = 0; i <= 40; i++) { const t = i / 40; pts.push(V(a + (b - a) * t, 0.55 + 5.2 * Math.sin(Math.PI * t), -1.7 + 3.4 * t)) }
+    add(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 120, 0.2, 12, false), concrete)
+    for (let i = 5; i <= 35; i += 3) {
+      const p = pts[i]; const z = i % 2 ? 0.8 : -0.8
+      rod(p, V(p.x, 1.44, z), 0.018, concrete)
+    }
+    for (const x of [a, b]) add(new THREE.BoxGeometry(0.9, 1.2, 2.4), concrete, x, 0.6, 0)
+  }
+  camera = new THREE.PerspectiveCamera(22, W / H, 0.1, 300)
+  camera.position.set(-17, 9, 23); camera.lookAt(0.5, 2.2, 0)
+} else if (which === 'planalto') {
+  add(new THREE.BoxGeometry(15, 0.12, 6.5), concrete, 0, 0.06, 0)
+  add(new THREE.BoxGeometry(13, 0.2, 5), concrete, 0, 1.05, 0)
+  add(new THREE.BoxGeometry(13.6, 0.32, 5.4), concrete, 0, 3.5, 0)
+  add(new THREE.BoxGeometry(12, 2.3, 4.1), glassMat, 0, 2.2, 0)
+  const shape = new THREE.Shape()
+  shape.moveTo(-0.5, 3.34); shape.bezierCurveTo(-0.18, 3.0, -0.05, 1.4, 0, 0.12); shape.bezierCurveTo(0.05, 1.4, 0.18, 3.0, 0.5, 3.34); shape.lineTo(-0.5, 3.34)
+  const col = new THREE.ExtrudeGeometry(shape, { depth: 0.16, bevelEnabled: true, bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 3, curveSegments: 32 })
+  for (let i = 0; i < 9; i++) { add(col, concrete, -6 + i * 1.5, 0, 2.62); add(col, concrete, -6 + i * 1.5, 0, -2.78) }
+  // the ramp up to the main floor
+  const ramp = add(new THREE.BoxGeometry(1.6, 0.14, 4.6), concrete, -1.5, 0.55, 4.9); ramp.rotation.x = 0.21
+  add(new THREE.BoxGeometry(6, 0.04, 3), water, 4.2, 0.03, 5.1)
+  camera = new THREE.PerspectiveCamera(21, W / H, 0.1, 300)
+  camera.position.set(-18, 9, 26); camera.lookAt(-0.3, 1.6, 1.4)
+} else if (which === 'itamaraty') {
+  add(new THREE.BoxGeometry(22, 0.04, 22), water, 0, 0.02, 0)
+  add(new THREE.BoxGeometry(9.6, 0.12, 9.6), concrete, 0, 0.06, 0)
+  add(new THREE.BoxGeometry(8.6, 3.0, 8.6), glassMat, 0, 1.6, 0)
+  const W2 = 11, H2 = 4.1, n = 11, pier = 0.2
+  const facade = () => {
+    const sh = new THREE.Shape(); sh.moveTo(-W2 / 2, 0); sh.lineTo(W2 / 2, 0); sh.lineTo(W2 / 2, H2); sh.lineTo(-W2 / 2, H2); sh.lineTo(-W2 / 2, 0)
+    const w = (W2 - (n + 1) * pier) / n, spring = H2 - 0.45 - w / 2
+    for (let i = 0; i < n; i++) {
+      const x0 = -W2 / 2 + pier + i * (w + pier)
+      const hole = new THREE.Path(); hole.moveTo(x0, 0); hole.lineTo(x0 + w, 0); hole.lineTo(x0 + w, spring); hole.absarc(x0 + w / 2, spring, w / 2, 0, Math.PI, false); hole.lineTo(x0, 0)
+      sh.holes.push(hole)
+    }
+    return new THREE.ExtrudeGeometry(sh, { depth: 0.22, bevelEnabled: false, curveSegments: 24 })
+  }
+  const f = facade()
+  for (let k = 0; k < 4; k++) { const m = add(f, concrete); m.rotation.y = k * Math.PI / 2; m.position.set(Math.sin(k * Math.PI / 2) * (W2 / 2), 0, Math.cos(k * Math.PI / 2) * (W2 / 2)); m.translateZ(-0.11) }
+  add(new THREE.BoxGeometry(W2 + 0.3, 0.35, W2 + 0.3), concrete, 0, H2 + 0.17, 0)
+  camera = new THREE.PerspectiveCamera(22, W / H, 0.1, 300)
+  camera.position.set(-19, 11, 25); camera.lookAt(0, 1.6, 0)
+} else if (which === 'esplanada') {
+  add(new THREE.BoxGeometry(9, 0.03, 40), new THREE.MeshStandardMaterial({ color: 0xeef3ee, roughness: 0.9 }), 0, 0.015, -6)
+  for (let i = 0; i < 8; i++) {
+    const z = 10 - i * 3.6
+    add(new THREE.BoxGeometry(3.6, 3.4, 1.1), concrete, -7, 1.7, z)
+    add(new THREE.BoxGeometry(3.6, 3.4, 1.1), concrete, 7, 1.7, z)
+  }
+  // Congresso at the end of the axis
+  add(new THREE.BoxGeometry(9, 0.6, 3), concrete, 0, 0.3, -24)
+  add(new THREE.BoxGeometry(0.7, 6, 1.3), concrete, -0.45, 3, -25.5)
+  add(new THREE.BoxGeometry(0.7, 6, 1.3), concrete, 0.45, 3, -25.5)
+  const bw = [[0, 0], [0.55, 0], [0.85, 0.08], [1.3, 0.32], [1.65, 0.65], [1.8, 0.75]].map(([r, y]) => new THREE.Vector2(r, y))
+  const bowl = add(new THREE.LatheGeometry(bw, 64), concrete.clone(), -2.4, 0.6, -23.8); bowl.material.side = THREE.DoubleSide
+  const dm = add(new THREE.SphereGeometry(1.2, 64, 32, 0, Math.PI * 2, 0, Math.PI / 2), concrete, 2.4, 0.6, -23.8); dm.scale.set(1, 0.6, 1)
+  camera = new THREE.PerspectiveCamera(24, W / H, 0.1, 300)
+  camera.position.set(0, 16, 40); camera.lookAt(0, 0.6, -8)
+} else if (which === 'plano') {
+  const base = add(new THREE.BoxGeometry(18, 0.35, 13), concrete, 0, 0.175, 0)
+  // Lago Paranoá wrapping the east side
+  const lake = new THREE.Shape()
+  lake.moveTo(4.2, -6.4); lake.bezierCurveTo(7.5, -4.5, 6.0, -1.0, 7.6, 0.4); lake.bezierCurveTo(8.8, 2.0, 6.2, 4.6, 3.8, 6.4)
+  lake.lineTo(8.9, 6.4); lake.lineTo(8.9, -6.4); lake.lineTo(4.2, -6.4)
+  const lk = add(new THREE.ExtrudeGeometry(lake, { depth: 0.05, bevelEnabled: false }), water); lk.rotation.x = Math.PI / 2; lk.position.y = 0.4
+  // Eixo Rodoviário (the curved "wings") and Eixo Monumental (the "body")
+  const arc = []; for (let i = 0; i <= 60; i++) { const a = -1.15 + 2.3 * i / 60; arc.push(V(-6.6 + 8.2 * Math.cos(a), 0.47, 8.2 * Math.sin(a) * 0.72)) }
+  ribbon(arc, 0.46, 0.2, concrete)
+  add(new THREE.BoxGeometry(12.5, 0.2, 0.62), concrete, -0.6, 0.45, 0)
+  // superquadras along the wings
+  for (let i = 3; i <= 57; i += 3) {
+    const p = arc[i], q = arc[i + 1] || arc[i]
+    const d = new THREE.Vector3().subVectors(q, p).normalize(); const nrm = V(-d.z, 0, d.x)
+    for (const s of [-1, 1]) { const b = add(new THREE.BoxGeometry(0.46, 0.34, 0.46), concrete); b.position.copy(p).addScaledVector(nrm, s * 0.72); b.position.y = 0.52 }
+  }
+  // Congresso and Torre de TV
+  add(new THREE.BoxGeometry(0.22, 1.4, 0.4), concrete, 5.0, 1.05, -0.14)
+  add(new THREE.BoxGeometry(0.22, 1.4, 0.4), concrete, 5.0, 1.05, 0.16)
+  add(new THREE.CylinderGeometry(0.07, 0.18, 2.0, 12), concrete, -4.5, 1.35, 0)
+  camera = new THREE.PerspectiveCamera(24, W / H, 0.1, 300)
+  camera.position.set(-9, 27, 19); camera.lookAt(0.4, 0, 0.4)
 }
 renderer.render(scene, camera)
 window.__done = true

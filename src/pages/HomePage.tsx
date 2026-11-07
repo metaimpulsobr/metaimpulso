@@ -1,12 +1,13 @@
 import { CheckCircle2, ScanLine, ArrowRight, XCircle, Wrench } from 'lucide-react'
 import ObjectiveSelector from '../components/ObjectiveSelector'
-import AboutLogoVfx from '../components/AboutLogoVfx'
+import Landmark from '../components/Landmark'
 import DiagnosticSection from '../components/DiagnosticSection'
 import CasesShowcase from '../components/CasesShowcase'
 import { RaioXForm } from '../components/RaioX'
 import { ProcessSection, PlansSection, FaqSection, OneTeamSection, TestimonialsSection } from '../components/Sections'
 import { HOME_FAQ, FUNNEL_LEAKS, RAIOX_CHECKS, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
+import { LANDMARKS } from '../content/brasilia'
 
 const TECH = ['GOOGLE ADS', 'META ADS', 'GA4', 'REACT', 'NEXT.JS', 'TYPESCRIPT', 'NODE.JS', 'SUPABASE', 'WHATSAPP', 'IA']
 
@@ -32,7 +33,11 @@ export default function HomePage() {
             <p className="hero-cmd-sub">
               Cole o endereço do seu site e veja agora, de graça, onde ele está perdendo clientes. Se fizer sentido, uma única equipe fecha todos os furos: anúncio, site, WhatsApp, CRM e IA, medidos até a venda.
             </p>
+          </div>
 
+          {/* Raio-X on the right, standing in front of the Museu Nacional */}
+          <div className="hero-stage">
+            <Landmark item={LANDMARKS.museu} className="hero-landmark" priority />
             <div className="hero-cmd-card" id="raio-x">
               <div className="hero-cmd-card-head">
                 <span className="live-dot" aria-hidden="true" /> Raio-X de Vendas · grátis
@@ -43,31 +48,21 @@ export default function HomePage() {
                   <li key={c.title}><ScanLine size={15} aria-hidden="true" /> {c.title}</li>
                 ))}
               </ul>
+              <p className="hero-cmd-alt">
+                Ainda não tem site?{' '}
+                <a href="#contato" onClick={() => track('cta_click', { origin: 'hero_sem_site' })}>Faça o diagnóstico gratuito</a> ou{' '}
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => track('whatsapp_click', { origin: 'hero' })}
+                >
+                  fale no WhatsApp
+                </a>
+                .
+              </p>
             </div>
-            <p className="hero-cmd-alt">
-              Ainda não tem site?{' '}
-              <a href="#contato" onClick={() => track('cta_click', { origin: 'hero_sem_site' })}>Faça o diagnóstico gratuito</a> ou{' '}
-              <a
-                href={whatsappLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => track('whatsapp_click', { origin: 'hero' })}
-              >
-                fale no WhatsApp
-              </a>
-              .
-            </p>
           </div>
-
-          <figure className="hero-art">
-            <img
-              src="/3d/congresso.webp"
-              width={1400}
-              height={1020}
-              alt="Congresso Nacional em 3D, em concreto branco, com o espelho d'água"
-              fetchPriority="high"
-            />
-          </figure>
 
           <ul className="hero-cmd-trust">
             <li><CheckCircle2 size={16} aria-hidden="true" /> Do anúncio à venda, um só time responsável</li>
@@ -100,6 +95,8 @@ export default function HomePage() {
             </p>
           </div>
 
+          <Landmark item={LANDMARKS.ponte} className="landmark-wide" />
+
           <ol className="leak-flow">
             {FUNNEL_LEAKS.map((l, i) => (
               <li key={l.stage} className="leak-step">
@@ -126,6 +123,7 @@ export default function HomePage() {
 
       <section id="servicos" className="section-v16">
         <div className="container">
+          <Landmark item={LANDMARKS.esplanada} className="landmark-center" />
           <ObjectiveSelector />
         </div>
       </section>
@@ -164,16 +162,7 @@ export default function HomePage() {
             </div>
 
             <div className="sobre-card-col">
-              <div className="card-premium" style={{ textAlign: 'center' }}>
-                <AboutLogoVfx />
-                <h3 className="title-md">
-                  Estratégia, tecnologia e <br />
-                  <span className="text-gradient">performance comercial</span>
-                </h3>
-                <p style={{ color: 'var(--text-tech)', fontSize: '0.9rem', marginTop: '1rem' }}>
-                  Decisões orientadas por dados, com foco no retorno sobre o investimento (ROI).
-                </p>
-              </div>
+              <Landmark item={LANDMARKS.catedral} className="landmark-side" />
             </div>
           </div>
         </div>

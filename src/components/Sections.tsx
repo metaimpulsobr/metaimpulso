@@ -2,17 +2,22 @@ import { motion } from 'framer-motion'
 import { Check, X, ArrowRight, Quote } from 'lucide-react'
 import { PLANS, PROCESS_STEPS, ONE_TEAM, TESTIMONIALS, whatsappLink, type Faq } from '../content/site'
 import { track } from '../lib/analytics'
+import Landmark from './Landmark'
+import { LANDMARKS } from '../content/brasilia'
 
 export function ProcessSection() {
   return (
     <section id="processo" className="section-v16">
       <div className="container">
-        <div className="section-head">
-          <span className="eyebrow">Processo</span>
-          <h2 className="title-lg">
-            Como <span className="text-gradient">trabalhamos</span>
-          </h2>
-          <p className="subtitle-main">Do diagnóstico à escala: cinco etapas claras, com entregas e métricas definidas em cada uma.</p>
+        <div className="section-split">
+          <div className="section-head section-head-left">
+            <span className="eyebrow">Processo</span>
+            <h2 className="title-lg">
+              Como <span className="text-gradient">trabalhamos</span>
+            </h2>
+            <p className="subtitle-main">Do diagnóstico à escala: cinco etapas claras, com entregas e métricas definidas em cada uma. Como em Brasília, o plano vem antes da obra.</p>
+          </div>
+          <Landmark item={LANDMARKS.plano} className="landmark-side" />
         </div>
 
         <ol className="launch-timeline">
@@ -56,14 +61,17 @@ export function PlansSection() {
   return (
     <section id="planos" className="section-v16">
       <div className="container">
-        <div className="section-head">
-          <span className="eyebrow">Planos</span>
-          <h2 className="title-lg">
-            Escolha o estágio de <span className="text-gradient">crescimento</span> da sua empresa
-          </h2>
-          <p className="subtitle-main">
-            Três níveis de entrega, do primeiro site à infraestrutura digital completa. O investimento é definido no diagnóstico, de acordo com o escopo.
-          </p>
+        <div className="section-split section-split-reverse">
+          <Landmark item={LANDMARKS.planalto} className="landmark-side" />
+          <div className="section-head section-head-left">
+            <span className="eyebrow">Planos</span>
+            <h2 className="title-lg">
+              Escolha o estágio de <span className="text-gradient">crescimento</span> da sua empresa
+            </h2>
+            <p className="subtitle-main">
+              Três níveis de entrega, do primeiro site à infraestrutura digital completa. O investimento é definido no diagnóstico, de acordo com o escopo.
+            </p>
+          </div>
         </div>
 
         <div className="plans-grid">
@@ -112,6 +120,12 @@ export function FaqSection({ faq, title = 'Perguntas frequentes' }: { faq: Faq[]
         <div className="section-head">
           <span className="eyebrow">FAQ</span>
           <h2 className="title-lg">{title}</h2>
+          <figure className="azulejos" aria-label="Padrão inspirado nos azulejos de Athos Bulcão">
+            <span className="azulejos-row" aria-hidden="true">
+              {Array.from({ length: 8 }, (_, i) => <i key={i} className={`az az-${i % 4}`} />)}
+            </span>
+            <figcaption><b>Azulejos</b> · inspirados em Athos Bulcão</figcaption>
+          </figure>
         </div>
         <div className="faq-list">
           {faq.map((f, i) => (
@@ -131,14 +145,17 @@ export function OneTeamSection() {
   return (
     <section id="responsavel" className="section-v16 section-tinted">
       <div className="container">
-        <div className="section-head">
-          <span className="eyebrow">Um único responsável</span>
-          <h2 className="title-lg">
-            Sua empresa não precisa de cinco fornecedores. <span className="text-gradient">Precisa de um responsável pelo resultado.</span>
-          </h2>
-          <p className="subtitle-main">
-            Na maioria das empresas, o anúncio é de uma agência, o site de um freelancer, o CRM de outra ferramenta e ninguém responde pela venda. Na Meta Impulso, tudo fica com a mesma equipe.
-          </p>
+        <div className="section-split">
+          <div className="section-head section-head-left">
+            <span className="eyebrow">Um único responsável</span>
+            <h2 className="title-lg">
+              Sua empresa não precisa de cinco fornecedores. <span className="text-gradient">Precisa de um responsável pelo resultado.</span>
+            </h2>
+            <p className="subtitle-main">
+              Na maioria das empresas, o anúncio é de uma agência, o site de um freelancer, o CRM de outra ferramenta e ninguém responde pela venda. Na Meta Impulso, tudo fica com a mesma equipe.
+            </p>
+          </div>
+          <Landmark item={LANDMARKS.congresso} className="landmark-side" />
         </div>
 
         <div className="oneteam-grid">

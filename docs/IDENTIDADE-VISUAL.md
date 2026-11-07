@@ -10,7 +10,8 @@ Página branca, tipografia calma e a arquitetura branca de Brasília em 3D. Niem
 | Elemento | Regra |
 |---|---|
 | **Fundo** | Branco `#FFFFFF` em todo o site. Seções alternadas em névoa `#F6F6F9` e linhas finas `#E7E6EE`. Nenhuma faixa escura. |
-| **3D** | Renders minimalistas do Congresso Nacional (home), da Catedral (páginas de serviço) e do Palácio da Alvorada (Raio-X), em concreto branco com sombras suaves e espelho d'água no ciano da marca (`public/3d/`, fonte em `design/3d/`). Mockups dos cases inclinados em perspectiva e cards que "levantam" em 3D ao passar o mouse. |
+| **Brasília em cada seção** | Cada seção tem um marco da cidade em 3D, em concreto branco com sombras suaves e espelho d'água no ciano da marca, com legenda do arquiteto: Museu Nacional (topo, atrás do Raio-X), Ponte JK (furos do funil), Congresso (um único responsável), Esplanada (serviços), Planalto (planos), Itamaraty (cases), Catedral (sobre e páginas de serviço), Plano Piloto de Lúcio Costa (processo), Alvorada (diagnóstico). FAQ com azulejos inspirados em Athos Bulcão; rodapé com o skyline em uma linha fina. Arquivos em `public/3d/`, fonte em `design/3d/`, dados em `src/content/brasilia.ts`. |
+| **Profundidade** | Mockups dos cases inclinados em perspectiva e cards que "levantam" em 3D ao passar o mouse. |
 | **Cor de ação** | Violeta `#725BA7` sólido nos botões principais (texto branco), sem brilho nem animação. Botão secundário branco com borda fina. |
 | **Destaque nos títulos** | Uma palavra ou frase em violeta sólido por título. Gradiente só no logo. |
 | **Tipografia** | Títulos em **Sora** peso 700 com espaçamento apertado; textos em **Inter**; rótulos em **JetBrains Mono** sem fundo colorido. |
@@ -47,7 +48,7 @@ O ciano puro `#6BCDE7` não tem contraste suficiente sobre branco: use-o em íco
 - Nome da marca em violeta `#725BA7` (fundo claro) ou branco (fundo escuro).
 - O logo antigo traz o subtítulo "Agência de marketing digital". No posicionamento atual, use "Marketing, tecnologia e vendas".
 - Tipografia do site: **Sora** (títulos), **Inter** (textos), **JetBrains Mono** (rótulos técnicos).
-- Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, fundo branco com o Congresso em 3D.
+- Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, fundo branco com o Museu Nacional em 3D.
 
 ## Pendente (AURA)
 

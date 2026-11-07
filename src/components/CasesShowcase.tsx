@@ -3,6 +3,8 @@ import { Globe, KanbanSquare, Landmark, Ticket, Bot, ArrowUpRight, ScanSearch, A
 import CaseVisualView from './CaseVisuals'
 import { FEATURED_CASE, OTHER_CASES, type CaseProduct } from '../content/cases'
 import { track } from '../lib/analytics'
+import BrasiliaLandmark from './Landmark'
+import { LANDMARKS } from '../content/brasilia'
 
 const TAB_ICONS: Record<string, React.ReactNode> = {
   portal: <Globe size={18} />,
@@ -84,14 +86,17 @@ export default function CasesShowcase() {
 
   return (
     <div className="cases">
-      <div className="section-head">
-        <span className="eyebrow">Cases reais</span>
-        <h2 className="title-lg">
-          Não é promessa. <span className="text-gradient">É o que já construímos.</span>
-        </h2>
-        <p className="subtitle-main">
-          Sites, CRMs, sistemas de crédito, clubes de benefícios e agentes de IA feitos pela mesma equipe que cuida do marketing.
-        </p>
+      <div className="section-split section-split-reverse">
+        <BrasiliaLandmark item={LANDMARKS.itamaraty} className="landmark-side" />
+        <div className="section-head section-head-left">
+          <span className="eyebrow">Cases reais</span>
+          <h2 className="title-lg">
+            Não é promessa. <span className="text-gradient">É o que já construímos.</span>
+          </h2>
+          <p className="subtitle-main">
+            Sites, CRMs, sistemas de crédito, clubes de benefícios e agentes de IA feitos pela mesma equipe que cuida do marketing.
+          </p>
+        </div>
       </div>
 
       {/* Featured: one client, the whole ecosystem */}

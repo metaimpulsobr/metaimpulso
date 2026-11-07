@@ -5,6 +5,8 @@ import { SERVICES } from '../content/services'
 import { whatsappLink } from '../content/site'
 import { ProcessSection, FaqSection } from '../components/Sections'
 import DiagnosticSection from '../components/DiagnosticSection'
+import Landmark from '../components/Landmark'
+import { LANDMARKS } from '../content/brasilia'
 import { track } from '../lib/analytics'
 
 export default function ServicePage({ service }: { service: ServiceContent }) {
@@ -13,7 +15,7 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
   return (
     <main id="conteudo">
       <section className="hero-cmd hero-cmd-compact service-hero">
-        <img className="service-art" src="/3d/catedral.webp" width={900} height={732} alt="" aria-hidden="true" />
+        <Landmark item={LANDMARKS.catedral} className="service-art" />
         <div className="container">
           <nav className="breadcrumb" aria-label="Você está em">
             <a href="/">Início</a> <span aria-hidden="true">/</span> <span>{service.navLabel}</span>

@@ -5,6 +5,8 @@ import { FaqSection } from '../components/Sections'
 import DiagnosticSection from '../components/DiagnosticSection'
 import { RAIOX_CHECKS, RAIOX_HUMAN_CHECKS, TOOL_FAQ } from '../content/site'
 import { useRaioX } from '../lib/useRaioX'
+import Landmark from '../components/Landmark'
+import { LANDMARKS } from '../content/brasilia'
 
 const CHECK_ICONS = [<Gauge size={24} key="g" />, <Radar size={24} key="r" />, <MousePointerClick size={24} key="m" />, <Search size={24} key="s" />]
 
@@ -47,7 +49,7 @@ export default function ToolPage() {
               <RaioXForm location="ferramenta" onRun={runHere} busy={busy} />
             </div>
           </div>
-          <img className="tool-art" src="/3d/alvorada.webp" width={1400} height={599} alt="" aria-hidden="true" />
+          <Landmark item={LANDMARKS.museu} className="tool-art" />
         </div>
       </section>
 
