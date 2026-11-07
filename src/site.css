@@ -1611,3 +1611,135 @@ a.diag-direct-item:hover { color: var(--magenta-text); }
   .cv-credit-steps { grid-template-columns: 1fr 1fr; }
   .cv-portal-nav span { display: none; }
 }
+
+/* ============================================================
+   19. "CAPITAL DO FUTURO": Niemeyer's Brasília + Raio-X
+       night sky, line-art skyline, Niemeyer curves, cyan = action
+   ============================================================ */
+
+/* --- Night bands (hero, positioning, featured case) --- */
+.hero-cmd {
+  background:
+    radial-gradient(70% 55% at 80% 105%, rgba(107, 205, 231, 0.22) 0%, transparent 70%),
+    radial-gradient(50% 60% at 6% -5%, rgba(179, 82, 159, 0.26) 0%, transparent 70%),
+    linear-gradient(180deg, var(--night) 0%, var(--night-2) 100%);
+  /* Niemeyer's free curve instead of a straight edge */
+  border-radius: 0 0 50% 50% / 0 0 56px 56px;
+}
+.section-dark,
+.cases-featured {
+  background:
+    radial-gradient(55% 60% at 0% 0%, rgba(179, 82, 159, 0.22) 0%, transparent 70%),
+    radial-gradient(45% 55% at 100% 100%, rgba(107, 205, 231, 0.16) 0%, transparent 70%),
+    var(--night);
+}
+.raiox-blind { background: var(--night); }
+.hero-cmd-card { background: rgba(255, 255, 255, 0.055); border-color: rgba(107, 205, 231, 0.22); }
+@media (max-width: 768px) { .hero-cmd-card { background: #15233D; } }
+
+/* --- Skyline --- */
+.skyline { display: block; width: 100%; pointer-events: none; }
+.skyline-reflection { opacity: 0.22; }
+.skyline-draw path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sky-draw 2.6s cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+@keyframes sky-draw { to { stroke-dashoffset: 0; } }
+.hero-cmd-city { padding-top: clamp(118px, 10.5vw, 150px); padding-bottom: calc(100vw * 225 / 1200 * 0.82); }
+.hero-cmd-city.hero-cmd-compact { padding-bottom: calc(100vw * 225 / 1200 * 0.78); }
+.hero-cmd-city .hero-cmd-title { font-size: clamp(2.1rem, 3.9vw, 3.35rem); }
+/* Full drawing on wide screens (the towers of the Congresso stay whole); phones crop the sides */
+.hero-skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  aspect-ratio: 1200 / 225;
+  opacity: 0.85;
+}
+.hero-skyline-compact { opacity: 0.5; }
+.hero-coords {
+  position: absolute;
+  right: max(16px, 4vw);
+  top: clamp(120px, 10.5vw, 150px);
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(169, 228, 243, 0.7);
+}
+
+/* --- One color for action: cyan with night text --- */
+.btn-v16-primary,
+.quiz-btn-next {
+  background: var(--brand-cyan);
+  color: var(--night);
+  border: 1.5px solid var(--night);
+  box-shadow: 0 10px 26px rgba(11, 20, 36, 0.18);
+}
+.btn-v16-primary:hover,
+.quiz-btn-next:hover { box-shadow: 0 14px 34px rgba(11, 20, 36, 0.26); }
+.btn-v16-primary::before { background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 100%); }
+.hero-cmd .btn-v16-primary,
+.section-dark .btn-v16-primary,
+.cases-featured .btn-v16-primary,
+.footer-night .btn-v16-primary {
+  border-color: transparent;
+  box-shadow: 0 0 0 1px rgba(107, 205, 231, 0.4), 0 10px 34px rgba(107, 205, 231, 0.28);
+}
+.floating-capsule { background: var(--night); border-color: rgba(107, 205, 231, 0.45); box-shadow: 0 10px 30px rgba(11, 20, 36, 0.35); }
+.floating-capsule svg { color: var(--brand-cyan); stroke: var(--brand-cyan); }
+.capsule-pulse { border-color: var(--brand-cyan); }
+.plan-badge, .leak-num { background: var(--night); color: var(--brand-cyan); }
+.quiz-progress-bar { background: var(--brand-cyan); box-shadow: none; }
+
+/* --- Gradient only in the logo: highlighted words become solid color --- */
+.text-gradient {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--brand-violet);
+}
+.text-gradient-light,
+.section-dark .text-gradient,
+.cases-featured .text-gradient {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--brand-cyan);
+}
+.section-dark .oneteam-us .text-gradient { color: var(--brand-violet); }
+
+/* --- Night footer with the skyline and a Niemeyer curve on top --- */
+.footer-night {
+  position: relative;
+  overflow: hidden;
+  border-top: none;
+  margin-top: 2rem;
+  padding-top: calc(100vw * 225 / 1200 * 0.9);
+  color: rgba(230, 241, 247, 0.78);
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(107, 205, 231, 0.14) 0%, transparent 70%),
+    linear-gradient(180deg, var(--night-2) 0%, var(--night) 60%);
+  border-radius: 50% 50% 0 0 / 56px 56px 0 0;
+}
+.footer-skyline { position: absolute; top: 12px; left: 0; right: 0; height: auto; aspect-ratio: 1200 / 225; opacity: 0.5; }
+.footer-night > .container { position: relative; z-index: 1; }
+.footer-night .logo-text { color: #FFFFFF; }
+.footer-night .footer-title { color: #FFFFFF; }
+.footer-night .footer-brand p,
+.footer-night .footer-contact span,
+.footer-night .footer-contact a,
+.footer-night .footer-list a { color: rgba(230, 241, 247, 0.72); }
+.footer-night .footer-list a:hover,
+.footer-night .footer-contact a:hover { color: var(--brand-cyan); }
+.footer-night .footer-social a { color: var(--brand-cyan) !important; }
+.footer-night .footer-bottom { color: rgba(230, 241, 247, 0.55); border-top-color: rgba(255, 255, 255, 0.1); }
+
+@media (max-width: 768px) {
+  .hero-cmd { border-radius: 0 0 50% 50% / 0 0 32px 32px; }
+  .hero-skyline, .footer-skyline { aspect-ratio: auto; height: 140px; }
+  .hero-cmd-city, .hero-cmd-city.hero-cmd-compact { padding-bottom: 150px; }
+  .footer-night { border-radius: 50% 50% 0 0 / 32px 32px 0 0; padding-top: 160px; }
+  .hero-coords { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skyline-draw path { animation: none; stroke-dashoffset: 0; }
+}

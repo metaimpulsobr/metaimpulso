@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Gauge, Radar, MousePointerClick, Search, CheckCircle2 } from 'lucide-react'
 import { RaioXForm, RaioXProgress, RaioXResult } from '../components/RaioX'
+import BrasiliaSkyline from '../components/BrasiliaSkyline'
 import { FaqSection } from '../components/Sections'
 import DiagnosticSection from '../components/DiagnosticSection'
 import { RAIOX_CHECKS, RAIOX_HUMAN_CHECKS, TOOL_FAQ } from '../content/site'
@@ -30,7 +31,8 @@ export default function ToolPage() {
 
   return (
     <main id="conteudo">
-      <section className="hero-cmd hero-cmd-compact">
+      <section className="hero-cmd hero-cmd-compact hero-cmd-city">
+        <BrasiliaSkyline className="hero-skyline hero-skyline-compact" />
         <div className="container">
           <nav className="breadcrumb breadcrumb-dark" aria-label="Você está em">
             <a href="/">Início</a> <span aria-hidden="true">/</span> <span>Análise de site grátis</span>

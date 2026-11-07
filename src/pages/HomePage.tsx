@@ -4,6 +4,7 @@ import AboutLogoVfx from '../components/AboutLogoVfx'
 import DiagnosticSection from '../components/DiagnosticSection'
 import CasesShowcase from '../components/CasesShowcase'
 import { RaioXForm } from '../components/RaioX'
+import BrasiliaSkyline from '../components/BrasiliaSkyline'
 import { ProcessSection, PlansSection, FaqSection, OneTeamSection, TestimonialsSection } from '../components/Sections'
 import { HOME_FAQ, FUNNEL_LEAKS, RAIOX_CHECKS, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
@@ -22,7 +23,9 @@ export default function HomePage() {
     <main id="conteudo">
       {/* HERO — the proof comes first: a live Raio-X of the visitor's own site.
           No entrance animation on the H1 so the LCP text paints straight from the prerendered HTML. */}
-      <section id="hero" className="hero-cmd">
+      <section id="hero" className="hero-cmd hero-cmd-city">
+        <BrasiliaSkyline className="hero-skyline" />
+        <span className="hero-coords" aria-hidden="true">Brasília · 15°47′S 47°52′O</span>
         <div className="container hero-cmd-grid">
           <div className="hero-cmd-copy">
             <span className="eyebrow eyebrow-dark">Marketing, tecnologia e vendas · Brasília - DF</span>

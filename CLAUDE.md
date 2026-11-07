@@ -50,7 +50,7 @@ Top 5 = aparecer no mapa (Perfil da Empresa, maior alavanca) + resultado orgâni
 
 ## 7. Identidade visual (AURA · PIXEL): `docs/IDENTIDADE-VISUAL.md`
 
-Cores oficiais do logo (`logopdf/`): ameixa `#B3529F` · violeta `#725BA7` · ciano `#6BCDE7` · grafite `#231F20`. Laranja e magenta neon **não** fazem parte da marca. Tokens em `src/index.css` (`--brand-*`, `--gradient-meta`, `--gradient-text`, `--gradient-brand`). Linguagem "sala de comando": topo escuro com grade (`.hero-cmd`), Raio-X como herói visual, sem foguete/estrelas/ícones flutuantes.
+Cores oficiais do logo (`logopdf/`): ameixa `#B3529F` · violeta `#725BA7` · ciano `#6BCDE7` · grafite `#231F20`. Laranja e magenta neon **não** fazem parte da marca. Tokens em `src/index.css` (`--brand-*`, `--gradient-meta`, `--gradient-text`, `--gradient-brand`). Direção **"Capital do Futuro"** (Niemeyer + Raio-X): céu azul-noite `#0B1424` nas faixas escuras, skyline de Brasília em linhas de luz (`BrasiliaSkyline`), curva de Niemeyer no topo e no rodapé, **ciano = cor de ação** (botões ciano com texto escuro), gradiente só no logo e no skyline, títulos em Sora, coordenadas 15°47′S 47°52′O. Sem foguete/estrelas/ícones flutuantes.
 
 ## 8. Pendências abertas (atualize ao resolver)
 

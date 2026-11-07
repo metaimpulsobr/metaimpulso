@@ -7,6 +7,9 @@
   --brand-violet:    #725BA7;
   --brand-cyan:      #6BCDE7;
   --brand-ink:       #231F20;
+  /* "Capital do Futuro": Brasília night sky / radiograph film, used for every dark band */
+  --night:           #0B1424;
+  --night-2:         #12203A;
 
   /* Legacy token names kept so existing components follow the brand */
   --magenta-neon:    var(--brand-plum);
@@ -39,7 +42,7 @@
 
   /* Typography Scale */
   --font-main:    'Inter', system-ui, sans-serif;
-  --font-heading: 'Outfit', system-ui, sans-serif;
+  --font-heading: 'Sora', 'Outfit', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 }
 

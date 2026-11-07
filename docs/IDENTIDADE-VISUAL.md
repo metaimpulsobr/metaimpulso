@@ -3,6 +3,24 @@
 > Squad: AURA (marca) · VANTA (direção) · PIXEL (peças)
 > Fonte: logo oficial em `logopdf/META IMPULSO.pdf.pdf` (cores medidas no arquivo) **[F]**
 
+## Direção atual: "Capital do Futuro" (novembro de 2026)
+
+Brasília foi desenhada para ser a cidade do futuro. A identidade junta a arquitetura de Oscar Niemeyer com o tom tecnológico do Raio-X de Vendas.
+
+| Elemento | Regra |
+|---|---|
+| **Céu noturno** | Faixas escuras em azul-noite `#0B1424` → `#12203A` (topo das páginas, "Um único responsável", case principal, rodapé). O grafite `#231F20` fica para o logo em versão escura. |
+| **Skyline em linhas de luz** | Palácio da Alvorada, Museu Nacional, Catedral e Congresso Nacional desenhados em traço fino com o gradiente do logo e reflexo no espelho d'água (`src/components/BrasiliaSkyline.tsx`). Se desenha ao abrir a página. |
+| **Curva livre de Niemeyer** | O topo das páginas termina em curva e o rodapé começa em curva, nunca em linha reta. |
+| **Ciano = ação** | Todo botão principal é ciano `#6BCDE7` com texto azul-noite. Nenhum outro elemento usa ciano como fundo. No fundo claro, o botão leva borda azul-noite. |
+| **Gradiente só no logo e no skyline** | Palavra de destaque nos títulos em cor sólida: violeta `#725BA7` no claro, ciano no escuro. |
+| **Coordenadas** | "Brasília · 15°47′S 47°52′O" em fonte técnica: detalhe que só uma empresa de Brasília usa. |
+| **Tipografia** | Títulos em **Sora**; textos em **Inter**; números e rótulos em **JetBrains Mono**. |
+
+**Direitos (SENTINEL):** desenhar obras situadas permanentemente em logradouros públicos é livre (Lei 9.610/98, art. 48). Não usar o nome de Niemeyer como endosso da marca.
+
+Comparação das direções avaliadas: https://claude.ai/artifact/MguTiFd1EWnNSSGhnZs7e3
+
 ## Cores
 
 | Papel | Cor | Uso |
@@ -29,8 +47,8 @@ O ciano puro `#6BCDE7` não tem contraste suficiente sobre branco: use-o em íco
 - Laranja e magenta neon foram usados em versões antigas do site e **não fazem parte da marca**. Não usar em anúncios nem em peças.
 - Nome da marca em violeta `#725BA7` (fundo claro) ou branco (fundo escuro).
 - O logo antigo traz o subtítulo "Agência de marketing digital". No posicionamento atual, use "Marketing, tecnologia e vendas".
-- Tipografia do site: **Outfit** (títulos), **Inter** (textos), **JetBrains Mono** (rótulos técnicos).
-- Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, versão escura.
+- Tipografia do site: **Sora** (títulos), **Inter** (textos), **JetBrains Mono** (rótulos técnicos).
+- Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, céu noturno com o skyline.
 
 ## Linguagem visual: "sala de comando"
 
