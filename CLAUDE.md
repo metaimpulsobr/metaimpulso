@@ -61,13 +61,14 @@ Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search 
 - P0: criar `VITE_PSI_API_KEY` (passo a passo, etapa 4.1); sem ela o Raio-X costuma sair sem a nota de velocidade.
 - P1: decidir garantia formal (ex.: sem fidelidade) antes de publicar; nada de garantia inventada.
 - P1: depoimentos autorizados (`TESTIMONIALS`), link de agenda (`SITE.bookingUrl`), decisão sobre preço "a partir de", e-mail no domínio, CNPJ na política de privacidade, Google Business Profile.
-- P1: Central Farma fora do ar (reativar `isOnline` no portfólio quando voltar); título "My Google AI Studio App" em `operator.voogle.com.br` e `meta-impulso-apresenta-o.vercel.app`.
+- P1: prints reais (sem dados de clientes) dos sistemas Voogle, Central Farma e Meta Core CRM para trocar as ilustrações dos cases (`shot` em `src/content/cases.ts`, arquivos em `public/cases/`).
+- P1: Central Farma fora do ar (preencher `url` em `src/content/cases.ts` quando voltar); título "My Google AI Studio App" em `operator.voogle.com.br` e `meta-impulso-apresenta-o.vercel.app`.
 - P1: tabela de preços por plano (`docs/PROPOSTA-MODELO.md`) e contrato padrão com advogado.
 
 ## 9. Código
 
 - React 19 + TypeScript + Vite, pré-renderização estática por rota (`scripts/prerender.mjs`), deploy na Vercel.
 - `npm run build` (inclui prerender e sitemap) e `npm run lint` devem passar antes de qualquer commit.
-- Conteúdo em `src/content/` (site, serviços), SEO em `src/seo/routes.ts`, captação em `src/lib/` e `src/components/Diagnostic*`.
+- Conteúdo em `src/content/` (site, serviços, cases), SEO em `src/seo/routes.ts`, captação em `src/lib/` e `src/components/Diagnostic*`.
 - Nova página de serviço: item em `SERVICES` (`src/content/services.ts`), com `objectiveId` do quiz.
 - Commits em português, mensagens descritivas.

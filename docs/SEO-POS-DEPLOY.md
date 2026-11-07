@@ -69,7 +69,7 @@ Repetir no **Bing Webmaster Tools** (importa direto do Search Console).
 
 ## 7. Pendências que dependem de você
 
-- [ ] **Central Farma:** o deploy em `centralfarm.metaimpulso.com.br` está fora do ar (Vercel `DEPLOYMENT_NOT_FOUND`). Ao republicar, reativar `isOnline` e `vercelUrl` em `src/components/PortfolioShowcase.tsx`.
+- [ ] **Central Farma:** o deploy em `centralfarm.metaimpulso.com.br` está fora do ar (Vercel `DEPLOYMENT_NOT_FOUND`). Ao republicar, preencher `url` do case Central Farma em `src/content/cases.ts`.
 - [ ] **Títulos dos projetos publicados:** `operator.voogle.com.br` e `meta-impulso-apresenta-o.vercel.app` exibem "My Google AI Studio App" como título — corrigir nos respectivos repositórios.
 - [ ] **Métricas dos cases:** os números anteriores (+350%, 28% de conversão, +12.000 membros etc.) foram substituídos por descrições qualitativas. Reinserir apenas os que tiverem comprovação documentada e autorização do cliente.
 - [ ] **Stack declarada nos cases:** confirmar as tecnologias listadas (ex.: Python/FastAPI na esteira de crédito, Redis no Infinity Club).

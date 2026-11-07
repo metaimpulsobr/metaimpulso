@@ -2,7 +2,7 @@ import { CheckCircle2, ScanLine, ArrowRight, XCircle, Wrench } from 'lucide-reac
 import ObjectiveSelector from '../components/ObjectiveSelector'
 import AboutLogoVfx from '../components/AboutLogoVfx'
 import DiagnosticSection from '../components/DiagnosticSection'
-import PortfolioShowcase from '../components/PortfolioShowcase'
+import CasesShowcase from '../components/CasesShowcase'
 import { RaioXForm } from '../components/RaioX'
 import { ProcessSection, PlansSection, FaqSection, OneTeamSection, TestimonialsSection } from '../components/Sections'
 import { HOME_FAQ, FUNNEL_LEAKS, RAIOX_CHECKS, whatsappLink } from '../content/site'
@@ -124,7 +124,7 @@ export default function HomePage() {
 
       <section id="cases" className="section-v16 section-tinted">
         <div className="container">
-          <PortfolioShowcase />
+          <CasesShowcase />
         </div>
       </section>
 
