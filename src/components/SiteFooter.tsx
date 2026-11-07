@@ -1,11 +1,9 @@
 import { SITE, whatsappLink } from '../content/site'
 import { SERVICES } from '../content/services'
-import BrasiliaSkyline from './BrasiliaSkyline'
 
 export default function SiteFooter() {
   return (
-    <footer className="footer-section footer-night">
-      <BrasiliaSkyline className="footer-skyline" animate={false} />
+    <footer className="footer-section">
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">

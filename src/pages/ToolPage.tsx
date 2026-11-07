@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { Gauge, Radar, MousePointerClick, Search, CheckCircle2 } from 'lucide-react'
 import { RaioXForm, RaioXProgress, RaioXResult } from '../components/RaioX'
-import BrasiliaSkyline from '../components/BrasiliaSkyline'
 import { FaqSection } from '../components/Sections'
 import DiagnosticSection from '../components/DiagnosticSection'
 import { RAIOX_CHECKS, RAIOX_HUMAN_CHECKS, TOOL_FAQ } from '../content/site'
@@ -31,24 +30,24 @@ export default function ToolPage() {
 
   return (
     <main id="conteudo">
-      <section className="hero-cmd hero-cmd-compact hero-cmd-city">
-        <BrasiliaSkyline className="hero-skyline hero-skyline-compact" />
+      <section className="hero-cmd hero-cmd-compact">
         <div className="container">
-          <nav className="breadcrumb breadcrumb-dark" aria-label="Você está em">
+          <nav className="breadcrumb" aria-label="Você está em">
             <a href="/">Início</a> <span aria-hidden="true">/</span> <span>Análise de site grátis</span>
           </nav>
           <div className="tool-hero">
-            <span className="eyebrow eyebrow-dark">Ferramenta gratuita · Raio-X de Vendas</span>
+            <span className="eyebrow">Ferramenta gratuita · Raio-X de Vendas</span>
             <h1 className="title-lg hero-cmd-title">
-              Análise de site grátis: descubra em 30 segundos <span className="text-gradient-light">onde o seu site perde vendas</span>
+              Análise de site grátis: descubra em 30 segundos <span className="text-gradient">onde o seu site perde vendas</span>
             </h1>
             <p className="hero-cmd-sub">
               Velocidade no celular, Pixel da Meta, Google Analytics, WhatsApp, formulário e o que o Google enxerga da sua página. Sem cadastro, sem cartão, sem enrolação.
             </p>
             <div className="hero-cmd-card">
-              <RaioXForm location="ferramenta" onRun={runHere} busy={busy} dark />
+              <RaioXForm location="ferramenta" onRun={runHere} busy={busy} />
             </div>
           </div>
+          <img className="tool-art" src="/3d/alvorada.webp" width={1400} height={599} alt="" aria-hidden="true" />
         </div>
       </section>
 

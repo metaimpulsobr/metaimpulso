@@ -4,7 +4,6 @@ import type { ServiceContent } from '../content/services'
 import { SERVICES } from '../content/services'
 import { whatsappLink } from '../content/site'
 import { ProcessSection, FaqSection } from '../components/Sections'
-import BrasiliaSkyline from '../components/BrasiliaSkyline'
 import DiagnosticSection from '../components/DiagnosticSection'
 import { track } from '../lib/analytics'
 
@@ -13,8 +12,8 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
 
   return (
     <main id="conteudo">
-      <section className="hero-cmd hero-cmd-compact hero-cmd-city service-hero">
-        <BrasiliaSkyline className="hero-skyline hero-skyline-compact" />
+      <section className="hero-cmd hero-cmd-compact service-hero">
+        <img className="service-art" src="/3d/catedral.webp" width={900} height={732} alt="" aria-hidden="true" />
         <div className="container">
           <nav className="breadcrumb" aria-label="Você está em">
             <a href="/">Início</a> <span aria-hidden="true">/</span> <span>{service.navLabel}</span>

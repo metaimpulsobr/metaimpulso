@@ -180,8 +180,7 @@ _Enviado pelo site da Meta Impulso_`
   return (
     <form
       id="diagnostico-quiz"
-      className="quiz-panel card-premium glow-magenta"
-      style={{ border: '1px solid var(--magenta-neon)' }}
+      className="quiz-panel card-premium"
       noValidate
       onSubmit={(e) => {
         e.preventDefault()

@@ -129,7 +129,7 @@ export function FaqSection({ faq, title = 'Perguntas frequentes' }: { faq: Faq[]
 /** Core positioning: one company responsible for everything between the ad and the sale. */
 export function OneTeamSection() {
   return (
-    <section id="responsavel" className="section-v16 section-dark">
+    <section id="responsavel" className="section-v16 section-tinted">
       <div className="container">
         <div className="section-head">
           <span className="eyebrow">Um único responsável</span>

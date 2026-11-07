@@ -50,7 +50,7 @@ Top 5 = aparecer no mapa (Perfil da Empresa, maior alavanca) + resultado orgâni
 
 ## 7. Identidade visual (AURA · PIXEL): `docs/IDENTIDADE-VISUAL.md`
 
-Cores oficiais do logo (`logopdf/`): ameixa `#B3529F` · violeta `#725BA7` · ciano `#6BCDE7` · grafite `#231F20`. Laranja e magenta neon **não** fazem parte da marca. Tokens em `src/index.css` (`--brand-*`, `--gradient-meta`, `--gradient-text`, `--gradient-brand`). Direção **"Capital do Futuro"** (Niemeyer + Raio-X): céu azul-noite `#0B1424` nas faixas escuras, skyline de Brasília em linhas de luz (`BrasiliaSkyline`), curva de Niemeyer no topo e no rodapé, **ciano = cor de ação** (botões ciano com texto escuro), gradiente só no logo e no skyline, títulos em Sora, coordenadas 15°47′S 47°52′O. Sem foguete/estrelas/ícones flutuantes.
+Cores oficiais do logo (`logopdf/`): ameixa `#B3529F` · violeta `#725BA7` · ciano `#6BCDE7` · grafite `#231F20`. Laranja e magenta neon **não** fazem parte da marca. Tokens em `src/index.css` (`--brand-*`, `--gradient-meta`, `--gradient-text`, `--gradient-brand`). Direção **"Brasília Branca" (minimalismo + 3D)**: página branca, seções em névoa `#F6F6F9`, renders 3D em concreto branco do Congresso, Catedral e Alvorada (`public/3d/`, fonte em `design/3d/`), mockups e cards com profundidade 3D, **violeta = cor de ação**, destaque dos títulos em violeta sólido, gradiente só no logo, títulos em Sora 700. Sem faixas escuras, neon, grades ou brilhos.
 
 ## 8. Pendências abertas (atualize ao resolver)
 

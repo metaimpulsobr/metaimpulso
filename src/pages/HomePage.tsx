@@ -4,7 +4,6 @@ import AboutLogoVfx from '../components/AboutLogoVfx'
 import DiagnosticSection from '../components/DiagnosticSection'
 import CasesShowcase from '../components/CasesShowcase'
 import { RaioXForm } from '../components/RaioX'
-import BrasiliaSkyline from '../components/BrasiliaSkyline'
 import { ProcessSection, PlansSection, FaqSection, OneTeamSection, TestimonialsSection } from '../components/Sections'
 import { HOME_FAQ, FUNNEL_LEAKS, RAIOX_CHECKS, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
@@ -23,36 +22,28 @@ export default function HomePage() {
     <main id="conteudo">
       {/* HERO — the proof comes first: a live Raio-X of the visitor's own site.
           No entrance animation on the H1 so the LCP text paints straight from the prerendered HTML. */}
-      <section id="hero" className="hero-cmd hero-cmd-city">
-        <BrasiliaSkyline className="hero-skyline" />
-        <span className="hero-coords" aria-hidden="true">Brasília · 15°47′S 47°52′O</span>
+      <section id="hero" className="hero-cmd">
         <div className="container hero-cmd-grid">
           <div className="hero-cmd-copy">
-            <span className="eyebrow eyebrow-dark">Marketing, tecnologia e vendas · Brasília - DF</span>
+            <span className="eyebrow">Marketing, tecnologia e vendas · Brasília - DF</span>
             <h1 className="title-lg hero-cmd-title">
-              Agência de marketing digital em Brasília que <span className="text-gradient-light">prova antes de prometer</span>
+              Agência de marketing digital em Brasília que <span className="text-gradient">prova antes de prometer</span>
             </h1>
             <p className="hero-cmd-sub">
               Cole o endereço do seu site e veja agora, de graça, onde ele está perdendo clientes. Se fizer sentido, uma única equipe fecha todos os furos: anúncio, site, WhatsApp, CRM e IA, medidos até a venda.
             </p>
-          </div>
 
-          <ul className="hero-cmd-trust">
-            <li><CheckCircle2 size={16} aria-hidden="true" /> Do anúncio à venda, um só time responsável</li>
-            <li><CheckCircle2 size={16} aria-hidden="true" /> Diagnóstico gratuito de 30 minutos, sem compromisso</li>
-            <li><CheckCircle2 size={16} aria-hidden="true" /> Atendimento em Brasília e em todo o Brasil</li>
-          </ul>
-
-          <div className="hero-cmd-card" id="raio-x">
-            <div className="hero-cmd-card-head">
-              <span className="live-dot" aria-hidden="true" /> Raio-X de Vendas · grátis
+            <div className="hero-cmd-card" id="raio-x">
+              <div className="hero-cmd-card-head">
+                <span className="live-dot" aria-hidden="true" /> Raio-X de Vendas · grátis
+              </div>
+              <RaioXForm location="home_hero" />
+              <ul className="raiox-scanlist" aria-label="O que o Raio-X analisa">
+                {RAIOX_CHECKS.map((c) => (
+                  <li key={c.title}><ScanLine size={15} aria-hidden="true" /> {c.title}</li>
+                ))}
+              </ul>
             </div>
-            <RaioXForm location="home_hero" dark />
-            <ul className="raiox-scanlist" aria-label="O que o Raio-X analisa">
-              {RAIOX_CHECKS.map((c) => (
-                <li key={c.title}><ScanLine size={16} aria-hidden="true" /> {c.title}</li>
-              ))}
-            </ul>
             <p className="hero-cmd-alt">
               Ainda não tem site?{' '}
               <a href="#contato" onClick={() => track('cta_click', { origin: 'hero_sem_site' })}>Faça o diagnóstico gratuito</a> ou{' '}
@@ -67,6 +58,22 @@ export default function HomePage() {
               .
             </p>
           </div>
+
+          <figure className="hero-art">
+            <img
+              src="/3d/congresso.webp"
+              width={1400}
+              height={1020}
+              alt="Congresso Nacional em 3D, em concreto branco, com o espelho d'água"
+              fetchPriority="high"
+            />
+          </figure>
+
+          <ul className="hero-cmd-trust">
+            <li><CheckCircle2 size={16} aria-hidden="true" /> Do anúncio à venda, um só time responsável</li>
+            <li><CheckCircle2 size={16} aria-hidden="true" /> Diagnóstico gratuito de 30 minutos</li>
+            <li><CheckCircle2 size={16} aria-hidden="true" /> Brasília e todo o Brasil</li>
+          </ul>
         </div>
       </section>
 

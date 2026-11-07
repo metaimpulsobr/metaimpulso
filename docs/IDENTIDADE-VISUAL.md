@@ -3,19 +3,18 @@
 > Squad: AURA (marca) · VANTA (direção) · PIXEL (peças)
 > Fonte: logo oficial em `logopdf/META IMPULSO.pdf.pdf` (cores medidas no arquivo) **[F]**
 
-## Direção atual: "Capital do Futuro" (novembro de 2026)
+## Direção atual: "Brasília Branca" — minimalismo e 3D (novembro de 2026)
 
-Brasília foi desenhada para ser a cidade do futuro. A identidade junta a arquitetura de Oscar Niemeyer com o tom tecnológico do Raio-X de Vendas.
+Página branca, tipografia calma e a arquitetura branca de Brasília em 3D. Niemeyer construiu uma capital de concreto branco, curvas e espelhos d'água: a identidade usa essa mesma linguagem, sem neon e sem tom futurista.
 
 | Elemento | Regra |
 |---|---|
-| **Céu noturno** | Faixas escuras em azul-noite `#0B1424` → `#12203A` (topo das páginas, "Um único responsável", case principal, rodapé). O grafite `#231F20` fica para o logo em versão escura. |
-| **Skyline em linhas de luz** | Palácio da Alvorada, Museu Nacional, Catedral e Congresso Nacional desenhados em traço fino com o gradiente do logo e reflexo no espelho d'água (`src/components/BrasiliaSkyline.tsx`). Se desenha ao abrir a página. |
-| **Curva livre de Niemeyer** | O topo das páginas termina em curva e o rodapé começa em curva, nunca em linha reta. |
-| **Ciano = ação** | Todo botão principal é ciano `#6BCDE7` com texto azul-noite. Nenhum outro elemento usa ciano como fundo. No fundo claro, o botão leva borda azul-noite. |
-| **Gradiente só no logo e no skyline** | Palavra de destaque nos títulos em cor sólida: violeta `#725BA7` no claro, ciano no escuro. |
-| **Coordenadas** | "Brasília · 15°47′S 47°52′O" em fonte técnica: detalhe que só uma empresa de Brasília usa. |
-| **Tipografia** | Títulos em **Sora**; textos em **Inter**; números e rótulos em **JetBrains Mono**. |
+| **Fundo** | Branco `#FFFFFF` em todo o site. Seções alternadas em névoa `#F6F6F9` e linhas finas `#E7E6EE`. Nenhuma faixa escura. |
+| **3D** | Renders minimalistas do Congresso Nacional (home), da Catedral (páginas de serviço) e do Palácio da Alvorada (Raio-X), em concreto branco com sombras suaves e espelho d'água no ciano da marca (`public/3d/`, fonte em `design/3d/`). Mockups dos cases inclinados em perspectiva e cards que "levantam" em 3D ao passar o mouse. |
+| **Cor de ação** | Violeta `#725BA7` sólido nos botões principais (texto branco), sem brilho nem animação. Botão secundário branco com borda fina. |
+| **Destaque nos títulos** | Uma palavra ou frase em violeta sólido por título. Gradiente só no logo. |
+| **Tipografia** | Títulos em **Sora** peso 700 com espaçamento apertado; textos em **Inter**; rótulos em **JetBrains Mono** sem fundo colorido. |
+| **Menos é mais** | Sem brilhos, sem pulsar, sem grades de fundo. Sombras longas e suaves só para dar profundidade. |
 
 **Direitos (SENTINEL):** desenhar obras situadas permanentemente em logradouros públicos é livre (Lei 9.610/98, art. 48). Não usar o nome de Niemeyer como endosso da marca.
 
@@ -48,17 +47,7 @@ O ciano puro `#6BCDE7` não tem contraste suficiente sobre branco: use-o em íco
 - Nome da marca em violeta `#725BA7` (fundo claro) ou branco (fundo escuro).
 - O logo antigo traz o subtítulo "Agência de marketing digital". No posicionamento atual, use "Marketing, tecnologia e vendas".
 - Tipografia do site: **Sora** (títulos), **Inter** (textos), **JetBrains Mono** (rótulos técnicos).
-- Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, céu noturno com o skyline.
-
-## Linguagem visual: "sala de comando"
-
-O site deixou o tema "espaço" (foguete, estrelas, ícones flutuantes) porque é o visual de modelo pronto que muitas agências usam e não prova nada. A nova linguagem mostra a empresa como **o painel de controle das vendas do cliente**:
-
-- **Topo escuro** (grafite `#231F20` com brilho ameixa e ciano e uma grade fina de fundo) em todas as páginas principais.
-- **O Raio-X é o herói visual:** no lugar de uma ilustração, a primeira tela tem uma ferramenta que funciona.
-- **Elementos de instrumento:** nota em anel, barras de progresso, lista de verificação com ✓ / ✗, rótulos em fonte mono.
-- **Cores de diagnóstico** só dentro do relatório: vermelho `#DC2626` (furo crítico), âmbar `#B45309` (atenção), verde `#059669` (ok).
-- **Faixas escuras** marcam os momentos de decisão ("Um único responsável"); o resto do conteúdo fica em fundo claro para leitura.
+- Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, fundo branco com o Congresso em 3D.
 
 ## Pendente (AURA)
 

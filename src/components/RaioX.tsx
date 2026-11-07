@@ -13,16 +13,15 @@ interface RaioXFormProps {
   onRun?: (url: string) => void
   busy?: boolean
   defaultValue?: string
-  dark?: boolean
 }
 
-export function RaioXForm({ location, onRun, busy = false, defaultValue = '', dark = false }: RaioXFormProps) {
+export function RaioXForm({ location, onRun, busy = false, defaultValue = '' }: RaioXFormProps) {
   const [value, setValue] = useState(defaultValue)
   const inputId = `raiox-url-${location}`
 
   return (
     <form
-      className={`raiox-form ${dark ? 'raiox-form-dark' : ''}`}
+      className="raiox-form"
       action={RAIOX_PATH}
       method="get"
       role="search"
