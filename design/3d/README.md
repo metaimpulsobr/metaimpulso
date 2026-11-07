@@ -2,17 +2,11 @@
 
 Peças 3D minimalistas da arquitetura de Brasília, geradas com three.js e salvas como imagens em `public/3d/`. O site não carrega nenhuma biblioteca 3D: só as imagens WebP (de 14 a 90 KB cada).
 
-| Cena | Onde aparece |
+| Cena | Uso |
 |---|---|
-| `museu` (Museu Nacional da República) | Topo da home, atrás do Raio-X, e página do Raio-X |
-| `ponte` (Ponte JK) | "Onde as vendas se perdem" |
-| `congresso` (Congresso Nacional) | "Um único responsável" |
-| `esplanada` (Esplanada dos Ministérios) | Serviços |
-| `planalto` (Palácio do Planalto) | Planos |
-| `itamaraty` (Palácio Itamaraty) | Cases |
-| `catedral` (Catedral de Brasília) | Sobre e topo das páginas de serviço |
-| `plano` (maquete do Plano Piloto) | Processo |
-| `alvorada` (Palácio da Alvorada) | Diagnóstico gratuito |
+| `museu` (Museu Nacional da República) | Topo da home, atrás do Raio-X, e topo da página do Raio-X |
+| `catedral` (Catedral de Brasília) | Topo das páginas de serviço |
+| `ponte`, `congresso`, `esplanada`, `planalto`, `itamaraty`, `plano`, `alvorada` | Fora do site; disponíveis para posts, capas e peças |
 
 Dados de cada peça (arquivo, tamanho e crédito): `src/content/brasilia.ts`.
 

@@ -1,12 +1,10 @@
 import { SITE, whatsappLink } from '../content/site'
 import { SERVICES } from '../content/services'
-import SkylineLine from './SkylineLine'
 
 export default function SiteFooter() {
   return (
     <footer className="footer-section">
       <div className="container">
-        <SkylineLine className="footer-skyline-line" />
         <div className="footer-grid">
           <div className="footer-brand">
             <a href="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem' }}>

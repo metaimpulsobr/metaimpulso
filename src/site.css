@@ -1558,26 +1558,6 @@ body { background: var(--paper); color: var(--ink); }
   text-align: center;
 }
 .landmark figcaption b { color: var(--ink); font-weight: 700; }
-.landmark-wide { max-width: 860px; margin: 0 auto 2.5rem; }
-.landmark-center { max-width: 460px; margin: 0 auto 1.5rem; }
-.landmark-side { width: 100%; max-width: 520px; justify-self: center; }
-.landmark-diag { max-width: 460px; margin-top: 2rem; justify-items: start; }
-.landmark-diag figcaption { text-align: left; }
-.section-tinted .landmark::before { background: radial-gradient(closest-side, #E6E4EF 0%, rgba(230, 228, 239, 0.45) 55%, rgba(246, 246, 249, 0) 100%); }
-
-/* Heading beside a landmark */
-.section-split {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: clamp(1.5rem, 4vw, 4rem);
-  align-items: center;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-}
-.section-split-reverse { grid-template-columns: 0.9fr 1.1fr; }
-.section-split > * { min-width: 0; }
-.section-head-left { text-align: left; margin: 0; max-width: 640px; }
-.section-head-left .title-lg { text-align: left; }
-.section-head-left .subtitle-main { margin-left: 0; text-align: left; }
 
 /* Hero stage: the Raio-X standing in front of the Museu Nacional */
 .hero-stage { display: flex; flex-direction: column; align-items: stretch; }
@@ -1586,20 +1566,6 @@ body { background: var(--paper); color: var(--ink); }
 .hero-stage .hero-cmd-card { position: relative; z-index: 1; margin-top: -11%; margin-left: clamp(0px, 4vw, 48px); }
 .hero-landmark img { animation: art-float 7s ease-in-out infinite; }
 @keyframes art-float { 50% { transform: translateY(-8px); } }
-
-/* Athos Bulcão-inspired tiles beside the FAQ heading */
-.azulejos { margin: 1.25rem auto 0; display: grid; gap: 0.5rem; justify-items: center; }
-.azulejos-row { display: flex; gap: 0; border: 1px solid var(--line); }
-.az { width: 34px; height: 34px; display: block; background: #FFFFFF; }
-.az-0 { background: radial-gradient(circle at 0 0, var(--brand-violet) 0 52%, #FFFFFF 53%); }
-.az-1 { background: linear-gradient(135deg, #FFFFFF 50%, #8FD6EA 50%); }
-.az-2 { background: radial-gradient(circle at 100% 100%, var(--brand-violet) 0 52%, #FFFFFF 53%); }
-.az-3 { background: linear-gradient(45deg, #8FD6EA 50%, #FFFFFF 50%); }
-.azulejos figcaption { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: #6B6977; }
-.azulejos figcaption b { color: var(--ink); }
-
-/* Footer skyline drawn in one thin line */
-.footer-skyline-line { display: block; width: 100%; max-width: 900px; height: auto; margin: 0 auto 2.5rem; color: #B9B6C6; }
 
 .tool-art { display: block; width: 100%; max-width: 560px; height: auto; margin-top: 2rem; }
 .service-art { display: none; }
@@ -1653,10 +1619,6 @@ body { background: var(--paper); color: var(--ink); }
   .hero-stage .hero-cmd-card { order: -1; margin: 0; }
   .hero-landmark { max-width: 440px; margin-top: 0.5rem; }
   .hero-landmark figcaption { order: 0; justify-self: center; margin: 0; }
-  .section-split, .section-split-reverse { grid-template-columns: 1fr; }
-  .section-split-reverse > .landmark { order: 1; }
-  .landmark-side { max-width: 420px; }
-  .landmark-diag { display: none; }
   .hero-cmd-grid > .hero-cmd-trust { margin-top: 0; }
   .hero-cmd-sub { margin-bottom: 0; }
 }

@@ -10,7 +10,7 @@ Página branca, tipografia calma e a arquitetura branca de Brasília em 3D. Niem
 | Elemento | Regra |
 |---|---|
 | **Fundo** | Branco `#FFFFFF` em todo o site. Seções alternadas em névoa `#F6F6F9` e linhas finas `#E7E6EE`. Nenhuma faixa escura. |
-| **Brasília em cada seção** | Cada seção tem um marco da cidade em 3D, em concreto branco com sombras suaves e espelho d'água no ciano da marca, com legenda do arquiteto: Museu Nacional (topo, atrás do Raio-X), Ponte JK (furos do funil), Congresso (um único responsável), Esplanada (serviços), Planalto (planos), Itamaraty (cases), Catedral (sobre e páginas de serviço), Plano Piloto de Lúcio Costa (processo), Alvorada (diagnóstico). FAQ com azulejos inspirados em Athos Bulcão; rodapé com o skyline em uma linha fina. Arquivos em `public/3d/`, fonte em `design/3d/`, dados em `src/content/brasilia.ts`. |
+| **Brasília no topo** | Só o topo das páginas leva um marco da cidade em 3D, em concreto branco com sombras suaves: Museu Nacional da República na home (atrás do Raio-X) e na página do Raio-X, Catedral nas páginas de serviço. O resto da página fica limpo. Outras cenas (Ponte JK, Congresso, Esplanada, Planalto, Itamaraty, Plano Piloto, Alvorada) ficam em `design/3d/` para posts e peças. Dados em `src/content/brasilia.ts`. |
 | **Profundidade** | Mockups dos cases inclinados em perspectiva e cards que "levantam" em 3D ao passar o mouse. |
 | **Cor de ação** | Violeta `#725BA7` sólido nos botões principais (texto branco), sem brilho nem animação. Botão secundário branco com borda fina. |
 | **Destaque nos títulos** | Uma palavra ou frase em violeta sólido por título. Gradiente só no logo. |

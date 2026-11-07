@@ -3,8 +3,6 @@ import DiagnosticQuiz from './DiagnosticQuiz'
 import { SITE, DIAGNOSTIC_DELIVERABLES, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
 import type { ObjectiveId } from '../lib/leadScore'
-import Landmark from './Landmark'
-import { LANDMARKS } from '../content/brasilia'
 
 interface DiagnosticSectionProps {
   /** "home" or the service page slug */
@@ -32,7 +30,6 @@ export default function DiagnosticSection({ location, initialObjective, title, w
             <p className="contato-info-subtitle">
               Responda 5 perguntas rápidas. Nossa equipe analisa seu cenário e marca uma conversa estratégica de 30 minutos, sem compromisso.
             </p>
-            <Landmark item={LANDMARKS.alvorada} className="landmark-diag" />
           </div>
 
           <div className="diag-quiz">

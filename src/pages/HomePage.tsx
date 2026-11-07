@@ -1,6 +1,7 @@
 import { CheckCircle2, ScanLine, ArrowRight, XCircle, Wrench } from 'lucide-react'
 import ObjectiveSelector from '../components/ObjectiveSelector'
 import Landmark from '../components/Landmark'
+import AboutLogoVfx from '../components/AboutLogoVfx'
 import DiagnosticSection from '../components/DiagnosticSection'
 import CasesShowcase from '../components/CasesShowcase'
 import { RaioXForm } from '../components/RaioX'
@@ -95,8 +96,6 @@ export default function HomePage() {
             </p>
           </div>
 
-          <Landmark item={LANDMARKS.ponte} className="landmark-wide" />
-
           <ol className="leak-flow">
             {FUNNEL_LEAKS.map((l, i) => (
               <li key={l.stage} className="leak-step">
@@ -123,7 +122,6 @@ export default function HomePage() {
 
       <section id="servicos" className="section-v16">
         <div className="container">
-          <Landmark item={LANDMARKS.esplanada} className="landmark-center" />
           <ObjectiveSelector />
         </div>
       </section>
@@ -162,7 +160,16 @@ export default function HomePage() {
             </div>
 
             <div className="sobre-card-col">
-              <Landmark item={LANDMARKS.catedral} className="landmark-side" />
+              <div className="card-premium" style={{ textAlign: 'center' }}>
+                <AboutLogoVfx />
+                <h3 className="title-md">
+                  Estratégia, tecnologia e <br />
+                  <span className="text-gradient">performance comercial</span>
+                </h3>
+                <p style={{ color: 'var(--text-tech)', fontSize: '0.9rem', marginTop: '1rem' }}>
+                  Decisões orientadas por dados, com foco no retorno sobre o investimento (ROI).
+                </p>
+              </div>
             </div>
           </div>
         </div>
