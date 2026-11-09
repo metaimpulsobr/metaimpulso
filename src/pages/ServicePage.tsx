@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion'
+import SectionSeam from '../components/SectionSeam'
+import SectionLines from '../components/SectionLines'
 import { Target, MessageCircle, AlertCircle, CheckCircle2, ArrowRight } from 'lucide-react'
 import type { ServiceContent } from '../content/services'
 import { SERVICES } from '../content/services'
@@ -6,6 +8,7 @@ import { whatsappLink } from '../content/site'
 import { ProcessSection, FaqSection } from '../components/Sections'
 import DiagnosticSection from '../components/DiagnosticSection'
 import Landmark from '../components/Landmark'
+import PlanoPilotoLines from '../components/PlanoPilotoLines'
 import { LANDMARKS } from '../content/brasilia'
 import { track } from '../lib/analytics'
 
@@ -15,6 +18,7 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
   return (
     <main id="conteudo">
       <section className="hero-cmd hero-cmd-compact service-hero">
+        <PlanoPilotoLines />
         <Landmark item={LANDMARKS.catedral} className="service-art" />
         <div className="container">
           <nav className="breadcrumb" aria-label="Você está em">
@@ -44,6 +48,7 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
       </section>
 
       <section className="section-v16 section-compact">
+        <SectionLines variant="arc-tl" />
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">Você se identifica?</span>
@@ -60,7 +65,9 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
         </div>
       </section>
 
+      <SectionSeam variant="dome-up" pos="r" />
       <section className="section-v16 section-tinted">
+        <SectionLines variant="axis-r" />
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">Entregas</span>
@@ -85,7 +92,9 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
         </div>
       </section>
 
+      <SectionSeam variant="dome-down" pos="l" />
       <section className="section-v16 section-compact">
+        <SectionLines variant="cross-tr" />
         <div className="container for-who">
           <div>
             <span className="eyebrow">Para quem é</span>
@@ -99,10 +108,13 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
         </div>
       </section>
 
+      <SectionSeam variant="node" pos="l" />
       <ProcessSection />
 
+      <SectionSeam variant="bridge" pos="r" />
       <FaqSection faq={service.faq} title={`Dúvidas sobre ${service.navLabel.toLowerCase()}`} />
 
+      <SectionSeam variant="wing" pos="l" />
       <DiagnosticSection
         location={service.slug}
         initialObjective={service.objectiveId}
@@ -111,6 +123,7 @@ export default function ServicePage({ service }: { service: ServiceContent }) {
       />
 
       <section className="section-v16 section-compact">
+        <SectionLines variant="arc-tr" />
         <div className="container">
           <h2 className="title-md" style={{ marginBottom: '1.25rem' }}>Outros serviços da Meta Impulso</h2>
           <div className="related-links">

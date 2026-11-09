@@ -1,9 +1,14 @@
 import { SITE, whatsappLink } from '../content/site'
+import SectionLines from './SectionLines'
+import SectionSeam from './SectionSeam'
 import { SERVICES } from '../content/services'
 
 export default function SiteFooter() {
   return (
+    <>
+    <SectionSeam variant="dome-up" pos="c" />
     <footer className="footer-section">
+      <SectionLines variant="horizon" />
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
@@ -59,5 +64,6 @@ export default function SiteFooter() {
         </div>
       </div>
     </footer>
+    </>
   )
 }

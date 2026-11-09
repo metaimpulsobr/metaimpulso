@@ -1,4 +1,6 @@
 import { useEffect, useRef } from 'react'
+import SectionSeam from '../components/SectionSeam'
+import SectionLines from '../components/SectionLines'
 import { Gauge, Radar, MousePointerClick, Search, CheckCircle2 } from 'lucide-react'
 import { RaioXForm, RaioXProgress, RaioXResult } from '../components/RaioX'
 import { FaqSection } from '../components/Sections'
@@ -6,6 +8,7 @@ import DiagnosticSection from '../components/DiagnosticSection'
 import { RAIOX_CHECKS, RAIOX_HUMAN_CHECKS, TOOL_FAQ } from '../content/site'
 import { useRaioX } from '../lib/useRaioX'
 import Landmark from '../components/Landmark'
+import PlanoPilotoLines from '../components/PlanoPilotoLines'
 import { LANDMARKS } from '../content/brasilia'
 
 const CHECK_ICONS = [<Gauge size={24} key="g" />, <Radar size={24} key="r" />, <MousePointerClick size={24} key="m" />, <Search size={24} key="s" />]
@@ -33,6 +36,7 @@ export default function ToolPage() {
   return (
     <main id="conteudo">
       <section className="hero-cmd hero-cmd-compact">
+        <PlanoPilotoLines />
         <div className="container">
           <nav className="breadcrumb" aria-label="Você está em">
             <a href="/">Início</a> <span aria-hidden="true">/</span> <span>Análise de site grátis</span>
@@ -85,6 +89,7 @@ export default function ToolPage() {
       )}
 
       <section className="section-v16 section-compact">
+        <SectionLines variant="wings-top" />
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">O que o Raio-X analisa</span>
@@ -102,7 +107,9 @@ export default function ToolPage() {
         </div>
       </section>
 
+      <SectionSeam variant="dome-up" pos="l" />
       <section className="section-v16 section-compact section-tinted">
+        <SectionLines variant="axis-l" />
         <div className="container for-who">
           <div>
             <span className="eyebrow">Além da ferramenta</span>
@@ -117,8 +124,10 @@ export default function ToolPage() {
         </div>
       </section>
 
+      <SectionSeam variant="dome-down" pos="r" />
       <FaqSection faq={TOOL_FAQ} title="Perguntas sobre a análise de site" />
 
+      <SectionSeam variant="node" pos="l" />
       <DiagnosticSection
         location="analise-de-site-gratis"
         title={<>Quer que a gente feche <span className="text-gradient">esses furos</span> para você?</>}

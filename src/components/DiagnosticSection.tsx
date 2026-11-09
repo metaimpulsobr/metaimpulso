@@ -1,4 +1,5 @@
 import { CheckCircle2, MessageCircle, Mail, Clock, Phone } from 'lucide-react'
+import SectionLines from './SectionLines'
 import DiagnosticQuiz from './DiagnosticQuiz'
 import { SITE, DIAGNOSTIC_DELIVERABLES, whatsappLink } from '../content/site'
 import { track } from '../lib/analytics'
@@ -16,6 +17,7 @@ interface DiagnosticSectionProps {
 export default function DiagnosticSection({ location, initialObjective, title, whatsappMsg }: DiagnosticSectionProps) {
   return (
     <section id="contato" className="section-v16">
+      <SectionLines variant="wings-bottom" />
       <div className="container">
         <div className="diag-grid">
           <div className="diag-head">

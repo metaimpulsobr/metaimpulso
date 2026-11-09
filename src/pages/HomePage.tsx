@@ -1,6 +1,9 @@
 import { CheckCircle2, ScanLine, ArrowRight, XCircle, Wrench } from 'lucide-react'
+import SectionSeam from '../components/SectionSeam'
+import SectionLines from '../components/SectionLines'
 import ObjectiveSelector from '../components/ObjectiveSelector'
 import Landmark from '../components/Landmark'
+import PlanoPilotoLines from '../components/PlanoPilotoLines'
 import AboutLogoVfx from '../components/AboutLogoVfx'
 import DiagnosticSection from '../components/DiagnosticSection'
 import CasesShowcase from '../components/CasesShowcase'
@@ -25,6 +28,7 @@ export default function HomePage() {
       {/* HERO: the proof comes first: a live Raio-X of the visitor's own site.
           No entrance animation on the H1 so the LCP text paints straight from the prerendered HTML. */}
       <section id="hero" className="hero-cmd">
+        <PlanoPilotoLines />
         <div className="container hero-cmd-grid">
           <div className="hero-cmd-copy">
             <span className="eyebrow">Marketing, tecnologia e vendas · Brasília - DF</span>
@@ -85,6 +89,7 @@ export default function HomePage() {
 
       {/* FUNIL FURADO: problem + agitation + named mechanism */}
       <section id="problema" className="section-v16">
+        <SectionLines variant="arc-tl" />
         <div className="container">
           <div className="section-head">
             <span className="eyebrow">Onde as vendas se perdem</span>
@@ -118,17 +123,23 @@ export default function HomePage() {
         </div>
       </section>
 
+      <SectionSeam variant="dome-up" pos="r" />
       <OneTeamSection />
 
+      <SectionSeam variant="dome-down" pos="l" />
       <section id="servicos" className="section-v16">
+        <SectionLines variant="wings-top" />
         <div className="container">
           <ObjectiveSelector />
         </div>
       </section>
 
+      <SectionSeam variant="node" pos="r" />
       <PlansSection />
 
+      <SectionSeam variant="dome-up" pos="l" />
       <section id="cases" className="section-v16 section-tinted">
+        <SectionLines variant="axis-l" />
         <div className="container">
           <CasesShowcase />
         </div>
@@ -136,7 +147,9 @@ export default function HomePage() {
 
       <TestimonialsSection />
 
+      <SectionSeam variant="dome-down" pos="r" />
       <section id="sobre" className="section-v16">
+        <SectionLines variant="arc-tr" />
         <div className="container">
           <div className="sobre-split">
             <div className="sobre-text-col">
@@ -175,10 +188,13 @@ export default function HomePage() {
         </div>
       </section>
 
+      <SectionSeam variant="bridge" pos="l" />
       <ProcessSection />
 
+      <SectionSeam variant="node" pos="r" />
       <FaqSection faq={HOME_FAQ} />
 
+      <SectionSeam variant="wing" pos="l" />
       <DiagnosticSection location="home" />
     </main>
   )

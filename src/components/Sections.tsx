@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import SectionLines from './SectionLines'
 import { Check, X, ArrowRight, Quote } from 'lucide-react'
 import { PLANS, PROCESS_STEPS, ONE_TEAM, TESTIMONIALS, whatsappLink, type Faq } from '../content/site'
 import { track } from '../lib/analytics'
@@ -6,6 +7,7 @@ import { track } from '../lib/analytics'
 export function ProcessSection() {
   return (
     <section id="processo" className="section-v16">
+      <SectionLines variant="steps" />
       <div className="container">
         <div className="section-head">
           <span className="eyebrow">Processo</span>
@@ -55,6 +57,7 @@ export function ProcessSection() {
 export function PlansSection() {
   return (
     <section id="planos" className="section-v16">
+      <SectionLines variant="cross-tr" />
       <div className="container">
         <div className="section-head">
           <span className="eyebrow">Planos</span>
@@ -108,6 +111,7 @@ export function PlansSection() {
 export function FaqSection({ faq, title = 'Perguntas frequentes' }: { faq: Faq[]; title?: string }) {
   return (
     <section id="faq" className="section-v16">
+      <SectionLines variant="orbit-l" />
       <div className="container faq-container">
         <div className="section-head">
           <span className="eyebrow">FAQ</span>
@@ -130,6 +134,7 @@ export function FaqSection({ faq, title = 'Perguntas frequentes' }: { faq: Faq[]
 export function OneTeamSection() {
   return (
     <section id="responsavel" className="section-v16 section-tinted">
+      <SectionLines variant="axis-r" />
       <div className="container">
         <div className="section-head">
           <span className="eyebrow">Um único responsável</span>

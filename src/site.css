@@ -1213,7 +1213,6 @@ a.diag-direct-item:hover { color: var(--magenta-text); }
 }
 @media (max-width: 768px) {
   .hero-cmd { padding-top: 112px; }
-  .hero-cmd .eyebrow { font-size: 0.62rem; letter-spacing: 0.08em; }
   .hero-cmd-sub { font-size: 0.98rem; line-height: 1.6; }
   .leak-flow { grid-template-columns: 1fr; }
   .raiox-input-row { flex-direction: column; }
@@ -1622,7 +1621,6 @@ body { background: var(--paper); color: var(--ink); }
 }
 @media (max-width: 768px) {
   .hero-cmd { padding-top: 112px; }
-  .hero-cmd .eyebrow { font-size: 0.64rem; }
   .cases-panel-visual .cv-browser,
   .cases-panel-visual .cv-phone-wrap,
   .cases-card-visual .cv-browser,
@@ -1674,3 +1672,94 @@ body { background: var(--paper); color: var(--ink); }
 .plan-badge { font-size: 0.78rem; }
 .nav-cta { font-weight: 700; font-family: var(--font-main); font-size: 0.95rem; }
 .capsule-text { font-family: var(--font-main); font-weight: 700; font-size: 0.92rem !important; }
+
+/* Plano Piloto lines: abstract background of the page tops (see PlanoPilotoLines.tsx) */
+.pp-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+@media (max-width: 1024px) {
+  /* Phones/tablets: keep the crossing point behind the 3D landmark at the bottom of the hero */
+  .hero-cmd > .pp-lines { inset: auto -260px 0 auto; width: 900px; height: 560px; }
+}
+/* Desktop: the drawing lives on the right half, never under the headline or the paragraph */
+@media (min-width: 1025px) {
+  .hero-cmd > .pp-lines {
+    -webkit-mask-image: linear-gradient(90deg, transparent 46%, #000 60%);
+    mask-image: linear-gradient(90deg, transparent 46%, #000 60%);
+  }
+}
+.service-hero .pp-dot { display: none; }
+
+/* --- Plano Piloto line system in the sections (see SectionLines.tsx) --- */
+.section-v16:has(> .sl),
+.footer-section:has(> .sl) { position: relative; overflow: hidden; isolation: isolate; }
+.section-v16:has(> .sl) > .container,
+.footer-section:has(> .sl) > .container { position: relative; z-index: 1; }
+.sl { position: absolute; z-index: 0; pointer-events: none; }
+.sl svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.sl .l1, .sl .l2, .sl .l3 { fill: none; stroke-linecap: round; }
+.sl .l1 { stroke: #DCD8EA; stroke-width: 1.5; }
+.sl .l2 { stroke: #E8E6F0; stroke-width: 1; }
+.sl .l3 { stroke: #F0EFF5; stroke-width: 1; }
+.sl .dashed { stroke-dasharray: 2 9; stroke-width: 2; }
+.sl .dot-v { fill: var(--brand-violet); }
+.sl .ring-v { fill: none; stroke: var(--brand-violet); stroke-width: 1.2; }
+.sl .dot-c { fill: var(--brand-cyan); }
+.sl .dot-k { fill: var(--ink); }
+.sl .bar-k, .sl .bar-c { fill: none; stroke-width: 3; }
+.sl .bar-k { stroke: var(--ink); }
+.sl .bar-c { stroke: var(--brand-cyan); }
+/* On the mist sections the lines need a touch more contrast */
+.section-tinted > .sl .l1, .footer-section > .sl .l1 { stroke: #D2CDE2; }
+.section-tinted > .sl .l2, .footer-section > .sl .l2 { stroke: #DFDCEA; }
+.section-tinted > .sl .l3, .footer-section > .sl .l3 { stroke: #E9E7F1; }
+
+.sl-arc-tl { top: 0; left: 0; width: min(48vw, 700px); aspect-ratio: 700 / 520; }
+.sl-arc-tr { top: 0; right: 0; width: min(48vw, 700px); aspect-ratio: 700 / 520; transform: scaleX(-1); }
+.sl-axis-r { top: 0; bottom: 0; right: 0; width: 360px; }
+.sl-axis-l { top: 0; bottom: 0; left: 0; width: 360px; transform: scaleX(-1); }
+.sl-wings-top { top: 0; left: 0; right: 0; height: 300px; }
+.sl-wings-bottom { bottom: 0; left: 0; right: 0; height: 300px; transform: scaleY(-1); }
+.sl-cross-tr { top: 0; right: 0; width: min(44vw, 640px); aspect-ratio: 640 / 560; }
+.sl-orbit-l { top: 50%; left: 0; width: 520px; height: 700px; transform: translateY(-50%); }
+.sl-steps { left: 0; right: 0; top: 34%; height: 400px; }
+.sl-horizon { top: 0; left: 0; right: 0; height: 160px; }
+
+@media (max-width: 1024px) {
+  /* Narrow screens: side-margin drawings would sit under the text, keep only corners and wings */
+  .sl-axis-r, .sl-axis-l, .sl-orbit-l, .sl-steps { display: none; }
+  .sl-arc-tl, .sl-arc-tr, .sl-cross-tr { width: 78vw; opacity: 0.8; }
+  .sl-wings-top, .sl-wings-bottom { height: 180px; }
+}
+
+/* --- Seams: geometry drawn across the break between two sections (see SectionSeam.tsx) ---
+   Stacking without isolation: section backgrounds < corner lines (0) < seams (1) < content (2) */
+.section-v16:has(> .sl), .footer-section:has(> .sl) { isolation: auto; }
+.section-v16 > .container, .footer-section > .container, .hero-cmd > .container { position: relative; z-index: 2; }
+.seam { position: relative; height: 0; z-index: 1; pointer-events: none; }
+.seam svg { position: absolute; top: 0; width: 360px; height: 300px; transform: translateY(-50%); overflow: visible; }
+.seam-l svg { left: max(16px, 6vw); }
+.seam-r svg { right: max(16px, 6vw); }
+.seam-c svg { left: 50%; margin-left: -180px; }
+.seam-dome-down svg { transform: translateY(-50%) scaleY(-1); }
+.seam .l1, .seam .l2, .seam .l3, .seam .seam-edge { fill: none; stroke-linecap: round; }
+.seam .l1 { stroke: #D6D2E5; stroke-width: 1.5; }
+.seam .l2 { stroke: #E3E0EC; stroke-width: 1; }
+.seam .l3 { stroke: #ECEAF2; stroke-width: 1; }
+.seam .seam-edge { stroke: #D3CFE2; stroke-width: 1.2; }
+.seam .seam-fill-mist { fill: var(--mist); }
+.seam .seam-fill-paper { fill: var(--paper); }
+.seam .dot-v { fill: var(--brand-violet); }
+.seam .ring-v { fill: none; stroke: var(--brand-violet); stroke-width: 1.2; }
+.seam .dot-c { fill: var(--brand-cyan); }
+.seam .dot-k { fill: var(--ink); }
+.seam .bar-k, .seam .bar-c { fill: none; stroke-width: 3; }
+.seam .bar-k { stroke: var(--ink); }
+.seam .bar-c { stroke: var(--brand-cyan); }
+@media (max-width: 768px) {
+  .seam svg { width: 220px; height: 184px; }
+  .seam-c svg { margin-left: -110px; }
+  .seam-l svg { left: 8px; }
+  .seam-r svg { right: 8px; }
+  /* Phones: content is full width, so keep only the shapes sitting on the break */
+  .seam .l1, .seam .l2, .seam .l3, .seam .dot-c, .seam .dot-k, .seam .bar-k, .seam .bar-c { display: none; }
+  .seam-bridge, .seam-wing { display: none; }
+}
