@@ -14,7 +14,7 @@ Página branca, tipografia calma e a arquitetura branca de Brasília em 3D. Niem
 | **Profundidade** | Mockups dos cases inclinados em perspectiva e cards que "levantam" em 3D ao passar o mouse. |
 | **Cor de ação** | Violeta `#725BA7` sólido nos botões principais (texto branco), sem brilho nem animação. Botão secundário branco com borda fina. |
 | **Destaque nos títulos** | Uma palavra ou frase em violeta sólido por título. Gradiente só no logo. |
-| **Tipografia** | Títulos em **Sora** peso 700 com espaçamento apertado; textos em **Inter**; rótulos em **JetBrains Mono** sem fundo colorido. |
+| **Tipografia** | Títulos em **Sora** peso 700 com espaçamento apertado; textos em **Inter**; rótulos, botões e menu em **Inter** com letra normal (sem MAIÚSCULAS espaçadas nem fonte de código). Nada com "cara de IA": sem legenda nos prédios 3D, sem bolinha "ao vivo", sem numeração 01/02, sem objetos flutuando. |
 | **Menos é mais** | Sem brilhos, sem pulsar, sem grades de fundo. Sombras longas e suaves só para dar profundidade. |
 
 **Direitos (SENTINEL):** desenhar obras situadas permanentemente em logradouros públicos é livre (Lei 9.610/98, art. 48). Não usar o nome de Niemeyer como endosso da marca.
@@ -47,7 +47,7 @@ O ciano puro `#6BCDE7` não tem contraste suficiente sobre branco: use-o em íco
 - Laranja e magenta neon foram usados em versões antigas do site e **não fazem parte da marca**. Não usar em anúncios nem em peças.
 - Nome da marca em violeta `#725BA7` (fundo claro) ou branco (fundo escuro).
 - O logo antigo traz o subtítulo "Agência de marketing digital". No posicionamento atual, use "Marketing, tecnologia e vendas".
-- Tipografia do site: **Sora** (títulos), **Inter** (textos), **JetBrains Mono** (rótulos técnicos).
+- Tipografia do site: **Sora** (títulos), **Inter** (textos), **Inter** também nos rótulos e botões, em letra normal.
 - Imagem de compartilhamento (WhatsApp/LinkedIn): `public/og-image.png`, 1200×630, fundo branco com o Museu Nacional em 3D.
 
 ## Pendente (AURA)

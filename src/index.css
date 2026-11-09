@@ -45,7 +45,7 @@
   /* Typography Scale */
   --font-main:    'Inter', system-ui, sans-serif;
   --font-heading: 'Sora', system-ui, sans-serif;
-  --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+  --font-mono:    var(--font-main);
 }
 
 /* ---- RESET ---- */

@@ -188,7 +188,7 @@ _Enviado pelo site da Meta Impulso_`
       }}
     >
       <div className="card-telemetry" style={{ marginBottom: '1.5rem' }}>
-        <span>DIAGNÓSTICO DIGITAL GRATUITO</span>
+        <span>Diagnóstico digital gratuito</span>
         {step <= TOTAL_STEPS ? (
           <span className="quiz-step-indicator">PASSO {step} DE {TOTAL_STEPS}</span>
         ) : (

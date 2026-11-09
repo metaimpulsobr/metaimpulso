@@ -22,7 +22,7 @@ const DIFFERENTIALS = [
 export default function HomePage() {
   return (
     <main id="conteudo">
-      {/* HERO — the proof comes first: a live Raio-X of the visitor's own site.
+      {/* HERO: the proof comes first: a live Raio-X of the visitor's own site.
           No entrance animation on the H1 so the LCP text paints straight from the prerendered HTML. */}
       <section id="hero" className="hero-cmd">
         <div className="container hero-cmd-grid">
@@ -41,7 +41,7 @@ export default function HomePage() {
             <Landmark item={LANDMARKS.museu} className="hero-landmark" priority />
             <div className="hero-cmd-card" id="raio-x">
               <div className="hero-cmd-card-head">
-                <span className="live-dot" aria-hidden="true" /> Raio-X de Vendas · grátis
+                Raio-X de Vendas grátis
               </div>
               <RaioXForm location="home_hero" />
               <ul className="raiox-scanlist" aria-label="O que o Raio-X analisa">

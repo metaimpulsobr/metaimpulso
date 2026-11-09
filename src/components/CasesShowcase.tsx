@@ -22,7 +22,7 @@ function LiveLink({ url, origin }: { url?: string; origin: string }) {
       rel="noopener noreferrer"
       onClick={() => track('cta_click', { origin: `case_${origin}` })}
     >
-      <span className="cases-live-dot" aria-hidden="true" /> No ar em {url} <ArrowUpRight size={15} aria-hidden="true" />
+      Ver no ar: {url} <ArrowUpRight size={15} aria-hidden="true" />
     </a>
   )
 }
@@ -114,7 +114,6 @@ export default function CasesShowcase() {
               className={`cases-tab ${i === active ? 'is-active' : ''}`}
               onClick={() => pick(i)}
             >
-              <span className="cases-tab-num">{String(i + 1).padStart(2, '0')}</span>
               {TAB_ICONS[p.id]}
               {p.tab}
               {i === active && autoplay && <span className="cases-tab-timer" aria-hidden="true" key={active} />}

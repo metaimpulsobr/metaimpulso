@@ -51,10 +51,10 @@ export default function SiteHeader({ contactHref = '/#contato' }: { contactHref?
           <a
             href={contactHref}
             className="btn-v16 btn-v16-primary"
-            style={{ padding: '0.75rem 1.75rem', fontSize: '0.72rem' }}
+            style={{ padding: '0.75rem 1.75rem', fontSize: '0.92rem' }}
             onClick={() => track('cta_click', { origin: 'header' })}
           >
-            DIAGNÓSTICO GRATUITO
+            Diagnóstico gratuito
           </a>
         </div>
 
@@ -106,7 +106,7 @@ export default function SiteHeader({ contactHref = '/#contato' }: { contactHref?
                 track('cta_click', { origin: 'menu_mobile' })
               }}
             >
-              DIAGNÓSTICO GRATUITO
+              Diagnóstico gratuito
             </motion.a>
           </motion.div>
         )}

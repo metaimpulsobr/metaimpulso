@@ -508,7 +508,7 @@ input:focus-visible {
 .consent-banner p { font-size: 0.85rem; color: var(--text-tech); line-height: 1.6; }
 .consent-banner a { color: var(--purple-text); text-decoration: underline; }
 .consent-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
-.consent-actions .btn-v16 { padding: 0.7rem 1.3rem; font-size: 0.72rem; }
+.consent-actions .btn-v16 { padding: 0.7rem 1.3rem; font-size: 0.9rem; }
 
 .quiz-consent {
   display: flex;
@@ -1054,7 +1054,7 @@ a.diag-direct-item:hover { color: var(--magenta-text); }
   color: #0F172A;
 }
 .raiox-input:focus-visible { outline: 3px solid rgba(114, 91, 167, 0.35); outline-offset: 2px; border-color: var(--brand-violet); }
-.raiox-submit { padding: 0.95rem 1.4rem !important; font-size: 0.74rem !important; gap: 0.5rem !important; flex-shrink: 0; }
+.raiox-submit { padding: 0.95rem 1.4rem !important; font-size: 0.95rem !important; gap: 0.5rem !important; flex-shrink: 0; }
 .raiox-submit:disabled { opacity: 0.75; cursor: progress; }
 .raiox-hint { margin-top: 0.6rem; font-size: 0.8rem; color: var(--text-tech); }
 .raiox-spin { animation: raiox-spin 1s linear infinite; }
@@ -1564,8 +1564,6 @@ body { background: var(--paper); color: var(--ink); }
 .hero-landmark { width: 100%; max-width: 560px; align-self: center; }
 .hero-landmark figcaption { order: -1; justify-self: end; margin-bottom: -0.25rem; }
 .hero-stage .hero-cmd-card { position: relative; z-index: 1; margin-top: -11%; margin-left: clamp(0px, 4vw, 48px); }
-.hero-landmark img { animation: art-float 7s ease-in-out infinite; }
-@keyframes art-float { 50% { transform: translateY(-8px); } }
 
 .tool-art { display: block; width: 100%; max-width: 560px; height: auto; margin-top: 2rem; }
 .service-art { display: none; }
@@ -1633,3 +1631,46 @@ body { background: var(--paper); color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   .hero-landmark img { animation: none; }
 }
+
+/* Less "made by AI": labels in plain sentence case, no code font, no wide letter spacing, no tech pills */
+.eyebrow,
+.hero-cmd-card-head,
+.cases-kicker,
+.cases-card-kicker,
+.diag-offer-title,
+.quiz-plan-kicker,
+.oneteam-chain-item,
+.footer-title,
+.raiox-kicker,
+.cases-pd dt,
+.plan-name {
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-main);
+}
+.eyebrow { font-size: 0.92rem; font-weight: 600; }
+.hero-cmd-card-head { font-size: 0.9rem; font-weight: 600; }
+.cases-kicker, .cases-card-kicker, .diag-offer-title, .quiz-plan-kicker, .raiox-kicker { font-size: 0.85rem; font-weight: 600; }
+.footer-title { font-size: 0.95rem; font-weight: 700; }
+.cases-pd dt { font-size: 0.8rem; }
+.plan-name { font-size: 1rem; }
+.cases-stack li, .oneteam-chain-item { font-size: 0.78rem; }
+.btn-v16,
+.core-link,
+.nav-cta,
+.capsule-text,
+.mobile-menu-link,
+.plan-badge,
+.objective-action,
+.card-seo-tag,
+.contato-info-label,
+.quiz-field-group label,
+.quiz-btn-nav {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.btn-v16 { font-size: 1rem; font-weight: 700; font-family: var(--font-main); }
+.core-link { font-size: 0.95rem; }
+.plan-badge { font-size: 0.78rem; }
+.nav-cta { font-weight: 700; font-family: var(--font-main); font-size: 0.95rem; }
+.capsule-text { font-family: var(--font-main); font-weight: 700; font-size: 0.92rem !important; }
