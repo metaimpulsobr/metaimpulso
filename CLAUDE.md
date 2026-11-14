@@ -31,7 +31,7 @@ Este repositório é o site da Meta Impulso **e** a memória da operação. Leia
 
 ## 4. Captação inbound (NEXA · CORE · QUANT): `docs/MAQUINA-DE-VENDAS.md`
 
-- O quiz do site envia ao webhook (`VITE_LEAD_WEBHOOK_URL`) com `lead_score`, `lead_priority` (alta ≥ 70 · média ≥ 45 · baixa), `recommended_plan`, UTMs e `form_location`. Sem webhook, o lead vai pelo WhatsApp.
+- O quiz envia para `/api/lead` (`api/lead.ts`, função na Vercel), que valida, recalcula a nota no servidor e repassa ao webhook (`VITE_LEAD_WEBHOOK_URL`, lido só no servidor; senha opcional `LEAD_WEBHOOK_TOKEN`). Tabelas de pontuação de `api/lead.ts` e `src/lib/leadScore.ts` precisam ficar iguais. O lead leva `lead_score`, `lead_priority` (alta ≥ 70 · média ≥ 45 · baixa), `recommended_plan`, UTMs e `form_location`. Sem webhook, o lead vai pelo WhatsApp.
 - **Roteamento:** alta → alerta imediato ao comercial (meta ≤ 5 min [H]) · média → mesmo dia · baixa → até 24 h.
 - **Eventos:** `cta_click`, `quiz_start`, `quiz_step`, `generate_lead`, `whatsapp_click` (dataLayer/GTM após consentimento + Vercel Analytics).
 
@@ -63,6 +63,7 @@ Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search 
 - P1: depoimentos autorizados (`TESTIMONIALS`), link de agenda (`SITE.bookingUrl`), decisão sobre preço "a partir de", e-mail no domínio, CNPJ na política de privacidade, Google Business Profile.
 - P1: prints reais (sem dados de clientes) dos sistemas Voogle, Central Farma e Meta Core CRM para trocar as ilustrações dos cases (`shot` em `src/content/cases.ts`, arquivos em `public/cases/`).
 - P1: Central Farma fora do ar (preencher `url` em `src/content/cases.ts` quando voltar); título "My Google AI Studio App" em `operator.voogle.com.br` e `meta-impulso-apresenta-o.vercel.app`.
+- Futuro CRM (META IMPULSO OS, plano no Claude Docs): login **com Google** (preferência do dono). Caminho escolhido em 14/11/2026: implementar só o necessário dentro do site atual; o OS fica para depois.
 - P1: tabela de preços por plano (`docs/PROPOSTA-MODELO.md`) e contrato padrão com advogado.
 
 ## 9. Código

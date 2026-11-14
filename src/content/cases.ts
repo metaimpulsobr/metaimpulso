@@ -107,12 +107,14 @@ export const OTHER_CASES: OtherCase[] = [
   {
     id: 'metacore',
     client: 'Meta Core CRM',
-    kind: 'Produto próprio',
+    kind: 'Protótipo próprio',
     tab: 'Meta Core CRM',
-    name: 'CRM para várias equipes',
+    // Honest scope: a navigable prototype (no login, sample data). The production CRM is planned
+    // in "META IMPULSO OS · Plano de Produto e Arquitetura"; update this card when it ships.
+    name: 'Protótipo de CRM com IA',
     problem: 'Times comerciais com vários canais precisavam de uma visão única do funil.',
-    delivered: 'CRM modular e multiempresa, preparado para receber novas equipes e novos canais.',
-    stack: ['React', 'Node.js', 'PostgreSQL'],
+    delivered: 'Protótipo navegável de CRM: funil em Kanban, lista de leads com pontuação, propostas e uma central de IA para apoiar o comercial.',
+    stack: ['React', 'Node.js', 'Tailwind', 'IA'],
     visual: 'corecrm',
     url: 'meta-core-crm.vercel.app',
   },

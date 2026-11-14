@@ -66,6 +66,8 @@ export default function DiagnosticQuiz({ location = 'home', initialObjective }: 
   const [formData, setFormData] = useState<QuizData>(initialData)
   const [consent, setConsent] = useState(false)
   const [honeypot, setHoneypot] = useState('')
+  // The automatic send failed (or there is no webhook): the success screen hands the lead to WhatsApp
+  const [sendFailed, setSendFailed] = useState(false)
   const [direction, setDirection] = useState(1) // 1 = forward, -1 = backward
   const [error, setError] = useState('')
 
@@ -136,6 +138,8 @@ _Enviado pelo site da Meta Impulso_`
         lead_priority: qualification.priority,
         recommended_plan: qualification.plan.name,
         form_location: location,
+      }).then((ok) => {
+        if (HAS_LEAD_WEBHOOK && !ok) setSendFailed(true)
       })
       track('generate_lead', {
         form: 'diagnostico',
@@ -367,7 +371,7 @@ _Enviado pelo site da Meta Impulso_`
                 <div className="success-icon-wrapper">
                   <CheckCircle2 size={48} color="var(--cyan-text)" />
                 </div>
-                {HAS_LEAD_WEBHOOK ? (
+                {HAS_LEAD_WEBHOOK && !sendFailed ? (
                   <h3 className="title-lg quiz-success-title">
                     {firstName ? `${firstName}, recebemos` : 'Recebemos'} <span className="text-gradient">suas respostas!</span>
                   </h3>
@@ -377,7 +381,9 @@ _Enviado pelo site da Meta Impulso_`
                       {firstName ? `${firstName}, falta` : 'Falta'} <span className="text-gradient">só um toque!</span>
                     </h3>
                     <p className="quiz-success-note">
-                      Abrimos o WhatsApp com suas respostas: é só tocar em enviar. Se a janela não apareceu, use o botão abaixo.
+                      {sendFailed
+                        ? 'Não conseguimos registrar suas respostas automaticamente. Toque no botão abaixo para enviá-las pelo WhatsApp.'
+                        : 'Abrimos o WhatsApp com suas respostas: é só tocar em enviar. Se a janela não apareceu, use o botão abaixo.'}
                     </p>
                   </>
                 )}
@@ -402,7 +408,7 @@ _Enviado pelo site da Meta Impulso_`
                   onClick={() => openWhatsApp('diagnostico_concluido')}
                   className="btn-v16 btn-v16-primary quiz-success-cta"
                 >
-                  {HAS_LEAD_WEBHOOK ? 'Adiantar a conversa no WhatsApp' : 'Enviar pelo WhatsApp'} <MessageCircle size={18} />
+                  {HAS_LEAD_WEBHOOK && !sendFailed ? 'Adiantar a conversa no WhatsApp' : 'Enviar pelo WhatsApp'} <MessageCircle size={18} />
                 </button>
 
                 {SITE.bookingUrl && (

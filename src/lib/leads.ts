@@ -1,9 +1,10 @@
 import { getAttribution } from './analytics'
 
-// Sends leads to a webhook (Make, Zapier, n8n, Supabase Edge Function, CRM...).
-// Configure VITE_LEAD_WEBHOOK_URL. Without it, the quiz sends the lead through WhatsApp instead.
-const WEBHOOK_URL = import.meta.env.VITE_LEAD_WEBHOOK_URL as string | undefined
-export const HAS_LEAD_WEBHOOK = Boolean(WEBHOOK_URL)
+// Sends quiz leads to /api/lead (api/lead.ts), which validates them, recalculates the score and
+// forwards them to the webhook configured on Vercel (VITE_LEAD_WEBHOOK_URL, read on the server only).
+// __HAS_LEAD_WEBHOOK__ is set at build time (vite.config.ts) so the quiz knows whether to promise an
+// automatic reply or hand the lead to WhatsApp, without the webhook address ever reaching the browser.
+export const HAS_LEAD_WEBHOOK = __HAS_LEAD_WEBHOOK__
 
 export interface LeadPayload {
   companyName: string
@@ -31,25 +32,21 @@ export interface LeadPayload {
 }
 
 export async function submitLead(lead: LeadPayload): Promise<boolean> {
-  if (!WEBHOOK_URL) return false
+  if (!HAS_LEAD_WEBHOOK) return false
   const body = JSON.stringify({
     ...lead,
-    source: 'site-diagnostico',
     page: window.location.href,
-    created_at: new Date().toISOString(),
     consent_lgpd: true,
     ...getAttribution(),
   })
   try {
-    // text/plain avoids a CORS preflight, so any webhook receiver works
-    await fetch(WEBHOOK_URL, {
+    const res = await fetch('/api/lead', {
       method: 'POST',
-      mode: 'no-cors',
       keepalive: true,
-      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+      headers: { 'Content-Type': 'application/json' },
       body,
     })
-    return true
+    return res.ok
   } catch {
     return false
   }

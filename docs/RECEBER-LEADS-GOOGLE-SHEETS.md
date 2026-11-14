@@ -23,8 +23,14 @@ const COLUNAS = [
   'utm_campaign', 'gclid', 'fbclid', 'landing_page', 'referrer', 'page', 'consent_lgpd',
 ];
 
+// Opcional (recomendado): a mesma senha que você colocar na Vercel como LEAD_WEBHOOK_TOKEN.
+// Deixe vazio ('') para não exigir senha.
+const SENHA = '';
+
 function doPost(e) {
   const lead = JSON.parse(e.postData.contents);
+  if (SENHA && lead.token !== SENHA) return ContentService.createTextOutput('negado');
+  delete lead.token;
   const aba = SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
 
   if (aba.getLastRow() === 0) {
@@ -70,13 +76,16 @@ function doPost(e) {
 
 ## Passo 4 — Ligar no site (Vercel)
 
+O site não envia direto para a planilha: o formulário manda para `/api/lead` (uma função do próprio site), que confere os dados, recalcula a nota do lead e só então repassa para a planilha. O endereço da planilha fica guardado na Vercel e nunca aparece no navegador.
+
 1. Acesse https://vercel.com → projeto **metaimpulso** → **Settings → Environment Variables**.
 2. Clique em **Add**:
    - **Key:** `VITE_LEAD_WEBHOOK_URL`
    - **Value:** a URL copiada no passo 3
    - **Environments:** marque **Production** (e Preview, se quiser)
-3. Salve.
-4. Vá em **Deployments**, clique nos **três pontinhos** do deploy mais recente → **Redeploy**.
+3. **Opcional (recomendado):** clique em **Add** de novo e crie `LEAD_WEBHOOK_TOKEN` com uma senha qualquer (ex.: uma frase longa sem espaços). Coloque a mesma senha na linha `const SENHA = '...'` do script e publique uma nova versão dele (**Implantar → Gerenciar implantações → editar → Nova versão**). Assim, só o site consegue gravar na planilha.
+4. Salve.
+5. Vá em **Deployments**, clique nos **três pontinhos** do deploy mais recente → **Redeploy**.
 
 ## Passo 5 — Testar
 
