@@ -1,7 +1,7 @@
 import { SITE, HOME_FAQ, TOOL_FAQ, type Faq } from '../content/site'
 import { SERVICES, type ServiceContent } from '../content/services'
 
-export type RouteKind = 'home' | 'service' | 'tool' | 'privacy' | 'notfound'
+export type RouteKind = 'home' | 'service' | 'tool' | 'privacy' | 'crm' | 'notfound'
 
 export interface RouteMeta {
   path: string
@@ -45,6 +45,14 @@ export const ROUTES: RouteMeta[] = [
     file: 'politica-de-privacidade.html',
     title: 'Política de Privacidade | Meta Impulso',
     description: 'Como a Meta Impulso coleta, usa e protege os dados pessoais enviados pelo site, de acordo com a LGPD.',
+  },
+  {
+    path: '/crm',
+    kind: 'crm',
+    file: 'crm.html',
+    title: 'CRM | Meta Impulso',
+    description: 'Área interna da Meta Impulso.',
+    noindex: true,
   },
   {
     path: '/404',
@@ -201,6 +209,6 @@ export function renderHead(route: RouteMeta) {
     `<meta name="twitter:description" content="${esc(route.description)}" />`,
     `<meta name="twitter:image" content="${SITE.ogImage}" />`,
   )
-  if (route.kind !== 'notfound') tags.push(`<script type="application/ld+json">${ld}</script>`)
+  if (route.kind !== 'notfound' && route.kind !== 'crm') tags.push(`<script type="application/ld+json">${ld}</script>`)
   return tags.join('\n    ')
 }

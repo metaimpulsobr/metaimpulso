@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { MotionConfig, motion, useScroll, useSpring } from 'framer-motion'
 import { MessageCircle } from 'lucide-react'
 import SiteHeader from './components/SiteHeader'
@@ -14,6 +14,9 @@ import { resolveRoute } from './seo/routes'
 import { whatsappLink } from './content/site'
 import { captureAttribution, track } from './lib/analytics'
 import './App.css'
+
+// Internal area: loaded only on /crm, never part of the public pages' bundle
+const CrmPage = lazy(() => import('./pages/CrmPage'))
 import './site.css'
 
 function App({ path }: { path: string }) {
@@ -24,8 +27,16 @@ function App({ path }: { path: string }) {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
 
   useEffect(() => {
-    captureAttribution()
-  }, [])
+    if (route.kind !== 'crm') captureAttribution()
+  }, [route.kind])
+
+  if (route.kind === 'crm') {
+    return (
+      <Suspense fallback={<main className="crm-loading">Carregando o CRM…</main>}>
+        <CrmPage />
+      </Suspense>
+    )
+  }
 
   return (
     <MotionConfig reducedMotion="user">

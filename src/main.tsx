@@ -16,6 +16,8 @@ const app = (
 )
 
 // Production pages are prerendered at build time (scripts/prerender.mjs): hydrate them.
-// In dev the root is empty, so render from scratch.
-if (container.hasChildNodes()) hydrateRoot(container, app)
+// In dev the root is empty, and the internal /crm page is client-only (its prerendered HTML is just a
+// loading placeholder), so both render from scratch.
+const clientOnly = window.location.pathname.replace(/\/+$/, '') === '/crm'
+if (container.hasChildNodes() && !clientOnly) hydrateRoot(container, app)
 else createRoot(container).render(app)

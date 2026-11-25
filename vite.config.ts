@@ -3,9 +3,10 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  // The lead webhook address is read only by api/lead.ts; the browser just learns whether one exists.
+  // Lead destinations (CRM storage, webhook) are read only by api/lead.ts; the browser just learns whether one exists.
   const env = loadEnv(mode, process.cwd(), '')
-  const hasLeadWebhook = Boolean(process.env.VITE_LEAD_WEBHOOK_URL || env.VITE_LEAD_WEBHOOK_URL)
+  const read = (k: string) => process.env[k] || env[k]
+  const hasLeadWebhook = Boolean(read('VITE_LEAD_WEBHOOK_URL') || read('KV_REST_API_URL') || read('UPSTASH_REDIS_REST_URL'))
 
   return {
     plugins: [react()],

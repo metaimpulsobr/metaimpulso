@@ -1,9 +1,12 @@
 // Lead intake for the diagnostic quiz: the browser posts here (same origin) and this function
-// validates the data, recalculates the qualification and forwards the lead to the webhook
-// (Google Sheets today, the future CRM later). The webhook address never reaches the browser.
+// validates the data, recalculates the qualification, saves the lead in the site's CRM (Upstash Redis
+// on Vercel, read by api/crm.ts and the /crm page) and, if configured, also forwards it to a webhook
+// (e.g. a Google Sheet). Nothing about storage or the webhook reaches the browser.
 //
 // Env (Vercel → Settings → Environment Variables):
-//   VITE_LEAD_WEBHOOK_URL  where leads go (name kept for compatibility with the setup docs)
+//   KV_REST_API_URL / KV_REST_API_TOKEN  CRM storage (created when Upstash Redis is connected to the project;
+//                                        UPSTASH_REDIS_REST_URL / UPSTASH_REDIS_REST_TOKEN also work)
+//   VITE_LEAD_WEBHOOK_URL  optional extra destination (name kept for compatibility with the setup docs)
 //   LEAD_WEBHOOK_TOKEN     optional; sent as "token" in the body so the receiver can reject forgeries
 //
 // Security (CIPHER): same-origin only, 16 KB body cap, strict field validation, honeypot,
@@ -144,9 +147,42 @@ export async function POST(request: Request): Promise<Response> {
   const built = buildLead(input)
   if ('error' in built) return json(422, { ok: false, error: built.error })
 
-  const webhook = process.env.VITE_LEAD_WEBHOOK_URL
-  if (!webhook) return json(503, { ok: false, error: 'not_configured' })
+  const saved = await saveToCrm(built.lead)
+  const forwarded = await forwardToWebhook(built.lead)
+  if (saved === 'skipped' && forwarded === 'skipped') return json(503, { ok: false, error: 'not_configured' })
+  if (saved === 'ok' || forwarded === 'ok') return json(200, { ok: true })
+  return json(502, { ok: false, error: 'delivery_failed' })
+}
 
+type Delivery = 'ok' | 'failed' | 'skipped'
+
+/** Saves the lead where the /crm page reads it (same keys as api/crm.ts). */
+async function saveToCrm(lead: Record<string, unknown>): Promise<Delivery> {
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN
+  if (!url || !token) return 'skipped'
+  const id = crypto.randomUUID()
+  const record = { id, status: 'Novo', ...lead }
+  try {
+    const res = await fetch(`${url.replace(/\/$/, '')}/pipeline`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify([
+        ['SET', `mi:lead:${id}`, JSON.stringify(record)],
+        ['ZADD', 'mi:leads', String(Date.parse(String(lead.created_at)) || Date.now()), id],
+      ]),
+    })
+    if (!res.ok) return 'failed'
+    const out = (await res.json()) as { error?: string }[]
+    return out.some((r) => r.error) ? 'failed' : 'ok'
+  } catch {
+    return 'failed'
+  }
+}
+
+async function forwardToWebhook(lead: Record<string, unknown>): Promise<Delivery> {
+  const webhook = process.env.VITE_LEAD_WEBHOOK_URL
+  if (!webhook) return 'skipped'
   const token = process.env.LEAD_WEBHOOK_TOKEN
   const ctrl = new AbortController()
   const timer = setTimeout(() => ctrl.abort(), FORWARD_TIMEOUT_MS)
@@ -155,14 +191,13 @@ export async function POST(request: Request): Promise<Response> {
     const res = await fetch(webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
-      body: JSON.stringify(token ? { ...built.lead, token } : built.lead),
+      body: JSON.stringify(token ? { ...lead, token } : lead),
       redirect: 'follow',
       signal: ctrl.signal,
     })
-    if (!res.ok) return json(502, { ok: false, error: 'webhook_error' })
-    return json(200, { ok: true })
+    return res.ok ? 'ok' : 'failed'
   } catch {
-    return json(502, { ok: false, error: 'webhook_unreachable' })
+    return 'failed'
   } finally {
     clearTimeout(timer)
   }

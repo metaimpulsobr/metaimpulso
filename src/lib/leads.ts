@@ -1,9 +1,9 @@
 import { getAttribution } from './analytics'
 
-// Sends quiz leads to /api/lead (api/lead.ts), which validates them, recalculates the score and
-// forwards them to the webhook configured on Vercel (VITE_LEAD_WEBHOOK_URL, read on the server only).
-// __HAS_LEAD_WEBHOOK__ is set at build time (vite.config.ts) so the quiz knows whether to promise an
-// automatic reply or hand the lead to WhatsApp, without the webhook address ever reaching the browser.
+// Sends quiz leads to /api/lead (api/lead.ts), which validates them, recalculates the score, saves them
+// in the site's CRM (/crm) and optionally forwards them to a webhook. __HAS_LEAD_WEBHOOK__ is set at build
+// time (vite.config.ts) so the quiz knows whether to promise an automatic reply or hand the lead to
+// WhatsApp, without any storage or webhook detail reaching the browser.
 export const HAS_LEAD_WEBHOOK = __HAS_LEAD_WEBHOOK__
 
 export interface LeadPayload {
