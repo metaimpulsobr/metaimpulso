@@ -43,7 +43,7 @@ O site já está pronto; estas etapas ligam o Google, os leads e as vendas.
 1. Acesse https://business.google.com → **Gerenciar agora**.
 2. Nome: **Meta Impulso**.
 3. Categoria principal: **Agência de marketing**. Depois adicione: *Criador de sites*, *Empresa de software*.
-4. Endereço: **exatamente igual ao do site** — SCN Quadra 4, Bloco B, Asa Norte, Brasília - DF.
+4. Endereço: a Meta Impulso **não tem escritório físico**. Cadastre como **empresa de área de atendimento**: informe o endereço só para verificação, marque para **não mostrar** o endereço e defina a área atendida (Brasília e Distrito Federal). No site aparece apenas "Brasília - DF · atendimento online e presencial com hora marcada".
    - Se for escritório compartilhado/virtual, marque que **não atende clientes no endereço** e defina a área de atendimento "Brasília" e "Brasil".
 5. Telefone: **(61) 99501-1614** · Site: **https://www.metaimpulso.com.br**
 6. Horário: segunda a sexta, 9h às 18h.

@@ -8,13 +8,14 @@ export const SITE = {
   phoneE164: '+5561995011614',
   whatsapp: '556195011614',
   email: 'metaimpulsobr@gmail.com',
+  // No physical office (the team works remotely): city only, no street address anywhere on the site.
+  // On Google Business Profile the company is a service-area business with the address hidden.
   address: {
-    street: 'SCN Quadra 4, Bloco B',
-    district: 'Asa Norte',
     city: 'Brasília',
     region: 'DF',
     country: 'BR',
   },
+  serviceLabel: 'Atendimento online e presencial com hora marcada',
   hoursLabel: 'Segunda a sexta, das 9h às 18h',
   instagram: 'https://instagram.com/metaimpulso',
   linkedin: 'https://linkedin.com/company/metaimpulso',

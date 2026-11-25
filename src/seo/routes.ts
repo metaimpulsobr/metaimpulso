@@ -85,7 +85,6 @@ function organization() {
     email: SITE.email,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: SITE.address.street,
       addressLocality: SITE.address.city,
       addressRegion: SITE.address.region,
       addressCountry: SITE.address.country,

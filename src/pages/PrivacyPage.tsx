@@ -9,7 +9,7 @@ export default function PrivacyPage() {
 
         <h2>1. Quem somos</h2>
         <p>
-          Esta política explica como a {SITE.name}, com endereço em {SITE.address.street}, {SITE.address.district}, {SITE.address.city} - {SITE.address.region}, trata os dados pessoais coletados neste site, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, LGPD).
+          Esta política explica como a {SITE.name}, sediada em {SITE.address.city} - {SITE.address.region}, trata os dados pessoais coletados neste site, de acordo com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, LGPD).
         </p>
 
         <h2>2. Quais dados coletamos</h2>

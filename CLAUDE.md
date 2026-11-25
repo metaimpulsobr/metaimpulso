@@ -9,7 +9,7 @@ Este repositório é o site da Meta Impulso **e** a memória da operação. Leia
 - **Planos:** START (presença digital) · GROWTH (máquina de aquisição: estratégia + site + tráfego + CRM + automação + relatórios) · SCALE (GROWTH + software, agentes de IA, dados, processo comercial). Preço definido no diagnóstico; verba de mídia separada da gestão.
 - **Grande ideia:** "prova antes de prometer". Mecanismo: **Funil Blindado** (fechar os 5 furos: anúncio, site, atendimento, follow-up, medição). Mensagem completa: `docs/MENSAGEM-E-COPY.md`.
 - **Oferta de entrada:** Raio-X de Vendas grátis (`/analise-de-site-gratis`, nota de 0 a 100 do site) → diagnóstico digital gratuito (site no celular, rastreamento, Google, anúncios, atendimento) + conversa de 30 min.
-- **NAP (usar sempre igual):** SCN Quadra 4, Bloco B, Asa Norte, Brasília - DF · WhatsApp +55 61 99501-1614 · seg–sex 9h–18h. Fonte única: `src/content/site.ts`.
+- **NAP (usar sempre igual):** Brasília - DF, sem endereço de rua (sem escritório físico; atendimento online e presencial com hora marcada; no Google, empresa de área de atendimento com endereço oculto) · WhatsApp +55 61 99501-1614 · seg–sex 9h–18h. Fonte única: `src/content/site.ts`.
 - **Cases reais:** Grupo Voogle (portal, CRM, esteira de crédito, Infinity Club, Operator AI), Drogaria Central Farma, Meta Core CRM. Métricas dos cases só com evidência documentada e autorização.
 
 ## 2. Regras de operação (não negociáveis)
@@ -59,7 +59,8 @@ Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search 
 
 
 - Feito em 24/11/2026: Vercel Analytics ativo; leads chegando no Notion (integração "Site Meta Impulso", tabela "Leads do site" na página "CRM Meta Impulso"; teste em produção OK).
-- P0: montar as visões e o painel do Notion (`docs/CRM-NOTION.md`, Parte 2) e definir quem responde leads `alta`.
+- Feito em 24/11/2026: visões do Notion montadas; chave do PageSpeed ativa e restrita ao domínio (Raio-X mede velocidade).
+- P0: atendimento dos leads será por **chatbot de automação** (decisão do dono, 24/11/2026). WhatsApp em volume só pela API oficial; até o bot existir, alguém responde os leads `alta` manualmente.
 - P0: criar `VITE_PSI_API_KEY` (passo a passo, etapa 4.1); sem ela o Raio-X costuma sair sem a nota de velocidade.
 - P1: decidir garantia formal (ex.: sem fidelidade) antes de publicar; nada de garantia inventada.
 - P1: depoimentos autorizados (`TESTIMONIALS`), link de agenda (`SITE.bookingUrl`), decisão sobre preço "a partir de", e-mail no domínio, CNPJ na política de privacidade, Google Business Profile.

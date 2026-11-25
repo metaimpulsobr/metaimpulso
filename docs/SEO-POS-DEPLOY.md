@@ -21,7 +21,7 @@ Repetir no **Bing Webmaster Tools** (importa direto do Search Console).
 
 ## 3. Google Business Profile (SEO local — maior alavanca para "em Brasília")
 
-- [ ] Criar/reivindicar o perfil "Meta Impulso" com o **mesmo** nome, endereço e telefone do site (SCN Quadra 4, Bloco B, Asa Norte · +55 61 99501-1614).
+- [ ] Criar/reivindicar o perfil "Meta Impulso" com o **mesmo** nome, endereço e telefone do site (empresa de área de atendimento, endereço oculto, área: Brasília/DF).
 - [ ] Categoria principal: *Agência de marketing*; secundárias: *Criador de sites*, *Empresa de software*, *Consultor de marketing*.
 - [ ] Adicionar serviços (os 5 das páginas), fotos da equipe/escritório, horário e link para o site.
 - [ ] Pedir avaliações aos clientes atuais e responder todas.

@@ -50,7 +50,7 @@ export default function SiteFooter() {
             <h2 className="footer-title">Contato</h2>
             <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">WhatsApp: {SITE.phoneDisplay}</a>
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-            <span>{SITE.address.street}, {SITE.address.district}, {SITE.address.city} - {SITE.address.region}</span>
+            <span>{SITE.address.city} - {SITE.address.region} · {SITE.serviceLabel}</span>
             <span>{SITE.hoursLabel}</span>
             <span className="footer-social">
               <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">Instagram</a>
