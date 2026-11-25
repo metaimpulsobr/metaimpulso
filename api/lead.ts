@@ -359,7 +359,7 @@ async function saveToNotion(lead: Record<string, unknown>): Promise<Delivery> {
   if (!process.env.NOTION_TOKEN || !dbId) return 'skipped'
   try {
     const dbRes = await notion(`/databases/${dbId}`, { method: 'GET' })
-    if (!dbRes.ok) return 'failed'
+    if (!dbRes.ok) return notionFailed('read database', dbRes)
     const db = (await dbRes.json()) as { properties: Record<string, { type: string }> }
     const titleColumn = Object.keys(db.properties).find((k) => db.properties[k].type === 'title') || 'Name'
 
@@ -369,6 +369,7 @@ async function saveToNotion(lead: Record<string, unknown>): Promise<Delivery> {
       const patch = await notion(`/databases/${dbId}`, { method: 'PATCH', body: JSON.stringify({ properties: missing }) })
       // If the columns can't be created, still save the lead with the columns that exist
       if (patch.ok) Object.keys(missing).forEach((k) => known.add(k))
+      else await notionFailed('create columns', patch)
     }
 
     // Skip missing columns and columns someone changed to another type, so nothing blocks a new lead
@@ -387,8 +388,16 @@ async function saveToNotion(lead: Record<string, unknown>): Promise<Delivery> {
         children: notionPlaybook(lead),
       }),
     })
-    return page.ok ? 'ok' : 'failed'
-  } catch {
+    return page.ok ? 'ok' : notionFailed('create page', page)
+  } catch (e) {
+    console.error('[lead] notion: request error', (e as Error).message)
     return 'failed'
   }
+}
+
+/** Logs Notion's error code/message (never the token or the lead's personal data) for Vercel runtime logs. */
+async function notionFailed(step: string, res: Response): Promise<Delivery> {
+  const body = (await res.json().catch(() => ({}))) as { code?: string; message?: string }
+  console.error(`[lead] notion ${step} failed: ${res.status} ${body.code ?? ''} ${String(body.message ?? '').slice(0, 300)}`)
+  return 'failed'
 }
