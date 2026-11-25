@@ -59,7 +59,7 @@ Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search 
 
 
 - Feito em 24/11/2026: Vercel Analytics ativo; leads chegando no Notion (integração "Site Meta Impulso", tabela "Leads do site" na página "CRM Meta Impulso"; teste em produção OK).
-- Feito em 24/11/2026: visões do Notion montadas; chave do PageSpeed ativa e restrita ao domínio (Raio-X mede velocidade).
+- Feito em 24/11/2026: Search Console verificado (propriedade de domínio), sitemap enviado e 7 páginas com indexação solicitada; Perfil da Empresa no Google criado como área de atendimento (aguardando verificação); visões do Notion montadas; chave do PageSpeed ativa e restrita ao domínio (Raio-X mede velocidade).
 - P0: atendimento dos leads será por **chatbot de automação** (decisão do dono, 24/11/2026). WhatsApp em volume só pela API oficial; até o bot existir, alguém responde os leads `alta` manualmente.
 - P0: criar `VITE_PSI_API_KEY` (passo a passo, etapa 4.1); sem ela o Raio-X costuma sair sem a nota de velocidade.
 - P1: decidir garantia formal (ex.: sem fidelidade) antes de publicar; nada de garantia inventada.
