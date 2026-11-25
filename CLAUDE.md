@@ -58,11 +58,14 @@ Cores oficiais do logo (`logopdf/`): ameixa `#B3529F` · violeta `#725BA7` · ci
 Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search Console → Perfil da Empresa no Google → planilha de leads → robôs de IA na Cloudflare → prova social → preços e prospecção → GTM antes de anunciar).
 
 
-- P0: ligar o Notion (`docs/CRM-NOTION.md`: integração, `NOTION_TOKEN`, `NOTION_DATABASE_ID`, visões) e definir quem responde leads `alta`. `/crm` do site e planilha são opcionais.
+- Feito em 24/11/2026: Vercel Analytics ativo; leads chegando no Notion (integração "Site Meta Impulso", tabela "Leads do site" na página "CRM Meta Impulso"; teste em produção OK).
+- P0: montar as visões e o painel do Notion (`docs/CRM-NOTION.md`, Parte 2) e definir quem responde leads `alta`.
 - P0: criar `VITE_PSI_API_KEY` (passo a passo, etapa 4.1); sem ela o Raio-X costuma sair sem a nota de velocidade.
 - P1: decidir garantia formal (ex.: sem fidelidade) antes de publicar; nada de garantia inventada.
 - P1: depoimentos autorizados (`TESTIMONIALS`), link de agenda (`SITE.bookingUrl`), decisão sobre preço "a partir de", e-mail no domínio, CNPJ na política de privacidade, Google Business Profile.
 - P1: prints reais (sem dados de clientes) dos sistemas Voogle, Central Farma e Meta Core CRM para trocar as ilustrações dos cases (`shot` em `src/content/cases.ts`, arquivos em `public/cases/`).
+- P1: domínios de clientes fora do ar (DNS) em 24/11/2026: haraschimarrao.com.br, ranchoburiti.com.br, fastfamilydelivery.com.br, neuroseixaskids.com.br.
+- P1: LGPD: avaliar com advogado citar transferência internacional (Notion, Vercel) na política de privacidade.
 - P1: Central Farma fora do ar (preencher `url` em `src/content/cases.ts` quando voltar); título "My Google AI Studio App" em `operator.voogle.com.br` e `meta-impulso-apresenta-o.vercel.app`.
 - META IMPULSO OS (plano no Claude Docs): fica para depois. Em 24/11/2026 o dono escolheu trabalhar os leads no **Notion** (sem Supabase); o `/crm` do site com login Google ficou pronto como alternativa.
 - P1: tabela de preços por plano (`docs/PROPOSTA-MODELO.md`) e contrato padrão com advogado.
