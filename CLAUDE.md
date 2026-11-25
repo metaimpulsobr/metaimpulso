@@ -31,7 +31,7 @@ Este repositório é o site da Meta Impulso **e** a memória da operação. Leia
 
 ## 4. Captação inbound (NEXA · CORE · QUANT): `docs/MAQUINA-DE-VENDAS.md`
 
-- O quiz envia para `/api/lead` (`api/lead.ts`, função na Vercel), que valida, recalcula a nota no servidor, **grava no CRM do site** (Upstash Redis da Vercel, `KV_REST_API_URL`/`KV_REST_API_TOKEN`) e, se configurado, repassa ao webhook (`VITE_LEAD_WEBHOOK_URL`, lido só no servidor; senha opcional `LEAD_WEBHOOK_TOKEN`).
+- O quiz envia para `/api/lead` (`api/lead.ts`, função na Vercel), que valida, recalcula a nota no servidor e entrega a todos os destinos configurados: **Notion** (CRM principal: `NOTION_TOKEN` + `NOTION_DATABASE_ID`, colunas criadas sozinhas, ficha com roteiro de atendimento; organização em `docs/CRM-NOTION.md`), CRM do site (Upstash Redis da Vercel, `KV_REST_API_URL`/`KV_REST_API_TOKEN`) e webhook (`VITE_LEAD_WEBHOOK_URL`, lido só no servidor; senha opcional `LEAD_WEBHOOK_TOKEN`).
 - **CRM do site:** área `/crm` (fora do Google), login com Google (`VITE_GOOGLE_CLIENT_ID` + lista `CRM_ALLOWED_EMAILS`), etapas do funil, próxima ação, anotações, exclusão LGPD e exportação em planilha. API em `api/crm.ts`, tela em `src/pages/CrmPage.tsx`, configuração em `docs/CRM-DO-SITE.md`. Sem Supabase. Tabelas de pontuação de `api/lead.ts` e `src/lib/leadScore.ts` precisam ficar iguais. O lead leva `lead_score`, `lead_priority` (alta ≥ 70 · média ≥ 45 · baixa), `recommended_plan`, UTMs e `form_location`. Sem webhook, o lead vai pelo WhatsApp.
 - **Roteamento:** alta → alerta imediato ao comercial (meta ≤ 5 min [H]) · média → mesmo dia · baixa → até 24 h.
 - **Eventos:** `cta_click`, `quiz_start`, `quiz_step`, `generate_lead`, `whatsapp_click` (dataLayer/GTM após consentimento + Vercel Analytics).
@@ -58,13 +58,13 @@ Cores oficiais do logo (`logopdf/`): ameixa `#B3529F` · violeta `#725BA7` · ci
 Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search Console → Perfil da Empresa no Google → planilha de leads → robôs de IA na Cloudflare → prova social → preços e prospecção → GTM antes de anunciar).
 
 
-- P0: configurar o CRM do site (`docs/CRM-DO-SITE.md`: Upstash na Vercel, login Google, `CRM_ALLOWED_EMAILS`) e definir quem responde leads `alta`. Planilha (`VITE_LEAD_WEBHOOK_URL`) é opcional.
+- P0: ligar o Notion (`docs/CRM-NOTION.md`: integração, `NOTION_TOKEN`, `NOTION_DATABASE_ID`, visões) e definir quem responde leads `alta`. `/crm` do site e planilha são opcionais.
 - P0: criar `VITE_PSI_API_KEY` (passo a passo, etapa 4.1); sem ela o Raio-X costuma sair sem a nota de velocidade.
 - P1: decidir garantia formal (ex.: sem fidelidade) antes de publicar; nada de garantia inventada.
 - P1: depoimentos autorizados (`TESTIMONIALS`), link de agenda (`SITE.bookingUrl`), decisão sobre preço "a partir de", e-mail no domínio, CNPJ na política de privacidade, Google Business Profile.
 - P1: prints reais (sem dados de clientes) dos sistemas Voogle, Central Farma e Meta Core CRM para trocar as ilustrações dos cases (`shot` em `src/content/cases.ts`, arquivos em `public/cases/`).
 - P1: Central Farma fora do ar (preencher `url` em `src/content/cases.ts` quando voltar); título "My Google AI Studio App" em `operator.voogle.com.br` e `meta-impulso-apresenta-o.vercel.app`.
-- META IMPULSO OS (plano no Claude Docs): fica para depois. Em 24/11/2026 o dono escolheu um CRM dentro do próprio site, sem Supabase, com login Google (feito: `/crm`).
+- META IMPULSO OS (plano no Claude Docs): fica para depois. Em 24/11/2026 o dono escolheu trabalhar os leads no **Notion** (sem Supabase); o `/crm` do site com login Google ficou pronto como alternativa.
 - P1: tabela de preços por plano (`docs/PROPOSTA-MODELO.md`) e contrato padrão com advogado.
 
 ## 9. Código
