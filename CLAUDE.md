@@ -60,6 +60,8 @@ Roteiro do dono, na ordem: `docs/PASSO-A-PASSO.md` (Vercel Analytics → Search 
 
 - Feito em 24/11/2026: Vercel Analytics ativo; leads chegando no Notion (integração "Site Meta Impulso", tabela "Leads do site" na página "CRM Meta Impulso"; teste em produção OK).
 - Feito em 24/11/2026: Search Console verificado (propriedade de domínio), sitemap enviado e 7 páginas com indexação solicitada; Perfil da Empresa no Google criado como área de atendimento (aguardando verificação); visões do Notion montadas; chave do PageSpeed ativa e restrita ao domínio (Raio-X mede velocidade).
+- Crédito "Site desenvolvido pela Meta Impulso" no rodapé (modelo da ISO, link com `utm_source=<cliente>&utm_medium=site-cliente&utm_campaign=rodape`): no ar em ISO, Voogle institucional, NeuroSeixas Kids e Dom Delivery (26/11/2026). Faltam: Infinity Club (pasta com alterações não salvas), sistemas internos Voogle e sites próprios (decisão do dono).
+- P1: Dom Delivery mostra CNPJ e razão social de exemplo no rodapé ("Dom Delivery S.A.", "12.345.678/0001-90"): trocar pelos dados reais do cliente.
 - P0: atendimento dos leads será por **chatbot de automação** (decisão do dono, 24/11/2026). WhatsApp em volume só pela API oficial; até o bot existir, alguém responde os leads `alta` manualmente.
 - P0: criar `VITE_PSI_API_KEY` (passo a passo, etapa 4.1); sem ela o Raio-X costuma sair sem a nota de velocidade.
 - P1: decidir garantia formal (ex.: sem fidelidade) antes de publicar; nada de garantia inventada.
